@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>بوابة مدرسة بدر الدين الغزال</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      direction: rtl;
+      background: linear-gradient(to bottom, #e3f2fd, #ffffff);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+    }
+    header {
+      margin-bottom: 30px;
+    }
+    header h1 {
+      font-size: 32px;
+      color: #0D47A1;
+      margin-bottom: 10px;
+    }
+    header p {
+      font-size: 18px;
+      color: #37474F;
+    }
+    .logo {
+      width: 120px;
+      margin-bottom: 10px;
+    }
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    .buttons a {
+      text-decoration: none;
+      background-color: #00796b;
+      color: white;
+      padding: 14px 24px;
+      border-radius: 8px;
+      font-size: 18px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+      transition: background-color 0.3s;
+    }
+    .buttons a:hover {
+      background-color: #004d40;
+    }
+    @media(min-width: 600px) {
+      .buttons {
+        flex-direction: row;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <!-- شعار المدرسة -->
+    <img src="https://i.imgur.com/1ZQZ1ZB.png" alt="شعار المدرسة" class="logo">
+    <h1>مدرسة بدر الدين الغزال</h1>
+    <p>اختر نوع الدخول المناسب لك</p>
+  </header>
+
+  <div class="buttons">
+    <a href="parent.html">👨‍👩‍👧‍👦 دخول ولي الأمر</a>
+    <a href="teacher.html">👨‍🏫 دخول المعلم</a>
+    <a href="admin.html">🧑‍💼 دخول المدير</a>
+  </div>
+
+</body>
+</html>
