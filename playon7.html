@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سجل الدخول</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Cairo', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1a1a2e;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: #16213e;
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            padding: 35px 30px;
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid #2a2a4a;
+        }
+
+        .login-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #cbd5e0;
+            margin-bottom: 8px;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 14px 16px;
+            background: #0f3460;
+            border: 1px solid #2a2a5a;
+            border-radius: 10px;
+            font-size: 15px;
+            color: #ffffff;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .input-field::placeholder {
+            color: #6b7280;
+        }
+
+        .input-field:focus {
+            border-color: #e94560;
+            box-shadow: 0 0 0 2px rgba(233, 69, 96, 0.15);
+        }
+
+        .error-text {
+            color: #e94560;
+            font-size: 13px;
+            margin-top: 8px;
+            display: block;
+        }
+
+        .password-field-wrapper {
+            position: relative;
+        }
+
+        .password-field-wrapper .input-field {
+            padding-left: 40px;
+        }
+
+        .wrong-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #e94560;
+            font-size: 18px;
+            pointer-events: none;
+        }
+
+        .options-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            margin-top: 25px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #cbd5e0;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .remember-me input[type="checkbox"] {
+            accent-color: #e94560;
+            width: 17px;
+            height: 17px;
+            cursor: pointer;
+        }
+
+        .forgot-password {
+            color: #cbd5e0;
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s;
+        }
+
+        .forgot-password:hover {
+            color: #e94560;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 14px;
+            background: #e94560;
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.5px;
+        }
+
+        .login-button:hover {
+            background: #c81d4a;
+            box-shadow: 0 8px 25px rgba(233, 69, 96, 0.4);
+        }
+
+        .signup-text {
+            text-align: center;
+            margin-top: 20px;
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        .signup-text a {
+            color: #e94560;
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.3s;
+        }
+
+        .signup-text a:hover {
+            text-decoration: underline;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #2a2a4a;
+            margin: 12px 0;
+        }
+
+        .password-hint {
+            color: #6b7280;
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <!-- العنوان -->
+        <h1 class="login-title">سجل الدخول</h1>
+
+        <!-- حقل اسم المستخدم -->
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input 
+                type="text" 
+                id="username" 
+                class="input-field" 
+                placeholder="أدخل اسم المستخدم الخاص بك"
+            >
+            <hr>
+            <span class="error-text">الرجاء إدخال اسم المستخدم الخاص بك!</span>
+        </div>
+
+        <!-- حقل كلمة السر -->
+        <div class="form-group">
+            <label for="password">كلمة السر</label>
+            <div class="password-field-wrapper">
+                <input 
+                    type="password" 
+                    id="password" 
+                    class="input-field" 
+                    placeholder="ادخل رقمك السري"
+                >
+                <span class="wrong-icon">✕</span>
+            </div>
+        </div>
+
+        <span class="error-text">الرجاء إدخال كلمة المرور الخاصة بك!</span>
+
+        <!-- خيارات -->
+        <div class="options-row">
+            <label class="remember-me">
+                <input type="checkbox" checked>
+                تذكرني
+            </label>
+            <a href="#" class="forgot-password">نسيت رقمك السري؟</a>
+        </div>
+
+        <!-- زر تسجيل الدخول -->
+        <button class="login-button">سجل الدخول</button>
+
+        <!-- رابط إنشاء حساب -->
+        <div class="signup-text">
+            هل لديك حساب؟ <a href="#">انضم لبناء</a>
+        </div>
+    </div>
+
+</body>
+</html>
