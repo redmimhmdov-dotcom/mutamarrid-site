@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gaeming Maystro | جيمنج مايسترو</title>
+    <title>Gaeming plus+ | جيمنج بلس+</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -84,7 +84,6 @@
         .btn-close-game { background: rgba(255,255,255,0.1); color: #fff; padding: 12px 30px; border: none; border-radius: 25px; cursor: pointer; margin-top: 15px; font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 16px; }
         .game-msg { font-size: 20px; min-height: 35px; margin: 10px 0; }
 
-        /* سلوتس */
         .slots-table { display: flex; flex-direction: column; gap: 12px; margin: 20px 0; }
         .slots-row { display: flex; justify-content: center; gap: 12px; }
         .reel { width: 130px; height: 130px; background: linear-gradient(180deg, #1a1a2e, #000); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 70px; border: 3px solid var(--gold); box-shadow: 0 0 30px rgba(240,185,11,0.5); transition: 0.3s; }
@@ -94,18 +93,15 @@
         @keyframes winShake { 0%,100%{transform:rotate(0)}25%{transform:rotate(-5deg)}75%{transform:rotate(5deg)} }
         .reel.lose { border-color: var(--red); opacity: 0.6; }
 
-        /* روليت */
         .roulette-wheel { width: 280px; height: 280px; border-radius: 50%; margin: 20px auto; background: conic-gradient(#e65100 0deg 18deg, #f0b90b 18deg 36deg, #e65100 36deg 54deg, #f0b90b 54deg 72deg, #e65100 72deg 90deg, #f0b90b 90deg 108deg, #e65100 108deg 126deg, #f0b90b 126deg 144deg, #e65100 144deg 162deg, #f0b90b 162deg 180deg, #e65100 180deg 198deg, #f0b90b 198deg 216deg, #e65100 216deg 234deg, #f0b90b 234deg 252deg, #e65100 252deg 270deg, #f0b90b 270deg 288deg, #e65100 288deg 306deg, #f0b90b 306deg 324deg, #e65100 324deg 342deg, #f0b90b 342deg 360deg); border: 8px solid var(--gold); box-shadow: 0 0 60px rgba(240,185,11,0.6); display: flex; align-items: center; justify-content: center; position: relative; transition: transform 3s cubic-bezier(0.2, 0.8, 0.3, 1); }
         .roulette-center { width: 80px; height: 80px; background: #000; border-radius: 50%; border: 4px solid var(--gold); font-size: 30px; display: flex; align-items: center; justify-content: center; z-index: 1; }
         .roulette-pointer { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); font-size: 40px; z-index: 2; }
 
-        /* كراش */
         .crash-graph { width: 100%; height: 250px; background: rgba(0,0,0,0.5); border-radius: 20px; border: 2px solid var(--gold); position: relative; overflow: hidden; margin: 20px 0; }
         .crash-line { position: absolute; bottom: 0; left: 0; width: 100%; height: 0%; background: linear-gradient(0deg, var(--green), var(--gold)); transition: height 0.1s; }
         .crash-multiplier { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 60px; font-weight: 900; color: var(--gold); text-shadow: 0 0 40px var(--gold); z-index: 1; }
         .crash-rocket { position: absolute; bottom: 10px; left: 10px; font-size: 50px; transition: all 0.3s; z-index: 2; }
 
-        /* صيد المناطيد */
         .balloon-area { width: 100%; height: 350px; background: linear-gradient(0deg, #1a3a1a 0%, #0a0f1e 60%, #1a2a4a 100%); border-radius: 20px; border: 2px solid var(--gold); position: relative; overflow: hidden; margin: 20px 0; }
         .balloon { position: absolute; font-size: 60px; transition: left 2s ease-in-out, bottom 2s ease-in-out; cursor: pointer; filter: drop-shadow(0 0 10px rgba(255,255,255,0.5)); animation: floatBalloon 3s ease-in-out infinite; }
         @keyframes floatBalloon { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-20px)} }
@@ -140,8 +136,8 @@
 
 <!-- شاشات الدخول -->
 <div class="screen active" id="loginScreen">
-    <div class="logo-3d"><span>G</span><span>a</span><span>e</span><span>m</span><span>i</span><span>n</span><span>g</span></div>
-    <p class="subtitle">M A Y S T R O</p>
+    <div class="logo-3d"><span>p</span><span>l</span><span>u</span><span>s</span><span>+</span></div>
+    <p class="subtitle">G A E M I N G</p>
     <div class="auth-card"><h2>🎩 تسجيل الدخول</h2><input type="text" id="loginUser" placeholder="👤 اسم المستخدم"><input type="password" id="loginPass" placeholder="🔒 كلمة المرور"><button class="btn btn-gold" onclick="doLogin()">🚀 دخول</button><div class="link">ليس لديك حساب؟ <a onclick="showRegister()">✨ اشترك الآن</a></div></div>
 </div>
 <div class="screen" id="registerScreen"><div class="auth-card"><h2>✨ اشتراك جديد</h2><input type="text" id="regName" placeholder="👤 اسم المستخدم"><input type="password" id="regPass" placeholder="🔒 كلمة المرور"><input type="tel" id="regPhone" placeholder="📱 رقم الهاتف"><input type="text" id="regSham" placeholder="💳 حساب شام كاش (16 رقم)"><button class="btn btn-gold" onclick="doRegister()">📝 تسجيل</button><button class="btn btn-outline" onclick="showScreen('loginScreen')">🔙 رجوع</button></div></div>
@@ -153,14 +149,14 @@
     <div class="glow-buttons">
         <button class="glow-btn" onclick="showInfo('slots')">📖 معلومات فواكه الحظ</button>
         <button class="glow-btn" onclick="showInfo('roulette')">📖 معلومات الروليت</button>
-        <button class="glow-btn" onclick="showInfo('crash')">📖 معلومات الصاروخ</button>
+        <button class="glow-btn" onclick="showInfo('crash')">📖 معلومات صاروخ الحظ</button>
         <button class="glow-btn" onclick="showInfo('balloon')">📖 معلومات صيد المناطيد</button>
         <button class="glow-btn" onclick="inviteFriend()">👥 دعوة لاعب</button>
     </div>
     <div class="games-grid">
         <div class="game-card" onclick="openGame('slots')"><span class="icon">🍒</span><h3>فواكه الحظ</h3><p>3 صفوف × 3 عجلات</p></div>
         <div class="game-card" onclick="openGame('roulette')"><span class="icon">🎡</span><h3>الروليت الذهبي</h3><p>عجلة 20 خانة</p></div>
-        <div class="game-card" onclick="openGame('crash')"><span class="icon">🚀</span><h3>صاروخ المايسترو</h3><p>اسحب قبل الانفجار</p></div>
+        <div class="game-card" onclick="openGame('crash')"><span class="icon">🚀</span><h3>صاروخ الحظ</h3><p>اسحب قبل الانفجار</p></div>
         <div class="game-card" onclick="openGame('balloon')"><span class="icon">🎈</span><h3>صيد المناطيد</h3><p>اصطد 3 مناطيد</p></div>
     </div>
 </div>
@@ -192,7 +188,7 @@
 
 <div class="game-overlay" id="rouletteOverlay"><div class="game-container"><h2>🎡 الروليت الذهبي</h2><div style="position:relative;display:inline-block;"><div class="roulette-pointer">🔻</div><div class="roulette-wheel" id="rouletteWheel"><div class="roulette-center">🎡</div></div></div><div class="game-msg" id="rouletteMsg">🎰 اختر رقماً من 1-20</div><input type="number" class="bet-input" id="rouletteNumber" placeholder="🔢 اختر رقماً (1-20)" min="1" max="20" value="7"><input type="number" class="bet-input" id="rouletteBet" placeholder="💰 مبلغ الرهان" value="100" min="1"><button class="btn-spin" onclick="startRoulette()">🎡 در العجلة</button><button class="btn-close-game" onclick="closeGame('rouletteOverlay')">✕ إغلاق</button></div></div>
 
-<div class="game-overlay" id="crashOverlay"><div class="game-container"><h2>🚀 صاروخ المايسترو</h2><div class="crash-graph" id="crashGraph"><div class="crash-line" id="crashLine"></div><div class="crash-multiplier" id="crashMultiplier">1.00x</div><div class="crash-rocket" id="crashRocket">🚀</div></div><div class="game-msg" id="crashMsg">🚀 ضع رهانك واضغط إطلاق</div><input type="number" class="bet-input" id="crashBet" placeholder="💰 مبلغ الرهان" value="100" min="1"><button class="btn-spin" id="crashLaunchBtn" onclick="startCrash()">🚀 إطلاق</button><button class="btn-spin" id="crashCashoutBtn" onclick="cashoutCrash()" style="display:none;background:var(--green);">💰 سحب الأرباح</button><button class="btn-close-game" onclick="closeGame('crashOverlay')">✕ إغلاق</button></div></div>
+<div class="game-overlay" id="crashOverlay"><div class="game-container"><h2>🚀 صاروخ الحظ</h2><div class="crash-graph" id="crashGraph"><div class="crash-line" id="crashLine"></div><div class="crash-multiplier" id="crashMultiplier">1.00x</div><div class="crash-rocket" id="crashRocket">🚀</div></div><div class="game-msg" id="crashMsg">🚀 ضع رهانك واضغط إطلاق</div><input type="number" class="bet-input" id="crashBet" placeholder="💰 مبلغ الرهان" value="100" min="1"><button class="btn-spin" id="crashLaunchBtn" onclick="startCrash()">🚀 إطلاق</button><button class="btn-spin" id="crashCashoutBtn" onclick="cashoutCrash()" style="display:none;background:var(--green);">💰 سحب الأرباح</button><button class="btn-close-game" onclick="closeGame('crashOverlay')">✕ إغلاق</button></div></div>
 
 <div class="game-overlay" id="balloonOverlay"><div class="game-container"><h2>🎈 صيد المناطيد</h2><div class="balloon-area" id="balloonArea"><div class="balloon" id="balloon1" style="left:10%;bottom:40%;">🎈</div><div class="balloon" id="balloon2" style="left:45%;bottom:55%;">🎈</div><div class="balloon" id="balloon3" style="left:75%;bottom:35%;">🎈</div><div class="stone" id="stone" onclick="throwStone()">🪨</div></div><div class="game-msg" id="balloonMsg">🪨 اضغط على الحجر لرميه!</div><input type="number" class="bet-input" id="balloonBet" placeholder="💰 مبلغ الرهان" value="100" min="1"><button class="btn-close-game" onclick="closeGame('balloonOverlay')">✕ إغلاق</button></div></div>
 
@@ -219,9 +215,9 @@
         document.getElementById('statMembers').textContent=DB.users.length;
         document.getElementById('statOnline').textContent=DB.online;
         document.getElementById('membersList').innerHTML=DB.users.filter(u=>u.role==='player').map(m=>`
-            <div class="member-row" onclick="chargePlayer(${m.id},'${m.username}')">
+            <div class="member-row">
                 <div><h4>🎮 ${m.username}</h4><p>💰 ${m.balance} نقطة | 📱 ${m.phone||'—'}</p></div>
-                <button class="btn-sm btn-gold">⚡ شحن</button>
+                <button class="btn-sm btn-gold" onclick="event.stopPropagation();chargePlayer(${m.id},'${m.username}')">⚡ شحن</button>
             </div>`).join('');
         document.getElementById('notifList').innerHTML=DB.notifications.slice(0,8).map(n=>`<p>${n}</p>`).join('');
     }
@@ -233,7 +229,7 @@
     }
 
     function showInfo(game){
-        const info={slots:{title:'🍒 فواكه الحظ',text:'🎰 3 صفوف × 3 عجلات = 9 بكرات.\n🍒 12 نوع فواكه مختلفة.\n💰 أي صف كامل متطابق = ربح يصل إلى 20x.\n🎯 نسبة العائد للمستخدم (RTP): 96.5%.\n⚡ تقنية Random Number Generator معتمدة.'},roulette:{title:'🎡 الروليت الذهبي',text:'🎡 عجلة 20 خانة (10 برتقالي + 10 ذهبي).\n🔢 اختر رقماً من 1-20.\n💰 الربح = الرهان × 18.\n🎯 نسبة العائد (RTP): 94.7%.\n🌍 معيار European Roulette العالمي.'},crash:{title:'🚀 صاروخ المايسترو',text:'🚀 المضاعف يبدأ من 1x ويزداد.\n💥 قد ينفجر في أي لحظة!\n💰 اسحب أرباحك قبل الانفجار.\n🎯 أعلى مضاعف: 1000x.\n📊 لعبة Provably Fair.'},balloon:{title:'🎈 صيد المناطيد',text:'🎈 3 مناطيد تطير في السماء.\n🪨 اضغط الحجر لترميه.\n🎯 أصبت منطاداً = ربح 5x.\n🎯 أصبت منطادين = ربح 20x.\n🎯 أصبت الثلاثة = ربح 100x!'}};
+        const info={slots:{title:'🍒 فواكه الحظ',text:'🎰 3 صفوف × 3 عجلات = 9 بكرات.\n🍒 12 نوع فواكه مختلفة.\n💰 أي صف كامل متطابق = ربح يصل إلى 20x.\n🎯 نسبة العائد للمستخدم (RTP): 96.5%.\n⚡ تقنية Random Number Generator معتمدة.'},roulette:{title:'🎡 الروليت الذهبي',text:'🎡 عجلة 20 خانة (10 برتقالي + 10 ذهبي).\n🔢 اختر رقماً من 1-20.\n💰 الربح = الرهان × 18.\n🎯 نسبة العائد (RTP): 94.7%.\n🌍 معيار European Roulette العالمي.'},crash:{title:'🚀 صاروخ الحظ',text:'🚀 المضاعف يبدأ من 1x ويزداد.\n💥 قد ينفجر في أي لحظة!\n💰 اسحب أرباحك قبل الانفجار.\n🎯 أعلى مضاعف: 1000x.\n📊 لعبة Provably Fair.'},balloon:{title:'🎈 صيد المناطيد',text:'🎈 3 مناطيد تطير في السماء.\n🪨 اضغط الحجر لترميه.\n🎯 أصبت منطاداً = ربح 5x.\n🎯 أصبت منطادين = ربح 20x.\n🎯 أصبت الثلاثة = ربح 100x!'}};
         document.getElementById('infoTitle').textContent=info[game].title;document.getElementById('infoText').textContent=info[game].text;document.getElementById('infoModal').classList.add('active');
     }
     function inviteFriend(){toast('🚀 سيتم تفعيل نظام الدعوات قريباً!');}
@@ -253,7 +249,7 @@
 
     let crashInterval,crashMultiplier=1,crashActive=false;
     function resetCrash(){crashMultiplier=1;crashActive=false;document.getElementById('crashLine').style.height='0%';document.getElementById('crashMultiplier').textContent='1.00x';document.getElementById('crashRocket').style.bottom='10px';document.getElementById('crashLaunchBtn').style.display='block';document.getElementById('crashCashoutBtn').style.display='none';document.getElementById('crashMsg').textContent='🚀 ضع رهانك واضغط إطلاق';}
-    function startCrash(){if(crashActive)return;const user=getUser();if(!user)return;const bet=parseInt(document.getElementById('crashBet').value);if(!bet||bet<=0||bet>user.balance){toast('❌ رصيد غير كافٍ');return;}user.balance-=bet;saveDB();document.getElementById('playerBalance').textContent=user.balance;crashActive=true;crashMultiplier=1;document.getElementById('crashLaunchBtn').style.display='none';document.getElementById('crashCashoutBtn').style.display='block';document.getElementById('crashMsg').textContent='🚀 الصاروخ يطير... اسحب أرباحك!';const crashPoint=Math.random()*9+1;crashInterval=setInterval(()=>{crashMultiplier+=0.05;document.getElementById('crashMultiplier').textContent=crashMultiplier.toFixed(2)+'x';document.getElementById('crashLine').style.height=(crashMultiplier*8)+'%';document.getElementById('crashRocket').style.bottom=(crashMultiplier*8)+'%';if(crashMultiplier>=crashPoint){clearInterval(crashInterval);crashActive=false;document.getElementById('crashMsg').textContent=`💥 انفجر عند ${crashPoint.toFixed(2)}x! خسرت ${bet} نقطة`;document.getElementById('crashLaunchBtn').style.display='block';document.getElementById('crashCashoutBtn').style.display='none';toast(`💥 خسرت ${bet} نقطة`);saveDB();}},150);}
+    function startCrash(){if(crashActive)return;const user=getUser();if(!user)return;const bet=parseInt(document.getElementById('crashBet').value);if(!bet||bet<=0||bet>user.balance){toast('❌ رصيد غير كافٍ');return;}user.balance-=bet;saveDB();document.getElementById('playerBalance').textContent=user.balance;crashActive=true;crashMultiplier=1;document.getElementById('crashLaunchBtn').style.display='none';document.getElementById('crashCashoutBtn').style.display='block';document.getElementById('crashMsg').textContent='🚀 الصاروخ يطير... اسحب أرباحك!';const crashPoint=Math.random()*9+1;crashInterval=setInterval(()=>{crashMultiplier+=0.05;document.getElementById('crashMultiplier').textContent=crashMultiplier.toFixed(2)+'x';document.getElementById('crashLine').style.height=(crashMultiplier*8)+'%';document.getElementById('crashRocket').style.bottom=(crashMultiplier*8)+'%';if(crashMultiplier>=crashPoint){clearInterval(crashInterval);crashActive=false;document.getElementById('crashMsg').textContent=`💥 انفجر عند ${crashPoint.toFixed(2)}x! خسرت ${bet} ليرة`;document.getElementById('crashLaunchBtn').style.display='block';document.getElementById('crashCashoutBtn').style.display='none';toast(`💥 خسرت ${bet} ليرة`);saveDB();}},150);}
     function cashoutCrash(){if(!crashActive)return;clearInterval(crashInterval);crashActive=false;const user=getUser();const prize=Math.floor(parseInt(document.getElementById('crashBet').value)*crashMultiplier);user.balance+=prize;saveDB();document.getElementById('playerBalance').textContent=user.balance;document.getElementById('crashMsg').textContent=`💰 تم السحب عند ${crashMultiplier.toFixed(2)}x! ربحت ${prize} نقطة`;document.getElementById('crashLaunchBtn').style.display='block';document.getElementById('crashCashoutBtn').style.display='none';createConfetti();toast(`🏆 +${prize}`);}
 
     let balloonHits=0;
