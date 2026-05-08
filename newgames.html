@@ -90,11 +90,6 @@
 
         .toast { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: var(--gold); color: #000; padding: 14px 30px; border-radius: 50px; z-index: 700; font-weight: 700; animation: toastUp 0.4s ease; }
         @keyframes toastUp { from{opacity:0;transform:translateX(-50%)translateY(25px)} to{opacity:1;transform:translateX(-50%)translateY(0)} }
-        .info-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 800; justify-content: center; align-items: center; padding: 20px; }
-        .info-modal.active { display: flex; }
-        .info-card { background: #0e0e16; border-radius: 25px; padding: 30px; max-width: 450px; width: 100%; text-align: center; border: 2px solid var(--gold); box-shadow: 0 0 60px rgba(240,185,11,0.4); }
-        .info-card h3 { color: var(--gold); margin-bottom: 15px; }
-        .info-card p { color: var(--sub); line-height: 1.8; margin-bottom: 20px; }
     </style>
 </head>
 <body>
@@ -158,9 +153,6 @@
     </div>
 </div>
 
-<!-- مودال المعلومات -->
-<div class="info-modal" id="infoModal"><div class="info-card"><h3 id="infoTitle">📖 معلومات اللعبة</h3><p id="infoText"></p><button class="btn btn-gold" onclick="document.getElementById('infoModal').classList.remove('active')">✅ فهمت</button></div></div>
-
 <!-- أوفرليات الألعاب -->
 <div class="game-overlay" id="slotsOverlay"><div class="game-container"><h2>🍒 فواكه الحظ</h2><div class="slots-table"><div class="slots-row"><div class="reel">🍒</div><div class="reel">🍋</div><div class="reel">🍊</div></div><div class="slots-row"><div class="reel">🍇</div><div class="reel">🍓</div><div class="reel">🍑</div></div><div class="slots-row"><div class="reel">🍉</div><div class="reel">🍌</div><div class="reel">🥝</div></div></div><div class="game-msg" id="slotsMsg">🎰 أدخل مبلغ الرهان</div><input type="number" class="bet-input" id="slotsBet" placeholder="💰 مبلغ الرهان" value="100" min="1"><button class="btn-spin" onclick="startSlots()">🎲 ضربة حظ</button><button class="btn-close-game" onclick="closeGame('slotsOverlay')">✕ إغلاق</button></div></div>
 <div class="game-overlay" id="rouletteOverlay"><div class="game-container"><h2>🎡 الروليت الذهبي</h2><div style="position:relative;display:inline-block;"><div class="roulette-pointer">🔻</div><div class="roulette-wheel" id="rouletteWheel"><div class="roulette-center">🎡</div></div></div><div class="game-msg" id="rouletteMsg">🎰 اختر رقماً من 1-20</div><input type="number" class="bet-input" id="rouletteNumber" placeholder="🔢 اختر رقماً (1-20)" min="1" max="20" value="7"><input type="number" class="bet-input" id="rouletteBet" placeholder="💰 مبلغ الرهان" value="100" min="1"><button class="btn-spin" onclick="startRoulette()">🎡 در العجلة</button><button class="btn-close-game" onclick="closeGame('rouletteOverlay')">✕ إغلاق</button></div></div>
@@ -171,15 +163,14 @@
 <div id="qrModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.95);z-index:300;justify-content:center;align-items:center;padding:20px;"><div style="background:#0e0e16;border-radius:25px;padding:30px;max-width:400px;text-align:center;border:2px solid var(--gold);"><h3 style="color:var(--gold);">💳 للشحن</h3><p style="color:var(--sub);">6381 9468 9899 3929</p><img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=6381946898993929" style="margin:12px auto;border:3px solid var(--gold);border-radius:18px;display:block;" alt="QR"><button class="btn btn-gold" onclick="document.getElementById('qrModal').style.display='none'">✅ موافق</button></div></div>
 
 <script>
-    const API_URL = 'https://script.google.com/macros/s/AKfycbxUst5OQZEt8xbUCg2tdhksn5Qt-vTiQljYptC1T3GPoOLcC9wdeQgkH8r3EBzWdZ0/exec';
+    const API_URL = 'https://script.google.com/macros/s/AKfycbbybAAo6CCg97mqPK6atZG2Xl7L4SJWVoLZ6AJq347s34GAPGHT7epEzUfJ3ulh-GMNq/exec';
 
     let DB = { users: [], visitors: 0, online: 0, notifications: [], currentUser: null, spinning: false, balloonHits: 0 };
 
     async function loadUsers() {
         try {
             const res = await fetch(API_URL);
-            const text = await res.text();
-            const data = JSON.parse(text);
+            const data = await res.json();
             if (Array.isArray(data) && data.length > 0) {
                 DB.users = data.map(u => ({
                     id: parseInt(u.id) || 0,
@@ -195,7 +186,6 @@
             DB.visitors = DB.users.length * 3;
             DB.online = Math.min(DB.users.length, 5);
         } catch (e) {
-            console.error(e);
             DB.users = [{ id: 1, username: '1992', password: '1992', role: 'admin', balance: 0, phone: '' }];
         }
     }
@@ -232,11 +222,10 @@
         if (!name || !pass) { toast('❌ املأ جميع الحقول'); return; }
         await loadUsers();
         if (DB.users.find(u => u.username === name)) { toast('⚠️ هذا المستخدم موجود مسبقاً!'); return; }
-        const newUser = { id: Date.now(), username: name, password: pass, balance: 0, phone: phone || '' };
-        const result = await registerUser(newUser);
-        if (result === 'EXISTS') { toast('⚠️ هذا المستخدم موجود مسبقاً!'); }
-        else if (result === 'OK') { toast('✅ تم التسجيل بنجاح!'); showScreen('loginScreen'); }
-        else { toast('❌ فشل الاتصال بالخادم.'); }
+        const result = await registerUser({ id: Date.now(), username: name, password: pass, balance: 0, phone: phone || '' });
+        if (result === 'EXISTS') { toast('⚠️ موجود مسبقاً!'); }
+        else if (result === 'OK') { toast('✅ تم التسجيل!'); showScreen('loginScreen'); }
+        else { toast('❌ فشل الاتصال.'); }
     }
 
     async function goToAdmin() { await loadUsers(); showScreen('adminScreen'); renderAdmin(); }
@@ -248,52 +237,36 @@
         document.getElementById('statOnline').textContent = DB.online;
         const players = DB.users.filter(u => u.role === 'player');
         document.getElementById('membersList').innerHTML = players.length === 0
-            ? '<p style="color:var(--sub);text-align:center;">لا يوجد لاعبين بعد</p>'
-            : players.map(m => `
-                <div class="member-row" onclick="chargePlayer(${m.id}, '${m.username}')">
-                    <div><h4>🎮 ${m.username}</h4><p>💰 ${m.balance} نقطة | 📱 ${m.phone || '—'}</p></div>
-                    <button class="btn-sm btn-gold">⚡ شحن</button>
-                </div>`).join('');
+            ? '<p style="color:var(--sub);">لا يوجد لاعبين بعد</p>'
+            : players.map(m => `<div class="member-row" onclick="chargePlayer(${m.id},'${m.username}')"><div><h4>🎮 ${m.username}</h4><p>💰 ${m.balance} نقطة | 📱 ${m.phone||'—'}</p></div><button class="btn-sm btn-gold">⚡ شحن</button></div>`).join('');
     }
 
     async function chargePlayer(id, username) {
         const amt = prompt(`كم نقطة تريد شحنها للاعب ${username}؟`);
         if (!amt || isNaN(amt) || parseInt(amt) <= 0) { toast('❌ أدخل كمية صحيحة'); return; }
         const m = DB.users.find(u => u.id === id);
-        if (m) { m.balance += parseInt(amt); await chargeUserAPI(id, m.balance); toast(`✅ تم شحن ${amt} نقطة إلى ${username}`); renderAdmin(); }
+        if (m) { m.balance += parseInt(amt); await chargeUserAPI(id, m.balance); toast(`✅ تم شحن ${amt} نقطة`); renderAdmin(); }
     }
 
     function showInfo(game) {
         const info = { slots: { title: '🍒 فواكه الحظ', text: '🎰 3 صفوف × 3 عجلات.\n🍒 12 نوع فواكه.\n💰 أي صف متطابق = ربح حتى 20x.' }, roulette: { title: '🎡 الروليت الذهبي', text: '🎡 عجلة 20 خانة.\n🔢 اختر رقماً.\n💰 الربح = الرهان × 18.' }, crash: { title: '🚀 صاروخ الحظ', text: '🚀 المضاعف يبدأ من 1x.\n💥 قد ينفجر!\n💰 اسحب قبل الانفجار.' }, balloon: { title: '🎈 صيد المناطيد', text: '🎈 3 مناطيد.\n🪨 اضغط الحجر.\n🎯 1=5x, 2=20x, 3=100x!' } };
-        document.getElementById('infoTitle').textContent = info[game].title;
-        document.getElementById('infoText').textContent = info[game].text;
-        document.getElementById('infoModal').classList.add('active');
+        document.getElementById('infoTitle').textContent = info[game].title; document.getElementById('infoText').textContent = info[game].text; document.getElementById('infoModal').classList.add('active');
     }
 
     const fruits = ['🍒','🍋','🍊','🍇','🍓','🍑','🍉','🍌','🥝','🍎','🫐','🥭'];
-    function openGame(game) {
-        if (game === 'slots') { document.getElementById('slotsOverlay').classList.add('active'); document.querySelectorAll('#slotsOverlay .reel').forEach(r => { r.textContent = fruits[Math.floor(Math.random()*fruits.length)]; r.className = 'reel'; }); }
-        else if (game === 'roulette') { document.getElementById('rouletteOverlay').classList.add('active'); document.getElementById('rouletteWheel').style.transform = 'rotate(0deg)'; }
-        else if (game === 'crash') { document.getElementById('crashOverlay').classList.add('active'); resetCrash(); }
-        else if (game === 'balloon') { document.getElementById('balloonOverlay').classList.add('active'); resetBalloon(); }
-    }
-
-    function startSlots() { if (DB.spinning) return; const user = getUser(); if (!user) return; const bet = parseInt(document.getElementById('slotsBet').value); if (!bet || bet <= 0 || bet > user.balance) { toast('❌ رصيد غير كافٍ'); return; } user.balance -= bet; document.getElementById('playerBalance').textContent = user.balance; DB.spinning = true; const reels = document.querySelectorAll('#slotsOverlay .reel'); reels.forEach(r => r.className = 'reel spinning'); let results = []; [1000,1600,2200,2800,3400,4000,4600,5200,5800].forEach((d,i) => { setTimeout(() => { reels[i].className = 'reel'; results[i] = fruits[Math.floor(Math.random()*fruits.length)]; reels[i].textContent = results[i]; if (i === 8) setTimeout(() => finishSlots(results, bet, user), 500); }, d); }); }
-    function finishSlots(results, bet, user) { DB.spinning = false; const rows = [[0,1,2],[3,4,5],[6,7,8]]; let totalPrize = 0, anyWin = false; rows.forEach(row => { const [a,b,c] = row.map(i => results[i]); if (a === b && b === c) { anyWin = true; totalPrize += Math.floor(bet * [3,5,10,20][Math.floor(Math.random()*4)]); } }); user.balance += totalPrize; document.getElementById('playerBalance').textContent = user.balance; document.querySelectorAll('#slotsOverlay .reel').forEach(r => r.className = anyWin ? 'reel win' : 'reel lose'); document.getElementById('slotsMsg').textContent = anyWin ? `🎉 ربحت ${totalPrize} نقطة` : `💀 خسرت ${bet} نقطة`; if (anyWin) createConfetti(); toast(anyWin ? `🏆 +${totalPrize}` : `📉 -${bet}`); }
-    function startRoulette() { if (DB.spinning) return; const user = getUser(); if (!user) return; const bet = parseInt(document.getElementById('rouletteBet').value), num = parseInt(document.getElementById('rouletteNumber').value); if (!bet || bet <= 0 || bet > user.balance || num < 1 || num > 20) { toast('❌ بيانات غير صحيحة'); return; } user.balance -= bet; document.getElementById('playerBalance').textContent = user.balance; DB.spinning = true; const result = Math.floor(Math.random()*20)+1; document.getElementById('rouletteWheel').style.transform = `rotate(${1800+result*18}deg)`; setTimeout(() => { DB.spinning = false; const win = num === result; const prize = win ? bet*18 : 0; user.balance += prize; document.getElementById('playerBalance').textContent = user.balance; document.getElementById('rouletteMsg').textContent = win ? `🎉 الرقم ${result}! ربحت ${prize} نقطة` : `💀 الرقم ${result}. خسرت ${bet} نقطة`; if (win) createConfetti(); toast(win ? `🏆 +${prize}` : `📉 -${bet}`); }, 3200); }
-
-    let crashInterval, crashMultiplier = 1, crashActive = false;
-    function resetCrash() { crashMultiplier = 1; crashActive = false; document.getElementById('crashLine').style.height = '0%'; document.getElementById('crashMultiplier').textContent = '1.00x'; document.getElementById('crashRocket').style.bottom = '10px'; document.getElementById('crashLaunchBtn').style.display = 'block'; document.getElementById('crashCashoutBtn').style.display = 'none'; document.getElementById('crashMsg').textContent = '🚀 ضع رهانك واضغط إطلاق'; }
-    function startCrash() { if (crashActive) return; const user = getUser(); if (!user) return; const bet = parseInt(document.getElementById('crashBet').value); if (!bet || bet <= 0 || bet > user.balance) { toast('❌ رصيد غير كافٍ'); return; } user.balance -= bet; document.getElementById('playerBalance').textContent = user.balance; crashActive = true; crashMultiplier = 1; document.getElementById('crashLaunchBtn').style.display = 'none'; document.getElementById('crashCashoutBtn').style.display = 'block'; const crashPoint = Math.random()*9+1; crashInterval = setInterval(() => { crashMultiplier += 0.05; document.getElementById('crashMultiplier').textContent = crashMultiplier.toFixed(2)+'x'; document.getElementById('crashLine').style.height = (crashMultiplier*8)+'%'; document.getElementById('crashRocket').style.bottom = (crashMultiplier*8)+'%'; if (crashMultiplier >= crashPoint) { clearInterval(crashInterval); crashActive = false; document.getElementById('crashMsg').textContent = `💥 انفجر عند ${crashPoint.toFixed(2)}x! خسرت ${bet} نقطة`; document.getElementById('crashLaunchBtn').style.display = 'block'; document.getElementById('crashCashoutBtn').style.display = 'none'; toast(`💥 خسرت ${bet} نقطة`); } }, 150); }
-    function cashoutCrash() { if (!crashActive) return; clearInterval(crashInterval); crashActive = false; const user = getUser(); const prize = Math.floor(parseInt(document.getElementById('crashBet').value)*crashMultiplier); user.balance += prize; document.getElementById('playerBalance').textContent = user.balance; document.getElementById('crashMsg').textContent = `💰 تم السحب عند ${crashMultiplier.toFixed(2)}x! ربحت ${prize} نقطة`; document.getElementById('crashLaunchBtn').style.display = 'block'; document.getElementById('crashCashoutBtn').style.display = 'none'; createConfetti(); toast(`🏆 +${prize}`); }
-
-    let balloonHits = 0;
-    function resetBalloon() { balloonHits = 0; document.getElementById('balloonMsg').textContent = '🪨 اضغط على الحجر لرميه!'; ['balloon1','balloon2','balloon3'].forEach((id,i) => { const b = document.getElementById(id); b.style.display = 'block'; b.style.left = ['10%','45%','75%'][i]; b.style.bottom = ['40%','55%','35%'][i]; }); document.getElementById('stone').style.display = 'block'; document.getElementById('stone').classList.remove('throwing'); }
-    function throwStone() { const user = getUser(); if (!user) return; const bet = parseInt(document.getElementById('balloonBet').value); if (!bet || bet <= 0 || bet > user.balance) { toast('❌ رصيد غير كافٍ'); return; } user.balance -= bet; document.getElementById('playerBalance').textContent = user.balance; const stone = document.getElementById('stone'); stone.classList.add('throwing'); const stoneLeft = stone.getBoundingClientRect().left + stone.offsetWidth/2; let hit = false; ['balloon1','balloon2','balloon3'].forEach(id => { const b = document.getElementById(id); if (b.style.display !== 'none') { const bRect = b.getBoundingClientRect(); if (Math.abs(stoneLeft - (bRect.left+bRect.width/2)) < 60 && (bRect.top+bRect.height/2) < window.innerHeight*0.4) { b.style.display = 'none'; balloonHits++; hit = true; } } }); setTimeout(() => { stone.classList.remove('throwing'); if (hit) { document.getElementById('balloonMsg').textContent = `🎯 أصبت! المتبقي: ${3-balloonHits}`; if (balloonHits === 3) { const prize = bet*100; user.balance += prize; document.getElementById('playerBalance').textContent = user.balance; document.getElementById('balloonMsg').textContent = `🎉 3 مناطيد! ربحت ${prize} نقطة`; createConfetti(); toast(`🏆 +${prize}`); resetBalloon(); } else { toast('🎯 إصابة!'); } } else { document.getElementById('balloonMsg').textContent = '💨 أخطأت!'; toast('💨 أخطأت!'); } }, 800); }
-
-    function createConfetti() { const c = document.createElement('div'); c.className = 'confetti-container'; const colors = ['#ff0','#f00','#0f0','#00f','#f0f','#0ff','#ff6600','#ffd700']; for (let i = 0; i < 120; i++) { const p = document.createElement('div'); p.className = 'confetti-piece'; p.style.left = Math.random()*100+'%'; p.style.backgroundColor = colors[Math.floor(Math.random()*colors.length)]; p.style.animationDelay = Math.random()*1.5+'s'; p.style.animationDuration = (Math.random()*2.5+2)+'s'; c.appendChild(p); } document.body.appendChild(c); setTimeout(() => c.remove(), 4000); }
-
-    setInterval(() => { const n = ['محمد','علي','سامر','خالد']; const track = document.getElementById('newsTrack'); track.innerHTML += `<span style="color:#00e676;">🏆 ${n[Math.floor(Math.random()*n.length)]} ربح ${Math.floor(Math.random()*900000)+100000} ل.س</span>`; if (track.children.length > 10) track.removeChild(track.firstChild); }, 3000);
+    function openGame(game) { if (game==='slots') { document.getElementById('slotsOverlay').classList.add('active'); document.querySelectorAll('#slotsOverlay .reel').forEach(r=>{r.textContent=fruits[Math.floor(Math.random()*fruits.length)];r.className='reel';}); } else if (game==='roulette') { document.getElementById('rouletteOverlay').classList.add('active'); document.getElementById('rouletteWheel').style.transform='rotate(0deg)'; } else if (game==='crash') { document.getElementById('crashOverlay').classList.add('active'); resetCrash(); } else if (game==='balloon') { document.getElementById('balloonOverlay').classList.add('active'); resetBalloon(); } }
+    function startSlots() { if(DB.spinning)return;const u=getUser();if(!u)return;const b=parseInt(document.getElementById('slotsBet').value);if(!b||b<=0||b>u.balance){toast('❌ رصيد غير كافٍ');return;}u.balance-=b;document.getElementById('playerBalance').textContent=u.balance;DB.spinning=true;const reels=document.querySelectorAll('#slotsOverlay .reel');reels.forEach(r=>r.className='reel spinning');let res=[];[1000,1600,2200,2800,3400,4000,4600,5200,5800].forEach((d,i)=>{setTimeout(()=>{reels[i].className='reel';res[i]=fruits[Math.floor(Math.random()*fruits.length)];reels[i].textContent=res[i];if(i===8)setTimeout(()=>finishSlots(res,b,u),500);},d);});}
+    function finishSlots(r,b,u){DB.spinning=false;const rows=[[0,1,2],[3,4,5],[6,7,8]];let t=0,w=false;rows.forEach(row=>{const[a,b2,c]=row.map(i=>r[i]);if(a===b2&&b2===c){w=true;t+=Math.floor(b*[3,5,10,20][Math.floor(Math.random()*4)]);}});u.balance+=t;document.getElementById('playerBalance').textContent=u.balance;document.querySelectorAll('#slotsOverlay .reel').forEach(r2=>r2.className=w?'reel win':'reel lose');document.getElementById('slotsMsg').textContent=w?`🎉 ربحت ${t} نقطة`:`💀 خسرت ${b} نقطة`;if(w)createConfetti();toast(w?`🏆 +${t}`:`📉 -${b}`);}
+    function startRoulette(){if(DB.spinning)return;const u=getUser();if(!u)return;const b=parseInt(document.getElementById('rouletteBet').value),n=parseInt(document.getElementById('rouletteNumber').value);if(!b||b<=0||b>u.balance||n<1||n>20){toast('❌ بيانات غير صحيحة');return;}u.balance-=b;document.getElementById('playerBalance').textContent=u.balance;DB.spinning=true;const result=Math.floor(Math.random()*20)+1;document.getElementById('rouletteWheel').style.transform=`rotate(${1800+result*18}deg)`;setTimeout(()=>{DB.spinning=false;const win=n===result;const p=win?b*18:0;u.balance+=p;document.getElementById('playerBalance').textContent=u.balance;document.getElementById('rouletteMsg').textContent=win?`🎉 الرقم ${result}! ربحت ${p} نقطة`:`💀 الرقم ${result}. خسرت ${b} نقطة`;if(win)createConfetti();toast(win?`🏆 +${p}`:`📉 -${b}`);},3200);}
+    let ci,cm=1,ca=false;
+    function resetCrash(){cm=1;ca=false;document.getElementById('crashLine').style.height='0%';document.getElementById('crashMultiplier').textContent='1.00x';document.getElementById('crashRocket').style.bottom='10px';document.getElementById('crashLaunchBtn').style.display='block';document.getElementById('crashCashoutBtn').style.display='none';document.getElementById('crashMsg').textContent='🚀 ضع رهانك واضغط إطلاق';}
+    function startCrash(){if(ca)return;const u=getUser();if(!u)return;const b=parseInt(document.getElementById('crashBet').value);if(!b||b<=0||b>u.balance){toast('❌ رصيد غير كافٍ');return;}u.balance-=b;document.getElementById('playerBalance').textContent=u.balance;ca=true;cm=1;document.getElementById('crashLaunchBtn').style.display='none';document.getElementById('crashCashoutBtn').style.display='block';const cp=Math.random()*9+1;ci=setInterval(()=>{cm+=0.05;document.getElementById('crashMultiplier').textContent=cm.toFixed(2)+'x';document.getElementById('crashLine').style.height=(cm*8)+'%';document.getElementById('crashRocket').style.bottom=(cm*8)+'%';if(cm>=cp){clearInterval(ci);ca=false;document.getElementById('crashMsg').textContent=`💥 انفجر عند ${cp.toFixed(2)}x! خسرت ${b} نقطة`;document.getElementById('crashLaunchBtn').style.display='block';document.getElementById('crashCashoutBtn').style.display='none';toast(`💥 خسرت ${b} نقطة`);}},150);}
+    function cashoutCrash(){if(!ca)return;clearInterval(ci);ca=false;const u=getUser();const p=Math.floor(parseInt(document.getElementById('crashBet').value)*cm);u.balance+=p;document.getElementById('playerBalance').textContent=u.balance;document.getElementById('crashMsg').textContent=`💰 تم السحب عند ${cm.toFixed(2)}x! ربحت ${p} نقطة`;document.getElementById('crashLaunchBtn').style.display='block';document.getElementById('crashCashoutBtn').style.display='none';createConfetti();toast(`🏆 +${p}`);}
+    let bh=0;
+    function resetBalloon(){bh=0;document.getElementById('balloonMsg').textContent='🪨 اضغط على الحجر لرميه!';['balloon1','balloon2','balloon3'].forEach((id,i)=>{const b=document.getElementById(id);b.style.display='block';b.style.left=['10%','45%','75%'][i];b.style.bottom=['40%','55%','35%'][i];});document.getElementById('stone').style.display='block';document.getElementById('stone').classList.remove('throwing');}
+    function throwStone(){const u=getUser();if(!u)return;const b=parseInt(document.getElementById('balloonBet').value);if(!b||b<=0||b>u.balance){toast('❌ رصيد غير كافٍ');return;}u.balance-=b;document.getElementById('playerBalance').textContent=u.balance;const s=document.getElementById('stone');s.classList.add('throwing');const sl=s.getBoundingClientRect().left+s.offsetWidth/2;let h=false;['balloon1','balloon2','balloon3'].forEach(id=>{const bl=document.getElementById(id);if(bl.style.display!=='none'){const br=bl.getBoundingClientRect();if(Math.abs(sl-(br.left+br.width/2))<60&&(br.top+br.height/2)<window.innerHeight*0.4){bl.style.display='none';bh++;h=true;}}});setTimeout(()=>{s.classList.remove('throwing');if(h){document.getElementById('balloonMsg').textContent=`🎯 أصبت! المتبقي: ${3-bh}`;if(bh===3){const p=b*100;u.balance+=p;document.getElementById('playerBalance').textContent=u.balance;document.getElementById('balloonMsg').textContent=`🎉 3 مناطيد! ربحت ${p} نقطة`;createConfetti();toast(`🏆 +${p}`);resetBalloon();}else{toast('🎯 إصابة!');}}else{document.getElementById('balloonMsg').textContent='💨 أخطأت!';toast('💨 أخطأت!');}},800);}
+    function createConfetti(){const c=document.createElement('div');c.className='confetti-container';const cl=['#ff0','#f00','#0f0','#00f','#f0f','#0ff','#ff6600','#ffd700'];for(let i=0;i<120;i++){const p=document.createElement('div');p.className='confetti-piece';p.style.left=Math.random()*100+'%';p.style.backgroundColor=cl[Math.floor(Math.random()*cl.length)];p.style.animationDelay=Math.random()*1.5+'s';p.style.animationDuration=(Math.random()*2.5+2)+'s';c.appendChild(p);}document.body.appendChild(c);setTimeout(()=>c.remove(),4000);}
+    setInterval(()=>{const n=['محمد','علي','سامر','خالد'];const t=document.getElementById('newsTrack');t.innerHTML+=`<span style="color:#00e676;">🏆 ${n[Math.floor(Math.random()*n.length)]} ربح ${Math.floor(Math.random()*900000)+100000} ل.س</span>`;if(t.children.length>10)t.removeChild(t.firstChild);},3000);
     showScreen('loginScreen');
 </script>
 </body>
