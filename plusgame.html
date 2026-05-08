@@ -56,7 +56,6 @@
         .game-card h3 { color: var(--gold); font-size: 18px; margin-bottom: 4px; }
         .game-card p { color: var(--sub); font-size: 12px; }
 
-        /* لوحة تحكم */
         .admin-panel { width: 100%; max-width: 750px; }
         .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 25px; }
         .stat-box { background: rgba(0,0,0,0.5); border-radius: 22px; padding: 22px; text-align: center; border: 1px solid rgba(240,185,11,0.25); }
@@ -74,7 +73,6 @@
         .admin-link { color: var(--gold); text-decoration: none; font-weight: 700; cursor: pointer; padding: 10px 20px; border: 2px solid var(--gold); border-radius: 30px; font-size: 15px; transition: 0.3s; }
         .admin-link:hover { background: var(--gold); color: #000; }
 
-        /* أوفرلي الألعاب */
         .game-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(ellipse at center, #0e0e16 0%, #000 100%); z-index: 500; flex-direction: column; align-items: center; justify-content: center; padding: 20px; }
         .game-overlay.active { display: flex; }
         .game-container { width: 100%; max-width: 600px; text-align: center; animation: zoomIn 0.4s ease-out; }
@@ -142,7 +140,6 @@
     <p class="subtitle">G A E M I N G</p>
     <div class="auth-card"><h2>🎩 تسجيل الدخول</h2><input type="text" id="loginUser" placeholder="👤 اسم المستخدم"><input type="password" id="loginPass" placeholder="🔒 كلمة المرور"><button class="btn btn-gold" onclick="doLogin()">🚀 دخول</button><div class="link">ليس لديك حساب؟ <a onclick="showRegister()">✨ اشترك الآن</a></div></div>
 </div>
-
 <div class="screen" id="registerScreen"><div class="auth-card"><h2>✨ اشتراك جديد</h2><input type="text" id="regName" placeholder="👤 اسم المستخدم"><input type="password" id="regPass" placeholder="🔒 كلمة المرور"><input type="tel" id="regPhone" placeholder="📱 رقم الهاتف"><input type="text" id="regSham" placeholder="💳 حساب شام كاش (16 رقم)"><button class="btn btn-gold" onclick="doRegister()">📝 تسجيل</button><button class="btn btn-outline" onclick="showScreen('loginScreen')">🔙 رجوع</button></div></div>
 
 <!-- شاشة الألعاب -->
@@ -193,11 +190,8 @@
 
 <!-- أوفرليات الألعاب -->
 <div class="game-overlay" id="slotsOverlay"><div class="game-container"><h2>🍒 فواكه الحظ</h2><div class="slots-table"><div class="slots-row"><div class="reel">🍒</div><div class="reel">🍋</div><div class="reel">🍊</div></div><div class="slots-row"><div class="reel">🍇</div><div class="reel">🍓</div><div class="reel">🍑</div></div><div class="slots-row"><div class="reel">🍉</div><div class="reel">🍌</div><div class="reel">🥝</div></div></div><div class="game-msg" id="slotsMsg">🎰 أدخل مبلغ الرهان</div><input type="number" class="bet-input" id="slotsBet" placeholder="💰 مبلغ الرهان" value="100" min="1"><button class="btn-spin" onclick="startSlots()">🎲 ضربة حظ</button><button class="btn-close-game" onclick="closeGame('slotsOverlay')">✕ إغلاق</button></div></div>
-
 <div class="game-overlay" id="rouletteOverlay"><div class="game-container"><h2>🎡 الروليت الذهبي</h2><div style="position:relative;display:inline-block;"><div class="roulette-pointer">🔻</div><div class="roulette-wheel" id="rouletteWheel"><div class="roulette-center">🎡</div></div></div><div class="game-msg" id="rouletteMsg">🎰 اختر رقماً من 1-20</div><input type="number" class="bet-input" id="rouletteNumber" placeholder="🔢 اختر رقماً (1-20)" min="1" max="20" value="7"><input type="number" class="bet-input" id="rouletteBet" placeholder="💰 مبلغ الرهان" value="100" min="1"><button class="btn-spin" onclick="startRoulette()">🎡 در العجلة</button><button class="btn-close-game" onclick="closeGame('rouletteOverlay')">✕ إغلاق</button></div></div>
-
 <div class="game-overlay" id="crashOverlay"><div class="game-container"><h2>🚀 صاروخ الحظ</h2><div class="crash-graph" id="crashGraph"><div class="crash-line" id="crashLine"></div><div class="crash-multiplier" id="crashMultiplier">1.00x</div><div class="crash-rocket" id="crashRocket">🚀</div></div><div class="game-msg" id="crashMsg">🚀 ضع رهانك واضغط إطلاق</div><input type="number" class="bet-input" id="crashBet" placeholder="💰 مبلغ الرهان" value="100" min="1"><button class="btn-spin" id="crashLaunchBtn" onclick="startCrash()">🚀 إطلاق</button><button class="btn-spin" id="crashCashoutBtn" onclick="cashoutCrash()" style="display:none;background:var(--green);">💰 سحب الأرباح</button><button class="btn-close-game" onclick="closeGame('crashOverlay')">✕ إغلاق</button></div></div>
-
 <div class="game-overlay" id="balloonOverlay"><div class="game-container"><h2>🎈 صيد المناطيد</h2><div class="balloon-area" id="balloonArea"><div class="balloon" id="balloon1" style="left:10%;bottom:40%;">🎈</div><div class="balloon" id="balloon2" style="left:45%;bottom:55%;">🎈</div><div class="balloon" id="balloon3" style="left:75%;bottom:35%;">🎈</div><div class="stone" id="stone" onclick="throwStone()">🪨</div></div><div class="game-msg" id="balloonMsg">🪨 اضغط على الحجر لرميه!</div><input type="number" class="bet-input" id="balloonBet" placeholder="💰 مبلغ الرهان" value="100" min="1"><button class="btn-close-game" onclick="closeGame('balloonOverlay')">✕ إغلاق</button></div></div>
 
 <!-- مودال باركود -->
@@ -205,80 +199,133 @@
 
 <script>
     const YOUR_ACCOUNT = "6381946898993929";
-    let DB = JSON.parse(localStorage.getItem('maestro_db')||'null');
-    if(!DB){DB={users:[{id:1,username:'1992',password:'1992',role:'admin',balance:0},{id:2,username:'player1',password:'1234',role:'player',balance:500}],visitors:0,online:0,notifications:[],currentUser:null,spinning:false,balloonHits:0};}
-    function saveDB(){localStorage.setItem('maestro_db',JSON.stringify(DB));}
-    function toast(msg){const t=document.createElement('div');t.className='toast';t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),2500);}
-    function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');}
-    function closeGame(id){document.getElementById(id).classList.remove('active');}
-    function getUser(){return DB.users.find(u=>u.id===DB.currentUser);}
 
-    function doLogin(){
-        const u=document.getElementById('loginUser').value.trim(),p=document.getElementById('loginPass').value.trim();
-        const user=DB.users.find(x=>x.username===u&&x.password===p);
-        if(!user){toast('❌ بيانات خاطئة');return;}
-        DB.currentUser=user.id;DB.online++;DB.visitors++;saveDB();
+    // ========== بيانات ثابتة (تظهر فوراً) ==========
+    const STATIC_USERS = [
+        { id: 1, username: 'player1', password: '1234', role: 'player', balance: 500, phone: '0991234567' },
+        { id: 2, username: 'player2', password: '1234', role: 'player', balance: 1200, phone: '0998765432' },
+        { id: 3, username: 'player3', password: '1234', role: 'player', balance: 300, phone: '0931112233' },
+        { id: 4, username: '1992', password: '1992', role: 'admin', balance: 0 }
+    ];
+
+    let DB = {
+        users: JSON.parse(JSON.stringify(STATIC_USERS)),
+        visitors: 0,
+        online: 0,
+        notifications: ['🆕 عضو جديد: player3', '💰 player1 قام بشحن 500 نقطة'],
+        currentUser: null,
+        spinning: false,
+        balloonHits: 0
+    };
+
+    function saveDB() { /* لا حاجة للحفظ - البيانات ثابتة */ }
+    function toast(msg) { const t = document.createElement('div'); t.className = 'toast'; t.textContent = msg; document.body.appendChild(t); setTimeout(() => t.remove(), 2500); }
+    function showScreen(id) { document.querySelectorAll('.screen').forEach(s => s.classList.remove('active')); document.getElementById(id).classList.add('active'); }
+    function closeGame(id) { document.getElementById(id).classList.remove('active'); }
+    function getUser() { return DB.users.find(u => u.id === DB.currentUser); }
+
+    function doLogin() {
+        const u = document.getElementById('loginUser').value.trim();
+        const p = document.getElementById('loginPass').value.trim();
+        const user = DB.users.find(x => x.username === u && x.password === p);
+        if (!user) { toast('❌ بيانات خاطئة'); return; }
+        DB.currentUser = user.id;
+        DB.online++;
+        DB.visitors++;
         showScreen('gamesScreen');
-        document.getElementById('playerBalance').textContent=user.balance;
-        // إظهار زر لوحة التحكم فقط للمدير
-        if(user.role==='admin'){document.getElementById('adminBtn').style.display='inline-block';}
-        else{setTimeout(()=>document.getElementById('qrModal').style.display='flex',3000);}
-    }
-    function logout(){DB.online=Math.max(0,DB.online-1);DB.currentUser=null;saveDB();showScreen('loginScreen');}
-    function showRegister(){showScreen('registerScreen');}
-    function doRegister(){const n=document.getElementById('regName').value.trim(),p=document.getElementById('regPass').value.trim();if(!n||!p){toast('❌ املأ الحقول');return;}DB.users.push({id:Date.now(),username:n,password:p,role:'player',balance:0});DB.notifications.unshift(`🆕 عضو جديد: ${n}`);DB.visitors++;saveDB();toast('✅ تم التسجيل!');showScreen('loginScreen');}
-
-    function goToAdmin(){showScreen('adminScreen');renderAdmin();}
-    function backToGames(){showScreen('gamesScreen');}
-
-    function renderAdmin(){
-        document.getElementById('statVisitors').textContent=DB.visitors;
-        document.getElementById('statMembers').textContent=DB.users.length;
-        document.getElementById('statOnline').textContent=DB.online;
-        document.getElementById('membersList').innerHTML=DB.users.filter(u=>u.role==='player').map(m=>`
-            <div class="member-row">
-                <div><h4>🎮 ${m.username}</h4><p>💰 ${m.balance} نقطة | 📱 ${m.phone||'—'}</p></div>
-                <button class="btn-sm btn-gold" onclick="event.stopPropagation();chargePlayer(${m.id},'${m.username}')">⚡ شحن</button>
-            </div>`).join('');
-        document.getElementById('notifList').innerHTML=DB.notifications.slice(0,8).map(n=>`<p>${n}</p>`).join('');
-    }
-    function chargePlayer(id,username){
-        const amt=prompt(`كم نقطة تريد شحنها للاعب ${username}؟`);
-        if(!amt||isNaN(amt)||parseInt(amt)<=0){toast('❌ أدخل كمية صحيحة');return;}
-        const m=DB.users.find(u=>u.id===id);
-        if(m){m.balance+=parseInt(amt);saveDB();renderAdmin();toast(`✅ تم شحن ${amt} نقطة إلى ${username}`);}
+        document.getElementById('playerBalance').textContent = user.balance;
+        if (user.role === 'admin') {
+            document.getElementById('adminBtn').style.display = 'inline-block';
+        } else {
+            setTimeout(() => document.getElementById('qrModal').style.display = 'flex', 3000);
+        }
     }
 
-    function showInfo(game){
-        const info={slots:{title:'🍒 فواكه الحظ',text:'🎰 3 صفوف × 3 عجلات = 9 بكرات.\n🍒 12 نوع فواكه مختلفة.\n💰 أي صف كامل متطابق = ربح يصل إلى 20x.\n🎯 نسبة العائد للمستخدم (RTP): 96.5%.\n⚡ تقنية Random Number Generator معتمدة.'},roulette:{title:'🎡 الروليت الذهبي',text:'🎡 عجلة 20 خانة (10 برتقالي + 10 ذهبي).\n🔢 اختر رقماً من 1-20.\n💰 الربح = الرهان × 18.\n🎯 نسبة العائد (RTP): 94.7%.\n🌍 معيار European Roulette العالمي.'},crash:{title:'🚀 صاروخ الحظ',text:'🚀 المضاعف يبدأ من 1x ويزداد.\n💥 قد ينفجر في أي لحظة!\n💰 اسحب أرباحك قبل الانفجار.\n🎯 أعلى مضاعف: 1000x.\n📊 لعبة Provably Fair.'},balloon:{title:'🎈 صيد المناطيد',text:'🎈 3 مناطيد تطير في السماء.\n🪨 اضغط الحجر لترميه.\n🎯 أصبت منطاداً = ربح 5x.\n🎯 أصبت منطادين = ربح 20x.\n🎯 أصبت الثلاثة = ربح 100x!'}};
-        document.getElementById('infoTitle').textContent=info[game].title;document.getElementById('infoText').textContent=info[game].text;document.getElementById('infoModal').classList.add('active');
+    function logout() { DB.online = Math.max(0, DB.online - 1); DB.currentUser = null; showScreen('loginScreen'); }
+    function showRegister() { showScreen('registerScreen'); }
+    function doRegister() {
+        const n = document.getElementById('regName').value.trim();
+        const p = document.getElementById('regPass').value.trim();
+        const ph = document.getElementById('regPhone').value.trim();
+        if (!n || !p) { toast('❌ املأ الحقول'); return; }
+        DB.users.push({ id: Date.now(), username: n, password: p, role: 'player', balance: 0, phone: ph });
+        DB.notifications.unshift(`🆕 عضو جديد: ${n}`);
+        DB.visitors++;
+        toast('✅ تم التسجيل!');
+        showScreen('loginScreen');
     }
 
-    const fruits=['🍒','🍋','🍊','🍇','🍓','🍑','🍉','🍌','🥝','🍎','🫐','🥭'];
-    function openGame(game){
-        if(game==='slots'){document.getElementById('slotsOverlay').classList.add('active');document.querySelectorAll('#slotsOverlay .reel').forEach(r=>{r.textContent=fruits[Math.floor(Math.random()*fruits.length)];r.className='reel';});}
-        else if(game==='roulette'){document.getElementById('rouletteOverlay').classList.add('active');document.getElementById('rouletteWheel').style.transform='rotate(0deg)';}
-        else if(game==='crash'){document.getElementById('crashOverlay').classList.add('active');resetCrash();}
-        else if(game==='balloon'){document.getElementById('balloonOverlay').classList.add('active');resetBalloon();}
+    function goToAdmin() { showScreen('adminScreen'); renderAdmin(); }
+    function backToGames() { showScreen('gamesScreen'); }
+
+    function renderAdmin() {
+        document.getElementById('statVisitors').textContent = DB.visitors;
+        document.getElementById('statMembers').textContent = DB.users.length;
+        document.getElementById('statOnline').textContent = DB.online;
+
+        const players = DB.users.filter(u => u.role === 'player');
+        document.getElementById('membersList').innerHTML = players.map(m => `
+            <div class="member-row" onclick="chargePlayer(${m.id}, '${m.username}')">
+                <div>
+                    <h4>🎮 ${m.username}</h4>
+                    <p>💰 ${m.balance} نقطة | 📱 ${m.phone || '—'}</p>
+                </div>
+                <button class="btn-sm btn-gold">⚡ شحن</button>
+            </div>
+        `).join('');
+
+        document.getElementById('notifList').innerHTML = DB.notifications.slice(0, 8).map(n => `<p>${n}</p>`).join('');
     }
 
-    function startSlots(){if(DB.spinning)return;const user=getUser();if(!user)return;const bet=parseInt(document.getElementById('slotsBet').value);if(!bet||bet<=0||bet>user.balance){toast('❌ رصيد غير كافٍ');return;}user.balance-=bet;saveDB();document.getElementById('playerBalance').textContent=user.balance;DB.spinning=true;document.getElementById('slotsMsg').textContent='🎰 العجلات تدور...';const reels=document.querySelectorAll('#slotsOverlay .reel');reels.forEach(r=>r.className='reel spinning');let results=[];const delays=[1000,1600,2200,2800,3400,4000,4600,5200,5800];delays.forEach((d,i)=>{setTimeout(()=>{reels[i].className='reel';results[i]=fruits[Math.floor(Math.random()*fruits.length)];reels[i].textContent=results[i];if(i===8)setTimeout(()=>finishSlots(results,bet,user),500);},d);});}
-    function finishSlots(results,bet,user){DB.spinning=false;const rows=[[0,1,2],[3,4,5],[6,7,8]];let totalPrize=0,anyWin=false;rows.forEach(row=>{const[a,b,c]=row.map(i=>results[i]);if(a===b&&b===c){anyWin=true;const mult=[3,5,10,20][Math.floor(Math.random()*4)];totalPrize+=Math.floor(bet*mult);}});user.balance+=totalPrize;saveDB();document.getElementById('playerBalance').textContent=user.balance;document.querySelectorAll('#slotsOverlay .reel').forEach(r=>r.className=anyWin?'reel win':'reel lose');document.getElementById('slotsMsg').textContent=anyWin?`🎉 جاك بوت! ربحت ${totalPrize} نقطة`:`💀 خسرت ${bet} نقطة`;if(anyWin)createConfetti();toast(anyWin?`🏆 +${totalPrize}`:`📉 -${bet}`);}
+    function chargePlayer(id, username) {
+        const amt = prompt(`كم نقطة تريد شحنها للاعب ${username}؟`);
+        if (!amt || isNaN(amt) || parseInt(amt) <= 0) { toast('❌ أدخل كمية صحيحة'); return; }
+        const m = DB.users.find(u => u.id === id);
+        if (m) {
+            m.balance += parseInt(amt);
+            DB.notifications.unshift(`💰 ${username} تم شحنه ${amt} نقطة`);
+            renderAdmin();
+            toast(`✅ تم شحن ${amt} نقطة إلى ${username}`);
+        }
+    }
 
-    function startRoulette(){if(DB.spinning)return;const user=getUser();if(!user)return;const bet=parseInt(document.getElementById('rouletteBet').value);const num=parseInt(document.getElementById('rouletteNumber').value);if(!bet||bet<=0||bet>user.balance||num<1||num>20){toast('❌ بيانات غير صحيحة');return;}user.balance-=bet;saveDB();document.getElementById('playerBalance').textContent=user.balance;DB.spinning=true;document.getElementById('rouletteMsg').textContent='🎡 العجلة تدور...';const wheel=document.getElementById('rouletteWheel');const result=Math.floor(Math.random()*20)+1;const rotation=1800+(result*18);wheel.style.transform=`rotate(${rotation}deg)`;setTimeout(()=>{DB.spinning=false;const win=num===result;const prize=win?bet*18:0;user.balance+=prize;saveDB();document.getElementById('playerBalance').textContent=user.balance;document.getElementById('rouletteMsg').textContent=win?`🎉 الرقم ${result}! ربحت ${prize} نقطة`:`💀 الرقم ${result}. خسرت ${bet} نقطة`;if(win)createConfetti();toast(win?`🏆 +${prize}`:`📉 -${bet}`);},3200);}
+    function showInfo(game) {
+        const info = {
+            slots: { title: '🍒 فواكه الحظ', text: '🎰 3 صفوف × 3 عجلات = 9 بكرات.\n🍒 12 نوع فواكه.\n💰 أي صف متطابق = ربح حتى 20x.\n🎯 RTP: 96.5%.' },
+            roulette: { title: '🎡 الروليت الذهبي', text: '🎡 عجلة 20 خانة.\n🔢 اختر رقماً من 1-20.\n💰 الربح = الرهان × 18.\n🎯 RTP: 94.7%.' },
+            crash: { title: '🚀 صاروخ الحظ', text: '🚀 المضاعف يبدأ من 1x.\n💥 قد ينفجر!\n💰 اسحب قبل الانفجار.\n🎯 أعلى مضاعف: 1000x.' },
+            balloon: { title: '🎈 صيد المناطيد', text: '🎈 3 مناطيد.\n🪨 اضغط الحجر.\n🎯 1=5x, 2=20x, 3=100x!' }
+        };
+        document.getElementById('infoTitle').textContent = info[game].title;
+        document.getElementById('infoText').textContent = info[game].text;
+        document.getElementById('infoModal').classList.add('active');
+    }
 
-    let crashInterval,crashMultiplier=1,crashActive=false;
-    function resetCrash(){crashMultiplier=1;crashActive=false;document.getElementById('crashLine').style.height='0%';document.getElementById('crashMultiplier').textContent='1.00x';document.getElementById('crashRocket').style.bottom='10px';document.getElementById('crashLaunchBtn').style.display='block';document.getElementById('crashCashoutBtn').style.display='none';document.getElementById('crashMsg').textContent='🚀 ضع رهانك واضغط إطلاق';}
-    function startCrash(){if(crashActive)return;const user=getUser();if(!user)return;const bet=parseInt(document.getElementById('crashBet').value);if(!bet||bet<=0||bet>user.balance){toast('❌ رصيد غير كافٍ');return;}user.balance-=bet;saveDB();document.getElementById('playerBalance').textContent=user.balance;crashActive=true;crashMultiplier=1;document.getElementById('crashLaunchBtn').style.display='none';document.getElementById('crashCashoutBtn').style.display='block';document.getElementById('crashMsg').textContent='🚀 الصاروخ يطير... اسحب أرباحك!';const crashPoint=Math.random()*9+1;crashInterval=setInterval(()=>{crashMultiplier+=0.05;document.getElementById('crashMultiplier').textContent=crashMultiplier.toFixed(2)+'x';document.getElementById('crashLine').style.height=(crashMultiplier*8)+'%';document.getElementById('crashRocket').style.bottom=(crashMultiplier*8)+'%';if(crashMultiplier>=crashPoint){clearInterval(crashInterval);crashActive=false;document.getElementById('crashMsg').textContent=`💥 انفجر عند ${crashPoint.toFixed(2)}x! خسرت ${bet} نقطة`;document.getElementById('crashLaunchBtn').style.display='block';document.getElementById('crashCashoutBtn').style.display='none';toast(`💥 خسرت ${bet} نقطة`);saveDB();}},150);}
-    function cashoutCrash(){if(!crashActive)return;clearInterval(crashInterval);crashActive=false;const user=getUser();const prize=Math.floor(parseInt(document.getElementById('crashBet').value)*crashMultiplier);user.balance+=prize;saveDB();document.getElementById('playerBalance').textContent=user.balance;document.getElementById('crashMsg').textContent=`💰 تم السحب عند ${crashMultiplier.toFixed(2)}x! ربحت ${prize} نقطة`;document.getElementById('crashLaunchBtn').style.display='block';document.getElementById('crashCashoutBtn').style.display='none';createConfetti();toast(`🏆 +${prize}`);}
+    const fruits = ['🍒', '🍋', '🍊', '🍇', '🍓', '🍑', '🍉', '🍌', '🥝', '🍎', '🫐', '🥭'];
+    function openGame(game) {
+        if (game === 'slots') { document.getElementById('slotsOverlay').classList.add('active'); document.querySelectorAll('#slotsOverlay .reel').forEach(r => { r.textContent = fruits[Math.floor(Math.random() * fruits.length)]; r.className = 'reel'; }); }
+        else if (game === 'roulette') { document.getElementById('rouletteOverlay').classList.add('active'); document.getElementById('rouletteWheel').style.transform = 'rotate(0deg)'; }
+        else if (game === 'crash') { document.getElementById('crashOverlay').classList.add('active'); resetCrash(); }
+        else if (game === 'balloon') { document.getElementById('balloonOverlay').classList.add('active'); resetBalloon(); }
+    }
 
-    let balloonHits=0;
-    function resetBalloon(){balloonHits=0;document.getElementById('balloonMsg').textContent='🪨 اضغط على الحجر لرميه!';['balloon1','balloon2','balloon3'].forEach((id,i)=>{const b=document.getElementById(id);b.style.display='block';b.style.left=['10%','45%','75%'][i];b.style.bottom=['40%','55%','35%'][i];});document.getElementById('stone').style.display='block';document.getElementById('stone').classList.remove('throwing');}
-    function throwStone(){const user=getUser();if(!user)return;const bet=parseInt(document.getElementById('balloonBet').value);if(!bet||bet<=0||bet>user.balance){toast('❌ رصيد غير كافٍ');return;}user.balance-=bet;saveDB();document.getElementById('playerBalance').textContent=user.balance;const stone=document.getElementById('stone');stone.classList.add('throwing');const stoneLeft=stone.getBoundingClientRect().left+stone.offsetWidth/2;let hit=false;['balloon1','balloon2','balloon3'].forEach(id=>{const b=document.getElementById(id);if(b.style.display!=='none'){const bRect=b.getBoundingClientRect();const bCenterX=bRect.left+bRect.width/2;const bCenterY=bRect.top+bRect.height/2;if(Math.abs(stoneLeft-bCenterX)<60&&bCenterY<window.innerHeight*0.4){b.style.display='none';balloonHits++;hit=true;}}});setTimeout(()=>{stone.classList.remove('throwing');if(hit){document.getElementById('balloonMsg').textContent=`🎯 أصبت! المتبقي: ${3-balloonHits}`;if(balloonHits===3){const prize=bet*100;user.balance+=prize;saveDB();document.getElementById('playerBalance').textContent=user.balance;document.getElementById('balloonMsg').textContent=`🎉 3 مناطيد! ربحت ${prize} نقطة`;createConfetti();toast(`🏆 +${prize}`);resetBalloon();}else{toast('🎯 إصابة!');}}else{document.getElementById('balloonMsg').textContent='💨 أخطأت!';toast('💨 أخطأت!');}saveDB();},800);}
+    function startSlots() { if (DB.spinning) return; const user = getUser(); if (!user) return; const bet = parseInt(document.getElementById('slotsBet').value); if (!bet || bet <= 0 || bet > user.balance) { toast('❌ رصيد غير كافٍ'); return; } user.balance -= bet; document.getElementById('playerBalance').textContent = user.balance; DB.spinning = true; document.getElementById('slotsMsg').textContent = '🎰 العجلات تدور...'; const reels = document.querySelectorAll('#slotsOverlay .reel'); reels.forEach(r => r.className = 'reel spinning'); let results = []; const delays = [1000, 1600, 2200, 2800, 3400, 4000, 4600, 5200, 5800]; delays.forEach((d, i) => { setTimeout(() => { reels[i].className = 'reel'; results[i] = fruits[Math.floor(Math.random() * fruits.length)]; reels[i].textContent = results[i]; if (i === 8) setTimeout(() => finishSlots(results, bet, user), 500); }, d); }); }
+    function finishSlots(results, bet, user) { DB.spinning = false; const rows = [[0, 1, 2], [3, 4, 5], [6, 7, 8]]; let totalPrize = 0, anyWin = false; rows.forEach(row => { const [a, b, c] = row.map(i => results[i]); if (a === b && b === c) { anyWin = true; const mult = [3, 5, 10, 20][Math.floor(Math.random() * 4)]; totalPrize += Math.floor(bet * mult); } }); user.balance += totalPrize; document.getElementById('playerBalance').textContent = user.balance; document.querySelectorAll('#slotsOverlay .reel').forEach(r => r.className = anyWin ? 'reel win' : 'reel lose'); document.getElementById('slotsMsg').textContent = anyWin ? `🎉 جاك بوت! ربحت ${totalPrize} نقطة` : `💀 خسرت ${bet} نقطة`; if (anyWin) createConfetti(); toast(anyWin ? `🏆 +${totalPrize}` : `📉 -${bet}`); }
 
-    function createConfetti(){const c=document.createElement('div');c.className='confetti-container';const colors=['#ff0','#f00','#0f0','#00f','#f0f','#0ff','#ff6600','#ffd700'];for(let i=0;i<120;i++){const p=document.createElement('div');p.className='confetti-piece';p.style.left=Math.random()*100+'%';p.style.backgroundColor=colors[Math.floor(Math.random()*colors.length)];p.style.animationDelay=Math.random()*1.5+'s';p.style.animationDuration=(Math.random()*2.5+2)+'s';c.appendChild(p);}document.body.appendChild(c);setTimeout(()=>c.remove(),4000);}
+    function startRoulette() { if (DB.spinning) return; const user = getUser(); if (!user) return; const bet = parseInt(document.getElementById('rouletteBet').value); const num = parseInt(document.getElementById('rouletteNumber').value); if (!bet || bet <= 0 || bet > user.balance || num < 1 || num > 20) { toast('❌ بيانات غير صحيحة'); return; } user.balance -= bet; document.getElementById('playerBalance').textContent = user.balance; DB.spinning = true; document.getElementById('rouletteMsg').textContent = '🎡 العجلة تدور...'; const wheel = document.getElementById('rouletteWheel'); const result = Math.floor(Math.random() * 20) + 1; const rotation = 1800 + (result * 18); wheel.style.transform = `rotate(${rotation}deg)`; setTimeout(() => { DB.spinning = false; const win = num === result; const prize = win ? bet * 18 : 0; user.balance += prize; document.getElementById('playerBalance').textContent = user.balance; document.getElementById('rouletteMsg').textContent = win ? `🎉 الرقم ${result}! ربحت ${prize} نقطة` : `💀 الرقم ${result}. خسرت ${bet} نقطة`; if (win) createConfetti(); toast(win ? `🏆 +${prize}` : `📉 -${bet}`); }, 3200); }
 
-    setInterval(()=>{const n=['محمد','علي','سامر','خالد'];const a=[()=>`<span style="color:#00e676;">🏆 ${n[Math.floor(Math.random()*n.length)]} ربح ${Math.floor(Math.random()*900000)+100000} ل.س</span>`];const t=document.getElementById('newsTrack');t.innerHTML+=a[0]();if(t.children.length>15)t.removeChild(t.firstChild);},3000);
+    let crashInterval, crashMultiplier = 1, crashActive = false;
+    function resetCrash() { crashMultiplier = 1; crashActive = false; document.getElementById('crashLine').style.height = '0%'; document.getElementById('crashMultiplier').textContent = '1.00x'; document.getElementById('crashRocket').style.bottom = '10px'; document.getElementById('crashLaunchBtn').style.display = 'block'; document.getElementById('crashCashoutBtn').style.display = 'none'; document.getElementById('crashMsg').textContent = '🚀 ضع رهانك واضغط إطلاق'; }
+    function startCrash() { if (crashActive) return; const user = getUser(); if (!user) return; const bet = parseInt(document.getElementById('crashBet').value); if (!bet || bet <= 0 || bet > user.balance) { toast('❌ رصيد غير كافٍ'); return; } user.balance -= bet; document.getElementById('playerBalance').textContent = user.balance; crashActive = true; crashMultiplier = 1; document.getElementById('crashLaunchBtn').style.display = 'none'; document.getElementById('crashCashoutBtn').style.display = 'block'; document.getElementById('crashMsg').textContent = '🚀 الصاروخ يطير... اسحب أرباحك!'; const crashPoint = Math.random() * 9 + 1; crashInterval = setInterval(() => { crashMultiplier += 0.05; document.getElementById('crashMultiplier').textContent = crashMultiplier.toFixed(2) + 'x'; document.getElementById('crashLine').style.height = (crashMultiplier * 8) + '%'; document.getElementById('crashRocket').style.bottom = (crashMultiplier * 8) + '%'; if (crashMultiplier >= crashPoint) { clearInterval(crashInterval); crashActive = false; document.getElementById('crashMsg').textContent = `💥 انفجر عند ${crashPoint.toFixed(2)}x! خسرت ${bet} نقطة`; document.getElementById('crashLaunchBtn').style.display = 'block'; document.getElementById('crashCashoutBtn').style.display = 'none'; toast(`💥 خسرت ${bet} نقطة`); } }, 150); }
+    function cashoutCrash() { if (!crashActive) return; clearInterval(crashInterval); crashActive = false; const user = getUser(); const prize = Math.floor(parseInt(document.getElementById('crashBet').value) * crashMultiplier); user.balance += prize; document.getElementById('playerBalance').textContent = user.balance; document.getElementById('crashMsg').textContent = `💰 تم السحب عند ${crashMultiplier.toFixed(2)}x! ربحت ${prize} نقطة`; document.getElementById('crashLaunchBtn').style.display = 'block'; document.getElementById('crashCashoutBtn').style.display = 'none'; createConfetti(); toast(`🏆 +${prize}`); }
+
+    let balloonHits = 0;
+    function resetBalloon() { balloonHits = 0; document.getElementById('balloonMsg').textContent = '🪨 اضغط على الحجر لرميه!'; ['balloon1', 'balloon2', 'balloon3'].forEach((id, i) => { const b = document.getElementById(id); b.style.display = 'block'; b.style.left = ['10%', '45%', '75%'][i]; b.style.bottom = ['40%', '55%', '35%'][i]; }); document.getElementById('stone').style.display = 'block'; document.getElementById('stone').classList.remove('throwing'); }
+    function throwStone() { const user = getUser(); if (!user) return; const bet = parseInt(document.getElementById('balloonBet').value); if (!bet || bet <= 0 || bet > user.balance) { toast('❌ رصيد غير كافٍ'); return; } user.balance -= bet; document.getElementById('playerBalance').textContent = user.balance; const stone = document.getElementById('stone'); stone.classList.add('throwing'); const stoneLeft = stone.getBoundingClientRect().left + stone.offsetWidth / 2; let hit = false; ['balloon1', 'balloon2', 'balloon3'].forEach(id => { const b = document.getElementById(id); if (b.style.display !== 'none') { const bRect = b.getBoundingClientRect(); const bCenterX = bRect.left + bRect.width / 2; const bCenterY = bRect.top + bRect.height / 2; if (Math.abs(stoneLeft - bCenterX) < 60 && bCenterY < window.innerHeight * 0.4) { b.style.display = 'none'; balloonHits++; hit = true; } } }); setTimeout(() => { stone.classList.remove('throwing'); if (hit) { document.getElementById('balloonMsg').textContent = `🎯 أصبت! المتبقي: ${3 - balloonHits}`; if (balloonHits === 3) { const prize = bet * 100; user.balance += prize; document.getElementById('playerBalance').textContent = user.balance; document.getElementById('balloonMsg').textContent = `🎉 3 مناطيد! ربحت ${prize} نقطة`; createConfetti(); toast(`🏆 +${prize}`); resetBalloon(); } else { toast('🎯 إصابة!'); } } else { document.getElementById('balloonMsg').textContent = '💨 أخطأت!'; toast('💨 أخطأت!'); } }, 800); }
+
+    function createConfetti() { const c = document.createElement('div'); c.className = 'confetti-container'; const colors = ['#ff0', '#f00', '#0f0', '#00f', '#f0f', '#0ff', '#ff6600', '#ffd700']; for (let i = 0; i < 120; i++) { const p = document.createElement('div'); p.className = 'confetti-piece'; p.style.left = Math.random() * 100 + '%'; p.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)]; p.style.animationDelay = Math.random() * 1.5 + 's'; p.style.animationDuration = (Math.random() * 2.5 + 2) + 's'; c.appendChild(p); } document.body.appendChild(c); setTimeout(() => c.remove(), 4000); }
+
+    setInterval(() => { const n = ['محمد', 'علي', 'سامر', 'خالد']; const track = document.getElementById('newsTrack'); track.innerHTML += `<span style="color:#00e676;">🏆 ${n[Math.floor(Math.random() * n.length)]} ربح ${Math.floor(Math.random() * 900000) + 100000} ل.س</span>`; if (track.children.length > 10) track.removeChild(track.firstChild); }, 3000);
     showScreen('loginScreen');
 </script>
 </body>
