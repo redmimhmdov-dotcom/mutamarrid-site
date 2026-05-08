@@ -84,39 +84,12 @@
         .btn-close-game { background: rgba(255,255,255,0.1); color: #fff; padding: 12px 30px; border: none; border-radius: 25px; cursor: pointer; margin-top: 15px; font-family: 'Cairo', sans-serif; font-weight: 700; font-size: 16px; }
         .game-msg { font-size: 20px; min-height: 35px; margin: 10px 0; }
 
-        .slots-table { display: flex; flex-direction: column; gap: 12px; margin: 20px 0; }
-        .slots-row { display: flex; justify-content: center; gap: 12px; }
-        .reel { width: 130px; height: 130px; background: linear-gradient(180deg, #1a1a2e, #000); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 70px; border: 3px solid var(--gold); box-shadow: 0 0 30px rgba(240,185,11,0.5); transition: 0.3s; }
-        .reel.spinning { animation: reelSpin 0.1s linear infinite; }
-        @keyframes reelSpin { 0%{transform:translateY(-150%)}100%{transform:translateY(150%)} }
-        .reel.win { border-color: var(--green); box-shadow: 0 0 70px rgba(0,230,118,0.9); animation: winShake 0.5s infinite; }
-        @keyframes winShake { 0%,100%{transform:rotate(0)}25%{transform:rotate(-5deg)}75%{transform:rotate(5deg)} }
-        .reel.lose { border-color: var(--red); opacity: 0.6; }
-
-        .roulette-wheel { width: 280px; height: 280px; border-radius: 50%; margin: 20px auto; background: conic-gradient(#e65100 0deg 18deg, #f0b90b 18deg 36deg, #e65100 36deg 54deg, #f0b90b 54deg 72deg, #e65100 72deg 90deg, #f0b90b 90deg 108deg, #e65100 108deg 126deg, #f0b90b 126deg 144deg, #e65100 144deg 162deg, #f0b90b 162deg 180deg, #e65100 180deg 198deg, #f0b90b 198deg 216deg, #e65100 216deg 234deg, #f0b90b 234deg 252deg, #e65100 252deg 270deg, #f0b90b 270deg 288deg, #e65100 288deg 306deg, #f0b90b 306deg 324deg, #e65100 324deg 342deg, #f0b90b 342deg 360deg); border: 8px solid var(--gold); box-shadow: 0 0 60px rgba(240,185,11,0.6); display: flex; align-items: center; justify-content: center; position: relative; transition: transform 3s cubic-bezier(0.2, 0.8, 0.3, 1); }
-        .roulette-center { width: 80px; height: 80px; background: #000; border-radius: 50%; border: 4px solid var(--gold); font-size: 30px; display: flex; align-items: center; justify-content: center; z-index: 1; }
-        .roulette-pointer { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); font-size: 40px; z-index: 2; }
-
-        .crash-graph { width: 100%; height: 250px; background: rgba(0,0,0,0.5); border-radius: 20px; border: 2px solid var(--gold); position: relative; overflow: hidden; margin: 20px 0; }
-        .crash-line { position: absolute; bottom: 0; left: 0; width: 100%; height: 0%; background: linear-gradient(0deg, var(--green), var(--gold)); transition: height 0.1s; }
-        .crash-multiplier { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 60px; font-weight: 900; color: var(--gold); text-shadow: 0 0 40px var(--gold); z-index: 1; }
-        .crash-rocket { position: absolute; bottom: 10px; left: 10px; font-size: 50px; transition: all 0.3s; z-index: 2; }
-
-        .balloon-area { width: 100%; height: 350px; background: linear-gradient(0deg, #1a3a1a 0%, #0a0f1e 60%, #1a2a4a 100%); border-radius: 20px; border: 2px solid var(--gold); position: relative; overflow: hidden; margin: 20px 0; }
-        .balloon { position: absolute; font-size: 60px; transition: left 2s ease-in-out, bottom 2s ease-in-out; cursor: pointer; filter: drop-shadow(0 0 10px rgba(255,255,255,0.5)); animation: floatBalloon 3s ease-in-out infinite; }
-        @keyframes floatBalloon { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-20px)} }
-        .stone { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); font-size: 40px; cursor: pointer; transition: all 0.5s; z-index: 5; animation: stoneReady 1s infinite; }
-        @keyframes stoneReady { 0%,100%{transform:translateX(-50%)translateY(0)} 50%{transform:translateX(-50%)translateY(-10px)} }
-        .stone.throwing { animation: throwStone 0.8s ease-out forwards; }
-        @keyframes throwStone { 0%{transform:translateX(-50%)translateY(0)} 100%{transform:translateX(-50%)translateY(-400px)} }
-
         .confetti-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 599; }
         .confetti-piece { position: absolute; width: 14px; height: 14px; border-radius: 4px; animation: confettiFall 3s ease-out forwards; }
         @keyframes confettiFall { 0%{transform:translateY(-100%)rotate(0deg);opacity:1} 100%{transform:translateY(100vh)rotate(720deg);opacity:0} }
 
         .toast { position: fixed; bottom: 25px; left: 50%; transform: translateX(-50%); background: var(--gold); color: #000; padding: 14px 30px; border-radius: 50px; z-index: 700; font-weight: 700; animation: toastUp 0.4s ease; }
         @keyframes toastUp { from{opacity:0;transform:translateX(-50%)translateY(25px)} to{opacity:1;transform:translateX(-50%)translateY(0)} }
-
         .info-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 800; justify-content: center; align-items: center; padding: 20px; }
         .info-modal.active { display: flex; }
         .info-card { background: #0e0e16; border-radius: 25px; padding: 30px; max-width: 450px; width: 100%; text-align: center; border: 2px solid var(--gold); box-shadow: 0 0 60px rgba(240,185,11,0.4); }
@@ -198,33 +171,38 @@
 <div id="qrModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.95);z-index:300;justify-content:center;align-items:center;padding:20px;"><div style="background:#0e0e16;border-radius:25px;padding:30px;max-width:400px;text-align:center;border:2px solid var(--gold);"><h3 style="color:var(--gold);">💳 للشحن</h3><p style="color:var(--sub);">6381 9468 9899 3929</p><img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=6381946898993929" style="margin:12px auto;border:3px solid var(--gold);border-radius:18px;display:block;" alt="QR"><button class="btn btn-gold" onclick="document.getElementById('qrModal').style.display='none'">✅ موافق</button></div></div>
 
 <script>
-    const API_URL = 'https://script.google.com/macros/s/AKfycbyHASnUKvzZGtXCArhgDyKZubamy_U59qWl2zFMx9F_tSBIEQCmoxChCIp8Dfhj-JLx/exec';
+    const API_URL = 'https://script.google.com/macros/s/AKfycbxUst5OQZEt8xbUCg2tdhksn5Qt-vTiQljYptC1T3GPoOLcC9wdeQgkH8r3EBzWdZ0/exec';
 
     let DB = { users: [], visitors: 0, online: 0, notifications: [], currentUser: null, spinning: false, balloonHits: 0 };
 
     async function loadUsers() {
         try {
             const res = await fetch(API_URL);
-            const data = await res.json();
-            if (Array.isArray(data)) {
+            const text = await res.text();
+            const data = JSON.parse(text);
+            if (Array.isArray(data) && data.length > 0) {
                 DB.users = data.map(u => ({
-                    id: parseInt(u.id), username: u.username, password: u.password,
-                    role: u.username === '1992' ? 'admin' : 'player',
-                    balance: parseInt(u.balance) || 0, phone: u.phone || ''
+                    id: parseInt(u.id) || 0,
+                    username: String(u.username || ''),
+                    password: String(u.password || ''),
+                    role: String(u.username) === '1992' ? 'admin' : 'player',
+                    balance: parseInt(u.balance) || 0,
+                    phone: String(u.phone || '')
                 }));
-                DB.visitors = DB.users.length * 3;
-                DB.online = Math.min(DB.users.length, 5);
+            } else {
+                DB.users = [{ id: 1, username: '1992', password: '1992', role: 'admin', balance: 0, phone: '' }];
             }
-        } catch (e) { console.error(e); }
+            DB.visitors = DB.users.length * 3;
+            DB.online = Math.min(DB.users.length, 5);
+        } catch (e) {
+            console.error(e);
+            DB.users = [{ id: 1, username: '1992', password: '1992', role: 'admin', balance: 0, phone: '' }];
+        }
     }
 
     async function registerUser(user) {
-        try {
-            const res = await fetch(API_URL + '?action=register&data=' + encodeURIComponent(JSON.stringify(user)));
-            return await res.text();
-        } catch (e) { return 'ERROR'; }
+        try { const res = await fetch(API_URL + '?action=register&data=' + encodeURIComponent(JSON.stringify(user))); return await res.text(); } catch (e) { return 'ERROR'; }
     }
-
     async function chargeUserAPI(id, balance) {
         try { await fetch(API_URL + '?action=charge&data=' + encodeURIComponent(JSON.stringify({ id, balance }))); } catch (e) {}
     }
@@ -286,12 +264,7 @@
     }
 
     function showInfo(game) {
-        const info = {
-            slots: { title: '🍒 فواكه الحظ', text: '🎰 3 صفوف × 3 عجلات.\n🍒 12 نوع فواكه.\n💰 أي صف متطابق = ربح حتى 20x.' },
-            roulette: { title: '🎡 الروليت الذهبي', text: '🎡 عجلة 20 خانة.\n🔢 اختر رقماً.\n💰 الربح = الرهان × 18.' },
-            crash: { title: '🚀 صاروخ الحظ', text: '🚀 المضاعف يبدأ من 1x.\n💥 قد ينفجر!\n💰 اسحب قبل الانفجار.' },
-            balloon: { title: '🎈 صيد المناطيد', text: '🎈 3 مناطيد.\n🪨 اضغط الحجر.\n🎯 1=5x, 2=20x, 3=100x!' }
-        };
+        const info = { slots: { title: '🍒 فواكه الحظ', text: '🎰 3 صفوف × 3 عجلات.\n🍒 12 نوع فواكه.\n💰 أي صف متطابق = ربح حتى 20x.' }, roulette: { title: '🎡 الروليت الذهبي', text: '🎡 عجلة 20 خانة.\n🔢 اختر رقماً.\n💰 الربح = الرهان × 18.' }, crash: { title: '🚀 صاروخ الحظ', text: '🚀 المضاعف يبدأ من 1x.\n💥 قد ينفجر!\n💰 اسحب قبل الانفجار.' }, balloon: { title: '🎈 صيد المناطيد', text: '🎈 3 مناطيد.\n🪨 اضغط الحجر.\n🎯 1=5x, 2=20x, 3=100x!' } };
         document.getElementById('infoTitle').textContent = info[game].title;
         document.getElementById('infoText').textContent = info[game].text;
         document.getElementById('infoModal').classList.add('active');
@@ -307,7 +280,6 @@
 
     function startSlots() { if (DB.spinning) return; const user = getUser(); if (!user) return; const bet = parseInt(document.getElementById('slotsBet').value); if (!bet || bet <= 0 || bet > user.balance) { toast('❌ رصيد غير كافٍ'); return; } user.balance -= bet; document.getElementById('playerBalance').textContent = user.balance; DB.spinning = true; const reels = document.querySelectorAll('#slotsOverlay .reel'); reels.forEach(r => r.className = 'reel spinning'); let results = []; [1000,1600,2200,2800,3400,4000,4600,5200,5800].forEach((d,i) => { setTimeout(() => { reels[i].className = 'reel'; results[i] = fruits[Math.floor(Math.random()*fruits.length)]; reels[i].textContent = results[i]; if (i === 8) setTimeout(() => finishSlots(results, bet, user), 500); }, d); }); }
     function finishSlots(results, bet, user) { DB.spinning = false; const rows = [[0,1,2],[3,4,5],[6,7,8]]; let totalPrize = 0, anyWin = false; rows.forEach(row => { const [a,b,c] = row.map(i => results[i]); if (a === b && b === c) { anyWin = true; totalPrize += Math.floor(bet * [3,5,10,20][Math.floor(Math.random()*4)]); } }); user.balance += totalPrize; document.getElementById('playerBalance').textContent = user.balance; document.querySelectorAll('#slotsOverlay .reel').forEach(r => r.className = anyWin ? 'reel win' : 'reel lose'); document.getElementById('slotsMsg').textContent = anyWin ? `🎉 ربحت ${totalPrize} نقطة` : `💀 خسرت ${bet} نقطة`; if (anyWin) createConfetti(); toast(anyWin ? `🏆 +${totalPrize}` : `📉 -${bet}`); }
-
     function startRoulette() { if (DB.spinning) return; const user = getUser(); if (!user) return; const bet = parseInt(document.getElementById('rouletteBet').value), num = parseInt(document.getElementById('rouletteNumber').value); if (!bet || bet <= 0 || bet > user.balance || num < 1 || num > 20) { toast('❌ بيانات غير صحيحة'); return; } user.balance -= bet; document.getElementById('playerBalance').textContent = user.balance; DB.spinning = true; const result = Math.floor(Math.random()*20)+1; document.getElementById('rouletteWheel').style.transform = `rotate(${1800+result*18}deg)`; setTimeout(() => { DB.spinning = false; const win = num === result; const prize = win ? bet*18 : 0; user.balance += prize; document.getElementById('playerBalance').textContent = user.balance; document.getElementById('rouletteMsg').textContent = win ? `🎉 الرقم ${result}! ربحت ${prize} نقطة` : `💀 الرقم ${result}. خسرت ${bet} نقطة`; if (win) createConfetti(); toast(win ? `🏆 +${prize}` : `📉 -${bet}`); }, 3200); }
 
     let crashInterval, crashMultiplier = 1, crashActive = false;
