@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>لوحة تحكم المدير</title>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; direction: rtl; padding: 20px; background: #f0f4f8; }
+    table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+    th, td { border: 1px solid #ccc; padding: 8px; }
+    button { padding: 8px 16px; margin: 5px; background: #00796b; color: white; border: none; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h2>لوحة تحكم المدير</h2>
+  <button onclick="exportJSON()">📥 تصدير JSON</button>
+  <div id="adminData"></div>
+
+  <script>
+    let studentsData = JSON.parse(localStorage.getItem("studentsData") || "[]");
+
+    function showAdminData() {
+      const container = document.getElementById("adminData");
+      if (studentsData.length === 0) {
+        container.innerHTML = "<p>لا توجد بيانات بعد.</p>";
+        return;
+      }
+
+      let html = "<table><tr><th>الاسم</th><th>الصف</th><th>الشعبة</th><th>عدد المواد</th><th>حذف</th></tr>";
+      studentsData.forEach((s, i) => {
+        html += `<tr>
+          <td>${s.name}</td>
+          <td>${s.class}</td>
+          <td>${s.group}</td>
+          <td>${Object.keys(s.status).length}</td>
+          <td><button onclick="deleteStudent(${i})">🗑️ حذف</button></td>
+        </tr>`;
+      });
+      html += "</table>";
+      container.innerHTML = html;
+    }
+
+    function deleteStudent(index) {
+      if (confirm("هل أنت متأكد من حذف هذا الطالب؟")) {
+        studentsData.splice(index, 1);
+        localStorage.setItem("studentsData", JSON.stringify(studentsData));
+        showAdminData();
+      }
+    }
+
+    function exportJSON() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(studentsData, null, 2));
+      const dl = document.createElement("a");
+      dl.setAttribute("href", dataStr);
+      dl.setAttribute("download", "studentsData.json");
+      dl.click();
+    }
+
+    showAdminData();
+  </script>
+</body>
+</html>
